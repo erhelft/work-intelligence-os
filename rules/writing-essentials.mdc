@@ -1,0 +1,64 @@
+---
+alwaysApply: false
+---
+## Purpose
+Core writing principles for everyday editing and document creation.
+
+## When to Use
+* **Default for all writing and editing tasks**
+* General document improvement
+* Clarity and flow editing
+* When user says "edit this" or "improve this writing"
+
+**For deep style checking with full banned words list, use:** `writing-style-complete.mdc`
+
+## Core Principles
+* Write with clear goal and audience in focus
+* Write from business or user standpoint
+* Favor clarity over everything - anyone should understand without prior context
+* Favor specificity over abstraction
+* Be confident - avoid softening phrases like "I think," "maybe," "could"
+* Use active voice, positive phrasing
+* Use contractions for warmer tone
+* Framing in context - problem/opportunity/idea/concept.
+
+## Structure
+* Sentences under 30 words
+* Replace adjectives with facts when available
+* Use periods instead of commas when possible
+* Use Oxford commas consistently
+
+## Weasel Words - Pattern Recognition
+Weasel words create illusion of meaning without specificity. Remove or replace:
+
+**False certainty qualifiers:**
+* `clearly`, `obviously`, `remarkably` → remove (adds no information)
+
+**Vague quantifiers:**
+* `many`, `significant`, `various`, `substantial` → use actual numbers or remove
+
+**Corporate jargon:**
+* `leverage` → "use"
+* `facilitate` → "help" or "ease"
+* `implement` → "do"
+
+**Softening hedges:**
+* `could`, `possibly`, `probably`, `quite` → be direct or acknowledge real uncertainty
+
+**LLM tells:**
+* `actually`, `just`, `really`, `very` → remove
+* Avoid "Let's dive into..." or "In today's fast-paced..."
+
+**Full banned words list:** See `writing-style-complete.mdc`
+
+## Document Structure
+* Title as thesis
+* Plant essence in opener
+* Use signpost headers
+* Logic ladder: Today → implies → therefore → conclusion
+
+## Voice and Tone
+* Write like humans speak - avoid corporate jargon and marketing fluff
+* Break complex thoughts into small pieces
+* Be direct - say the point without filler
+* Use positive phrasing - say what something is, not what it isn't

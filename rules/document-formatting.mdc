@@ -1,0 +1,260 @@
+---
+alwaysApply: false
+---
+## Purpose
+Reference guide for consistent markdown formatting across all documents in `rules/`, `workflows/`, and `docs/` directories.
+
+## File Naming Conventions
+
+### File Extensions
+* **Rules** (`rules/`): Use `.mdc` extension (e.g., `product-copilot.mdc`, `writing-style.mdc`)
+* **Workflows** (`workflows/`): Use `.md` extension (e.g., `writing-workflow.md`, `thinking-workflow.md`)
+* **Docs** (`docs/`): Use `.md` extension (e.g., `prd.md`, `strategy.md`, `thesis-artifact.md`)
+
+### File Names
+* Use kebab-case: lowercase letters and hyphens
+* Be descriptive and specific
+* Avoid abbreviations unless widely understood
+* Examples: `writing-workflow.md`, `product-copilot.mdc`, `thesis-artifact.md`
+
+## Document Structure
+
+### Standard Document Sections
+Documents should follow this hierarchy when applicable:
+
+1. **Title** (H1) - Sentence case, no trailing period
+2. **Frontmatter** (optional, see below)
+3. **Purpose** (H2) - One sentence explaining what this document does
+4. **Main Content Sections** (H2/H3/H4 as needed)
+5. **Appendices** (H2) - Optional: Examples, Change log, etc.
+
+### When to Use Each Section
+* **Purpose**: Always include for rules and workflows. Optional for docs.
+* **Frontmatter**: Use for rules (`.mdc` files) that need metadata. Skip for workflows and docs.
+* **Examples**: Include when the concept benefits from concrete illustration
+* **Change log**: Include for versioned documents or when tracking changes matters
+
+## Frontmatter (YAML)
+
+### When to Use
+* **Rules** (`.mdc` files): Use frontmatter for metadata like `alwaysApply`
+* **Workflows**: Skip frontmatter
+* **Docs**: Skip frontmatter
+
+### Format
+```yaml
+---
+alwaysApply: true
+---
+```
+
+### Metadata Fields
+* `alwaysApply`: boolean - Whether this rule applies by default
+* Add other metadata fields as needed, but keep minimal
+
+## Header Hierarchy
+
+### Header Levels
+* **H1 (`#`)**: Document title only (one per document)
+* **H2 (`##`)**: Major sections (Purpose, Main content sections)
+* **H3 (`###`)**: Subsections within major sections
+* **H4 (`####`)**: Sub-subsections (use sparingly, only when hierarchy demands)
+
+### Header Casing
+* **Sentence case**: Capitalize first word and proper nouns only
+* Examples: `## Purpose`, `### Choosing a Template`, `#### Tiebreakers`
+* Exception: Proper nouns and acronyms always capitalized (e.g., `### PRD Template`)
+
+### Header Formatting Rules
+* No trailing periods
+* No bold/italic formatting in headers
+* Use descriptive headers that convey meaning, not labels
+* Headers should be stances/theses when possible, not generic labels
+
+## Lists
+
+### When to Use Bulleted Lists
+* For unordered items
+* For parallel options or choices
+* For checklist items
+* For most rule definitions
+* Default choice when order doesn't matter
+
+### When to Use Numbered Lists
+* For sequential steps in a workflow
+* For ordered processes (Step 1, Step 2, etc.)
+* When sequence matters for understanding
+* When referencing steps by number
+
+### List Formatting
+* Use `*` for bulleted lists (not `-` or `+`)
+* Use `1.` for numbered lists (space after period)
+* One space after list marker
+* Consistent indentation: 2 spaces for nested items
+* Capitalize first word of each list item
+* End items with periods only if they are complete sentences
+
+### List Examples
+```markdown
+* Item one
+* Item two
+  * Nested item (2 spaces indent)
+
+1. First step
+2. Second step
+3. Third step
+```
+
+## Text Formatting
+
+### Bold (`**text**`)
+* Use for key terms being defined
+* Use for emphasis on important concepts
+* Use for document references: `**writing-style.mdc**`
+* Use for action items or decisions: `**User approves**`
+
+### Italic (`*text*`)
+* Use sparingly for emphasis within sentences
+* Avoid for section labels (use headers instead)
+* Use for titles of referenced works
+* Use for technical terms when first introduced
+
+### Code Formatting
+
+#### Inline Code (`` `code` ``)
+* Use for file names: `` `docs/prd.md` ``
+* Use for code snippets
+* Use for technical terms or commands
+* Use for placeholder values
+
+#### Code Blocks (```)
+* Use for multi-line code examples
+* Specify language when helpful: ` ```markdown`
+
+### Emphasis Hierarchy
+1. **Bold** for primary emphasis
+2. *Italic* for subtle emphasis
+3. `` `Code` `` for technical references
+
+## Spacing
+
+### Between Sections
+* One blank line after H1 title
+* One blank line before each H2 section
+* One blank line before each H3 subsection (when it's a new topic)
+* No blank line between related H3 subsections
+
+### Within Sections
+* One blank line between paragraphs
+* No blank line between header and first content item
+* One blank line before lists (if preceded by paragraph text)
+
+### Trailing Spaces
+* Remove trailing spaces on all lines
+* No trailing spaces after list items
+
+## Special Characters and Symbols
+
+### Dashes
+* Use en-dash (`–`) for ranges: `2–6 sentences`
+* Use hyphen (`-`) for compound words: `kebab-case`
+* Avoid em-dash (`—`) unless necessary for clarity
+
+### Arrows
+* Use `→` for directional flow: `Input → Output`
+* Use `→` for action sequences: `Pre-checks → user approves`
+
+### Quotes
+* Use straight quotes (`"`) not smart quotes (`"` or `"`)
+* Use backticks for code, not quotes
+
+### Escape Characters
+* Use backticks for code formatting: `` `docs/prd.md` ``
+* Escape special markdown characters when needed: `\*` for literal asterisk
+
+## Document Types
+
+### Rules (`.mdc` files)
+* Structure: Frontmatter → Purpose → Rule sections
+* Use clear, actionable language
+* Include examples when helpful
+* Group related rules together
+
+### Workflows (`.md` files)
+* Structure: Title → Purpose → Inputs → Steps → Quality Gates
+* Use numbered lists for sequential steps
+* Use bulleted lists for parallel options
+* Include gating/approval steps clearly
+
+### Docs (`.md` files)
+* Structure: Title → Content sections
+* May include templates or examples
+* Follow content-specific structure (e.g., PRD template)
+
+## Cross-References
+
+### Referencing Other Documents
+* Use format: `**document-name.mdc**` or `**document-name.md**`
+* Use bold for document names
+* Be specific about which document you're referencing
+
+### Internal References
+* Use format: `### Section Name` when referencing sections
+* Use format: `**Gate A. Spine**` when referencing specific gates/rules
+
+## Quality Checklist
+
+Before finalizing any document, verify:
+* [ ] Headers use sentence case (except proper nouns)
+* [ ] Consistent use of `*` for bulleted lists
+* [ ] Numbered lists use `1.` format (space after period)
+* [ ] No trailing spaces
+* [ ] Consistent spacing between sections
+* [ ] Bold used for key terms and document references
+* [ ] Code formatting used for file names and technical terms
+* [ ] Frontmatter only in `.mdc` files (rules)
+* [ ] Headers are descriptive, not just labels
+* [ ] Lists are properly indented (2 spaces for nesting)
+
+## Examples
+
+### Good Header Structure
+```markdown
+## Purpose
+One sentence explaining the document's purpose.
+
+## Main Section
+Content here.
+
+### Subsection
+More content.
+
+#### Sub-subsection
+When hierarchy demands it.
+```
+
+### Good List Usage
+```markdown
+## Workflow Steps
+1. Pre-checks → user approves
+2. Outline → user approves
+3. Section loops → user approves
+
+## Options
+* Option A: description
+* Option B: description
+* Option C: description
+```
+
+### Good Formatting
+```markdown
+Use **bold** for key terms like **writing-style.mdc**.
+Reference files like `` `docs/prd.md` `` using inline code.
+Use → for directional flow: Input → Output.
+```
+
+## When to Break Rules
+
+* **Clarity over consistency**: If breaking a rule improves clarity, do it
+* **Document-specific needs**: Templates may have unique structures
+* **Context matters**: Adapt formatting to content type and audience

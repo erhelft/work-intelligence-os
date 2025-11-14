@@ -1,0 +1,161 @@
+---
+alwaysApply: false
+---
+## Purpose
+Complete reference guide with comprehensive banned words lists and detailed rules for writing consistently across business formats.
+
+## When to Use
+**Only use when specifically requested:**
+* User says "write or edit the document based on our writing guidelines"
+* User says "use writing-style-complete"
+* Deep style audit before publishing
+
+**For everyday editing, use:** `writing-essentials.mdc`
+
+---
+
+## Writing Guidelines
+* Write with a clear writing goal and audience in focus.
+* Always favor clarity. Anyone should be able to understand the writing without prior context.
+* Always favor specifity over generalism and abstraction.
+* Writing should always be from the business or user standpoint.
+* Writing should have a clear message. When someone reading it, the "so what" must be clear.
+* When a new term or acronym appears for the first time. Explain them.
+
+## Voice and Tone
+* Write like humans speak. Avoid corporate or technical jargon and marketing fluff.
+* Clarity and simplicity. Break complex thoughts into small pieces.
+* Be confident. Avoid softening phrases like "I think," "maybe," or "could."
+* Be direct. Say the point without filler.
+* Use active voice instead of passive voice.
+* Use positive phrasing—say what something *is*, rather than what it *isn't*.
+* Use contractions like "I'll," "won't," and "can't" for a warmer tone.
+* Natural transitions. use Plain connectors like "here's the thing," "and," "but."
+
+## Structure Sentences
+* Use less than 30 words per sentence.
+* Replace adjectives with data and facts. If exsits.
+* Avoid weasel words.
+* Use Oxford commas consistently.
+* Use exclamation points sparingly.
+* Sentences can start with "but", "so" and "and"—but don't overuse.
+* Use periods instead of commas when possible for clarity.
+
+## Writing Documents
+* Documents. Title is a thesis (stance). Plant one essence line or paragraph in the opener.
+* Documents. Use signpost headers. Transitions are explicit.
+
+## Writing Sections
+* Must represents ONLY one theme - decision, idea, concept or thesis.
+* The main message or essence should be stated clearly.
+* Select the right evidence mode.
+* Select the right flow mode.
+
+### Evidence Modes
+* How to select - Favor Strong, move to directional or exploratory. Based on the state of the topic and availability of supporting evidence.
+* Never invent evidence or data.
+* Exploratory. claim + mechanism (causal chain) + implications + 2–3 predictions/falsifiers. No hard proof required.
+* Directional. claim + light evidence (example or early number) + mechanism + implication.
+* Strong. claim + concrete evidence (1–3 anchor numbers or validated examples).
+
+### Flow Modes
+* How to select - Based on clarity. If mini breaking to bullets or mini-subscrtions improve clarity, use structured.
+* Flowing (default): one paragraph carries the full logic; soft signposts only.
+* Structured: subheaders/bullets with 2–3 sentences each; use for comparison/sequence/partition.
+* Staccato: punchy single-sentence lines or bullets for urgency/decisions/checklists.
+
+### Techniques for Clarity
+* Title as thesis
+* Logic ladder. Today → implies → therefore → conclusion.
+* Flowing claim. Claim → why → implication → example.
+* Use contrast, scope‑cut or explicit tradeoff to sharpen meaning. Say what's out.
+* Recap at the end.
+
+## Weasel Words and Banned Phrases - Complete Reference
+
+"A weasel word is used to create the illusion of a specific and meaningful statement when it only carries ambiguous content"
+
+### False Certainty Qualifiers
+Remove words that claim certainty without adding information:
+* `clearly`, `obviously`, `remarkably`, `surprisingly`, `interestingly`, `naturally`
+* `completely`, `exceedingly`, `extremely`, `extraordinarily`
+* `excellent`, `great`, `outstanding`, `exceptional`
+
+### Vague Quantifiers
+Replace with actual numbers or remove:
+* `many`, `some`, `various`, `numerous`, `several`
+* `significant`, `substantial`, `considerable`, `large`, `vast`, `tiny`
+* `more than`, `less than`, `up to`, `a number of`
+* `most`, `often`, `usually`, `normally`, `frequently`, `rarely`
+* `recent`, `suddenly`
+
+### Softening Hedges
+Be direct or acknowledge real uncertainty:
+* `could`, `possibly`, `probably`, `arguably`, `potentially`
+* `quite`, `fairly`, `relatively`, `rather`
+* `pretty`, `really`, `very`, `actually`, `just`
+* `a bit`, `a little`, `somewhat`
+
+### Attribution Without Source
+Either cite specifically or remove:
+* `critics say`, `experts say`, `research shows`, `it is said`
+* `a person said`, `some argue that`, `people think`
+
+### Filler Phrases
+Remove entirely:
+* `I would say that`, `that being said`, `to be honest`, `with all due respect`
+* `the fact is`, `at the end of the day`, `when all is said and done`
+
+### Corporate Jargon
+Replace with plain language:
+* `leverage` → "use"
+* `facilitate` → "help" or "ease"
+* `implement` → "do"
+* `commence` → "start"
+* `utilize` → "use"
+* `assistance` → "help"
+* `attempt` → "try"
+* `referred to as` → "called"
+* `remainder` → "rest"
+* `sufficient` → "enough"
+* `individual` → "person" or be specific
+* `initial` → "first"
+
+### Meaningless Modifiers
+Remove or replace with specific facts:
+* `cutting-edge`, `innovative`, `disruptive`, `game-changing`
+* `strategic`, `mission-critical`, `business-critical`
+* `robust`, `performant`, `scalable` → be specific about performance
+* `seamless`, `effortless`, `smooth` → "automatic" or describe mechanism
+* `modern`, `next-generation`, `advanced`
+* `best practices` → "proven approaches" (if you must use it)
+* `battle tested`, `out of the box`, `turnkey`
+* `blazing fast`, `lightning fast` → "XX% faster" with actual numbers
+* `agile`, `flexible`, `dynamic` (unless discussing Agile methodology)
+
+### Technical Jargon to Avoid
+Remove unless essential:
+* `business logic` → describe what actually happens
+* `cognitive load` → "mental effort" or "complexity"
+* `delve` → "go into" or "examine"
+* `thing` → be specific about what it is
+
+## Avoid LLM Patterns
+* Replace em dashes (—) with semicolons, commas, or sentence breaks.
+* Avoid starting responses with "Great question!", "You're right!", or "Let me help you."
+* Don't use phrases like "Let's dive into..."
+* Skip cliché intros like "In today's fast-paced digital world" or "In the ever-evolving landscape of..."
+* Avoid phrases like "It's not just \[x], it's \[y]."
+* Avoid self-referential disclaimers like "As an AI" or "I'm here to help you with."
+* Avoid high-school essay closers: "In conclusion," "Overall," or "To summarize."
+* Avoid numbered lists in cases where bullets work better.
+* Don't end with "Hope this helps!" or similar closers.
+* Avoid overusing transition words like "Furthermore," "Additionally," or "Moreover."
+* Replace "In conclusion" with direct statements.
+* Avoid hedge words: "might," "perhaps," "potentially" unless uncertainty is real.
+* Don't stack hedging phrases: "may potentially," "it's important to note that."
+* Don't create perfectly symmetrical paragraphs or lists that start with "Firstly... Secondly..."
+* Avoid title-case headings; prefer sentence casing.
+* Remove Unicode artifacts when copy-pasting: smart quotes ("), em-dashes, non-breaking spaces.
+* Use \`\` instead of ''.
+* Delete empty citation placeholders like "\[1]" with no actual source.
