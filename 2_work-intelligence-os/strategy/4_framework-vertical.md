@@ -302,3 +302,254 @@ Those questions can only be answered *after* choosing the vertical.
 3. Domain Expertise Access - Can learn the domain
 4. Integration Accessibility - Can plug into their tools
 
+---
+
+## Appendix: Vertical Clusters to Evaluate
+
+Below are industry verticals grouped by similar characteristics. Each cluster shares common patterns across the framework criteria (work structure, observability, regulation, etc.), though sub-segments within clusters may differ.
+
+---
+
+### 1. Professional Services
+
+**Sub-segments**: Law firms, Management consulting, Accounting firms, Tax advisory, Business advisory
+
+**Shared Characteristics**:
+- **Work Structure**: Case-based, project-based, client engagement model
+- **Context**: Highly bounded (projects/cases relatively independent), very rich context
+- **Observable**: Very high (emails, documents, billable hours, client communications)
+- **Willingness to Pay**: High (premium billing rates, already invest in productivity)
+- **Integration**: Standard tools (Google Workspace, Slack, basic practice management)
+- **Regulation**: Moderate (client confidentiality, but manageable with standard practices)
+
+**Key Differences**:
+- Law: Highest context richness (legal precedent, case history), most billable-hour focused
+- Consulting: More strategic/variable work, less standardized across engagements
+- Accounting: Most repetitive patterns, highly seasonal work cycles
+
+---
+
+### 2. Technology & SaaS Companies
+
+**Sub-segments**: B2B SaaS, Software development shops, Tech startups (Series A+), Product companies
+
+**Shared Characteristics**:
+- **Work Structure**: Moderately interconnected (product, engineering, GTM affect each other)
+- **Context**: Rich (product decisions, customer feedback, technical constraints)
+- **Observable**: Very high (Slack, GitHub, Linear, Notion, extensive digital documentation)
+- **Willingness to Pay**: High (invest heavily in productivity tools)
+- **Integration**: Highest accessibility (digital-first, API-friendly culture)
+- **Regulation**: Very low friction
+
+**Key Differences**:
+- Early-stage startups: Too interconnected, constantly pivoting (harder to learn stable patterns)
+- Established SaaS: More stable processes, clearer patterns, better fit
+- Development shops: Project-based (more bounded), client-driven work
+
+---
+
+### 3. Healthcare & Medical
+
+**Sub-segments**: Private medical practices, Dental practices, Veterinary clinics, Mental health practices, Physical therapy, Specialist clinics
+
+**Shared Characteristics**:
+- **Work Structure**: Patient-based (bounded), appointment-driven
+- **Context**: Very rich (patient history, treatment plans, outcomes)
+- **TAM**: Large market, numerous independent practices
+- **Willingness to Pay**: Moderate to high (depending on specialty)
+
+**Key Differences**:
+- **Regulation**: Critical differentiator
+  - Private practices (dental, mental health, PT): Moderate regulation, more manageable
+  - Hospitals/Large health systems: Extremely high regulation (HIPAA, clinical workflows) - likely too complex
+  - Veterinary: Lower regulation than human healthcare
+- **Integration**: Proprietary EMR systems (Epic, Cerner) make integration very difficult for large practices
+
+**Note**: Smaller private practices might be more accessible than large healthcare systems
+
+---
+
+### 4. Financial Services
+
+**Sub-segments**: Wealth management, Financial advisory, Insurance agencies, Mortgage brokers, Private banking
+
+**Shared Characteristics**:
+- **Work Structure**: Client-based, portfolio management, relationship-driven
+- **Context**: Very rich (client finances, risk profiles, life situations)
+- **Willingness to Pay**: Very high (high-margin business)
+- **TAM**: Large market
+
+**Key Differences**:
+- **Regulation**: Major challenge across all segments
+  - Investment advisory: SEC regulations, compliance requirements
+  - Insurance: State regulations, licensing
+  - Banking: Extremely high regulatory burden
+- **Integration**: Often proprietary systems, compliance-locked data
+
+**Note**: High willingness to pay, but regulation/compliance creates significant friction
+
+---
+
+### 5. Real Estate
+
+**Sub-segments**: Real estate agencies, Property management, Commercial real estate, Real estate investment
+
+**Shared Characteristics**:
+- **Work Structure**: Transaction/property-based (bounded)
+- **Context**: Rich (property details, client preferences, market conditions)
+- **Observable**: High (emails, MLS data, showing schedules, documents)
+- **Integration**: Mix of standard tools and real estate-specific software
+
+**Key Differences**:
+- Residential agencies: Transaction-based, relationship-driven, many independent agents
+- Property management: Operations-heavy, recurring relationships
+- Commercial RE: Longer sales cycles, more complex deals, higher margins
+
+**Considerations**: Fragmented market (many independent agents), variable willingness to pay
+
+---
+
+### 6. Creative & Marketing Services
+
+**Sub-segments**: Marketing agencies, Design agencies, PR firms, Branding consultancies, Content studios
+
+**Shared Characteristics**:
+- **Work Structure**: Project-based, client engagement model
+- **Context**: Rich (client objectives, brand guidelines, campaign history)
+- **Observable**: Moderate to high (briefs, feedback, deliverables in documents)
+- **Integration**: Standard tools (Slack, Notion, project management)
+- **Regulation**: Very low
+
+**Key Differences**:
+- Marketing agencies: More data-driven, campaign performance measurable
+- Design agencies: More subjective/taste-driven, harder to observe creative decisions
+- PR firms: Relationship and reputation-driven
+
+**Considerations**: Cross-org learning may be limited (each agency has unique culture/style)
+
+---
+
+### 7. Architecture, Engineering & Construction (AEC)
+
+**Sub-segments**: Architecture firms, Engineering consultancies, Construction management, General contractors
+
+**Shared Characteristics**:
+- **Work Structure**: Project-based (bounded), long project cycles
+- **Context**: Very rich (project specs, client requirements, regulatory constraints)
+- **TAM**: Large market
+- **Willingness to Pay**: Moderate to high
+
+**Key Differences**:
+- Architecture: Design-driven, client-facing, mix of creative and technical
+- Engineering: Technical calculations, regulatory compliance, specialized
+- Construction: Operations-heavy, field work (less observable)
+
+**Considerations**: 
+- Longer project cycles = slower feedback loops
+- Mix of office and field work = variable observability
+- Specialized domain knowledge required
+
+---
+
+### 8. Education & Training
+
+**Sub-segments**: Private K-12 schools, Higher education, Corporate training, Online education, Tutoring services
+
+**Shared Characteristics**:
+- **Work Structure**: Curriculum-based, student/cohort-focused
+- **Context**: Rich (student progress, learning outcomes, curriculum)
+- **Observable**: Moderate (mix of digital and in-person)
+
+**Key Differences**:
+- Corporate training: B2B, higher willingness to pay, more observable (digital-first)
+- K-12/Higher ed: Lower budgets, regulatory complexity, institutional bureaucracy
+- Online education: Highly observable, but competitive landscape crowded
+
+**Considerations**: Budget constraints in traditional education, regulatory complexity in institutional settings
+
+---
+
+### 9. Retail & E-commerce
+
+**Sub-segments**: E-commerce brands, Omnichannel retail, B2B commerce, Marketplace sellers
+
+**Shared Characteristics**:
+- **Work Structure**: Operations-heavy, inventory/supply chain driven
+- **Context**: Moderate (customer data, inventory, sales patterns)
+- **Observable**: Very high (all transactions digital)
+- **TAM**: Huge market
+
+**Key Differences**:
+- E-commerce: Fully digital, highly observable, fast feedback loops
+- Omnichannel: Mix of physical and digital (more complexity)
+- B2B commerce: Longer sales cycles, relationship-driven
+
+**Considerations**: 
+- Operational intelligence (inventory, pricing) vs. strategic intelligence
+- Margins can be thin (affects willingness to pay)
+- Very competitive landscape
+
+---
+
+### 10. Manufacturing & Operations
+
+**Sub-segments**: Discrete manufacturing, Process manufacturing, Supply chain operations, Logistics companies
+
+**Shared Characteristics**:
+- **Work Structure**: Operations-heavy, process-driven
+- **Observable**: Mixed (factory floor vs. office decisions)
+- **TAM**: Large
+
+**Key Differences**:
+- Office/planning operations: More observable, strategic decisions
+- Factory floor: Less observable, execution-focused
+
+**Considerations**:
+- Proprietary ERP systems (integration challenges)
+- Most intelligence needed is operational, not strategic
+- Decision-making concentrated in management layer
+
+---
+
+### 11. Hospitality & Events
+
+**Sub-segments**: Hotels, Restaurants (upscale), Event planning, Catering, Venue management
+
+**Shared Characteristics**:
+- **Work Structure**: Service delivery, customer experience-focused
+- **Observable**: Moderate (bookings, schedules, but execution is in-person)
+- **Context**: Moderate (event details, customer preferences)
+
+**Considerations**:
+- Thin margins in many segments (lower willingness to pay)
+- Much of the work is physical/in-person (less observable)
+- High employee turnover (affects preference stability)
+
+---
+
+### 12. Non-Profit & Associations
+
+**Sub-segments**: Non-profit organizations, Professional associations, Foundations, Advocacy groups
+
+**Shared Characteristics**:
+- **Work Structure**: Mission-driven, program/campaign-based
+- **Observable**: High (digital-first for many)
+- **Context**: Rich (mission, stakeholders, program history)
+
+**Considerations**:
+- **Major challenge**: Very limited budgets, low willingness to pay
+- Mission-driven may value efficiency
+- Fragmented market with diverse needs
+
+---
+
+## Next Steps: Shortlisting Verticals
+
+Using this framework, evaluate each cluster against the criteria to create a shortlist of 2-3 verticals for deeper research. Look for:
+
+1. **Strong fundamentals**: No deal-breaking ✗ marks on critical criteria
+2. **Learning potential**: High observable work, good bounded context, rich context
+3. **Business viability**: Sufficient TAM, strong willingness to pay, cross-org learning potential
+4. **Approachability**: Low friction, accessible domain expertise, standard integrations
+
+Then move to deep research: customer interviews, competitive analysis, and use case identification within your chosen vertical(s).
