@@ -394,7 +394,7 @@ For each dimension, we need to understand BOTH:
 
 **Critical Insight**: This primitive is what makes Phase 3-4 intelligence actionable rather than abstract. Without domain-specific work product visibility, you can understand what a business is trying to do, but not whether they're succeeding or where the real problems are.
 
-**Integration Challenge**: This data lives in specialized vertical tools. Your products must either integrate deeply with these systems, build functionality natively, or partner with vertical leaders.
+**Integration Challenge**: This data lives in specialized vertical tools. Products must either integrate deeply with these systems, build functionality natively, or partner with vertical leaders.
 
 ---
 
@@ -476,7 +476,15 @@ When evaluating which products to build or which vertical to target, score each 
 - **High (8-10)**: Clear productivity gain or cost savings, immediate improvement to existing pain point
 - **Low (1-3)**: Value is abstract, long-term, or requires significant customer investment
 
-**B. Monetization Potential (1-10)**
+**B. Resource Criticality (1-10)**
+
+**What it measures**: Does this product sit on a scarce or critical business resource that companies must manage carefully?
+
+- **High (8-10)**: Sits on directly critical/scarce resources - Time (executive/team time - universally scarce), Money (budget allocation, spending decisions), Revenue (sales, conversion, retention outcomes), Core work output (what the business gets paid to deliver)
+- **Medium (4-7)**: Touches important proxy metrics or supporting resources - Customer relationships (proxy to revenue outcomes), Team collaboration, Employee productivity, Process efficiency
+- **Low (1-3)**: Peripheral or non-critical - Convenience features, Nice-to-have optimizations, Non-scarce resources
+
+**C. Monetization Potential (1-10)**
 
 **What it measures**: Willingness to pay in target vertical; can this support business while building Phase 3?
 
@@ -522,9 +530,9 @@ Evaluate whether target industry provides:
 
 ### For Product Selection
 
-Score potential products across all 8 dimensions. Ideal first product:
+Score potential products across all 9 dimensions. Ideal first product:
 - **Learning Value**: High operational richness + strategic signal + integration proximity
-- **Business Viability**: High immediate value + monetization potential
+- **Business Viability**: High immediate value + resource criticality + monetization potential
 - **Practical Feasibility**: Reasonable data access + low adoption friction
 
 Avoid products that score high on learning but fail business viability (can't sustain business) or score high on business but low on learning (won't reach Phase 3).
