@@ -4,12 +4,12 @@ Guidelines for building Phase 3+ AI products that understand strategy, not just 
 
 ## Design Principles
 
-- **Surfaces for oversight, not control** — Design for exception handling and strategic guidance rather than operational control
-- **Show the reasoning** — Users need to see why the AI made decisions, not just what it did
+- **Surfaces for oversight, not control** — Design for exception handling and strategic guidance rather than operational execution
+- **Show the reasoning** — Users need to see why the AI made decisions, not just what it did (and ability to correct it)
 - **Make delegation explicit** — Clear controls for what AI handles autonomously vs what requires approval
 - **Design for trust-building** — UI should help users understand AI capability before delegating decisions
 
-## Getting to Phase 2 & 3
+## Getting to Phase 3 (strategic)
 
 - **Build teaching systems** — Must have mechanisms for humans to teach and correct constantly
 - **Capture the learning loop** — Every correction and override is training data for strategic understanding
@@ -19,7 +19,7 @@ Guidelines for building Phase 3+ AI products that understand strategy, not just 
 ## Human at Decision Gates
 
 - **Classify by stakes and trust** — Assign autonomy levels: human-only / approval required / notification / fully autonomous
-- **Stakes determine gates** — High-impact decisions stay human even at Phase 4 capability
+- **Stakes determine gates** — High-impact decisions might stay human even at Phase 4 capability
 - **Trust compounds over time** — Same action might require approval initially, then just notification, then full autonomy
 - **Let users define their gates** — Risk tolerance varies; autonomy settings should be configurable
 
@@ -29,7 +29,7 @@ Guidelines for building Phase 3+ AI products that understand strategy, not just 
 - **Multi-surface capture** — Phase 3 requires presence across multiple tools and surfaces where intent forms
 - **Strategic data doesn't exist yet** — You must create new capture mechanisms, not just integrate existing tools
 - **Context compounds** — Each interaction adds to understanding; long time horizons create advantage
-- **High-intent surfaces** — Be present where decisions form: strategy docs, exec conversations, board meetings, key Slack threads
+
 
 ## Data Models
 
@@ -40,7 +40,7 @@ Guidelines for building Phase 3+ AI products that understand strategy, not just 
 
 ## Defensible Moats
 
-- **Unique strategic context** — Your moat is knowing their business strategy, competitive positioning, and decision-making philosophy
+- **Unique strategic context** — The moat isfromed by knowing business strategy, competitive positioning, and decision-making philosophy
 - **Data others can't replicate** — Competitive moats come from capturing context that doesn't exist in any other tool
 - **Trust is the ultimate lock-in** — Phase 4 products become like co-founders; replacement risk is existential
 - **Switching costs increase with phases** — Phase 1 = lose a feature, Phase 3 = lose months of strategic understanding
@@ -51,13 +51,6 @@ Guidelines for building Phase 3+ AI products that understand strategy, not just 
 - **Treat it like talent** — Frame as "training period" similar to hiring; invest time upfront for compound returns
 - **Progressive value delivery** — Start with Phase 1 capabilities day one, unlock Phase 2-3 over weeks/months
 - **Communicate the learning** — Show what the AI is understanding during observation; build confidence while it learns
-
-## Phase Progression Strategy
-
-- **Ship Phase 1 immediately** — Deliver instant value with behavioral automation while you observe for Phase 2
-- **Phase 2 is the battleground** — This is where most competition happens; must win here before advancing
-- **Phase 3 is the frontier** — Nobody has solved this yet; requires new data capture and reasoning capabilities
-- **Phases compound** — You can't skip levels; each phase builds on the previous one's context
 
 ## Pricing & Business Model
 
@@ -74,18 +67,6 @@ Unlike SaaS where simplicity provided leverage (no-touch PLG, easy onboarding, g
 - **High setup friction is a feature** — Observation periods and teaching create switching costs
 - **Relationship-based selling** — Phase 3 requires understanding business strategy; that's sold, not self-served
 - **Expertise becomes moat** — Generic is commoditized; strategic understanding is defensible
-
-## What Unlocks Phase 3
-
-**Data problem:**
-- Capture strategic intent that doesn't exist as machine-readable data
-- Be present where "why" is discussed: board meetings, strategy sessions, exec conversations
-- Create mechanisms to extract implicit knowledge from founder/exec heads
-
-**Reasoning problem:**
-- Current models excel at pattern recognition, struggle with strategic reasoning
-- Need causal reasoning, counterfactual analysis, trade-off evaluation
-- Requires improvements in foundational model capabilities
 
 ## The Incumbent Trap
 
