@@ -10,3 +10,14 @@
 * Problems
 
 ## Problems
+
+
+## ICPs
+* Work is scoped with beggining and end
+* Time directly equals money
+
+## Common decisions
+* Staffing
+* Assignment
+* Focus
+* 
