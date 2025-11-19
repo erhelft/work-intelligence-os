@@ -30,6 +30,10 @@ Signal: Product 2 adoption rates from existing Product 1 customers (Expected 12-
 *Source: 4_selection-vertical.md - Professional Services Analysis*
 Signal: Customer retention and pricing power vs horizontal competitors (Expected 12-18 months)
 
+**Manual workflow infrastructure provides critical learning foundation**
+*Source: 5_business-usecase-with-vertical.md - Use Case Infrastructure Analysis*
+Signal: Access to expert practitioners (legal assistants, case managers) as training data source for Phase 2 learning systems (Expected Phase 6-7, 4-8 weeks)
+
 **Phase 2 products must capture strategic intent, not just operational behavior**
 *Source: 2_high-level-strategy.md - Learning Level 2 Products*
 Signal: Learning mechanism quality assessment in MVP (Expected Phase 8, 3-4 months)

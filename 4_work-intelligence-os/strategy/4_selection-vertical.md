@@ -5,8 +5,8 @@
 This document evaluates 12 vertical clusters against our selection framework to identify the most promising industries for building the Business Intelligence OS. Each vertical is assessed across 11 criteria spanning business viability, learning suitability, and go-to-market approachability.
 
 **Top Tier Verticals** (Strongest overall fit):
-1. **Professional Services** - Exceptional across nearly all dimensions
-2. **Technology & SaaS Companies** - Strong fundamentals with some segment variation
+1. **Professional Services** - Exceptional across nearly all dimensions; clear leader for bounded context and cross-org learning
+2. **Technology & SaaS Companies** - Strong fundamentals but notably more interconnected than professional services
 
 **Second Tier** (Strong but with notable constraints):
 3. **Financial Services** - Excellent except for regulation and integration friction
@@ -26,12 +26,12 @@ This document evaluates 12 vertical clusters against our selection framework to 
 ### The Professional Services Advantage
 
 **Professional Services emerges as the clear leader** with consistently strong marks across all framework criteria. This vertical offers:
-- **Ideal work structure**: Case-based model provides the sweet spot of bounded context (easier learning) with enough interconnection (valuable intelligence)
-- **Learning paradise**: Highly observable work, rich context, stable preferences, and excellent pattern transferability across organizations
+- **Ideal work structure**: Case-based model provides the **genuine sweet spot** of bounded context (easier learning) with enough interconnection (valuable intelligence). Each case is largely independent yet firm knowledge compounds meaningfully.
+- **Learning paradise**: Highly observable work, rich context, stable preferences, and **exceptional pattern transferability across organizations**. What you learn from one law firm's case management applies directly to another firm's similar cases.
 - **Business fundamentals**: Large TAM, high willingness to pay (premium billing rates), standard tool integration
 - **Approachability**: Low friction deployment, accessible domain expertise, manageable regulation
 
-The combination of strong learning potential AND strong business viability is rare—most verticals compromise on one dimension.
+The combination of strong learning potential AND strong business viability is rare—most verticals compromise on one dimension. **Professional Services is the only vertical that doesn't compromise.**
 
 ### The Regulation/Integration Wall
 
@@ -53,21 +53,25 @@ Even with good learning characteristics, business model viability is questionabl
 
 ### The Cross-Organization Learning Divide
 
-Verticals split into two categories:
+Verticals split into three categories:
 
-**Pattern-rich verticals** (Professional Services, Financial Services, SaaS): Similar workflows, transferable best practices, repeating case types. Learning from one firm helps others. Product improves systematically with scale.
+**Highly pattern-rich** (Professional Services, Financial Services): Cases and workflows repeat across organizations with strong transferability. Learning from one firm directly helps others. Product improves systematically with scale. Clear winner for cross-org learning.
 
-**Unique-culture verticals** (Creative Agencies, Early Startups): Each organization has distinct culture, processes, and style. Limited pattern transfer. Requires more custom learning per organization, constraining scale.
+**Moderately pattern-rich** (Established SaaS): Some patterns transfer (product development cycles, customer feedback loops) but each company's specific context matters significantly. Cross-functional dependencies mean patterns are less clean than professional services. Useful learning but requires more per-organization customization.
 
-Cross-org learning potential is a hidden driver of long-term moat and scale economics.
+**Unique-culture verticals** (Creative Agencies, Early Startups): Each organization has distinct culture, processes, and style. Limited pattern transfer. Requires substantial custom learning per organization, constraining scale.
+
+Cross-org learning potential is a hidden driver of long-term moat and scale economics. Professional Services dominates this dimension.
 
 ### The Bounded vs. Interconnected Spectrum
 
 **Too Bounded** (Transactional call centers, simple task work): Each interaction completely independent. Limited need for organizational intelligence—no context builds over time, no learning compounds. Intelligence layer provides less value.
 
-**Too Interconnected** (Early startups, R&D-heavy orgs): Everything affects everything. Hard to isolate patterns. Constantly shifting strategy makes learning difficult to stabilize.
+**Too Interconnected** (Early startups, R&D-heavy orgs, SaaS operations): Everything affects everything. In SaaS companies, product decisions ripple through engineering priorities, customer conversations, sales messaging, support load, roadmap, hiring needs. Hard to isolate stable patterns when all functions are tightly coupled.
 
-**Sweet Spot** (Professional Services, Established SaaS, Financial Services): Work organized in somewhat independent units (cases, projects, clients) but with valuable connections (firm knowledge, client relationships, strategic priorities). Organizational intelligence matters significantly.
+**Sweet Spot** (Professional Services, Financial Services): Work organized in well-bounded units (cases, clients, projects) with meaningful but manageable connections (firm knowledge, client relationships, industry expertise). This structure makes patterns learnable and transferable. **Professional Services is the clearest example** with case-based work providing natural boundaries while firm intelligence compounds over time.
+
+**The Reality About SaaS**: While established SaaS companies (Series A+) have more stable operations than early startups, they remain fundamentally interconnected. A product pivot affects engineering, sales, support, and customer success simultaneously. This doesn't make them unworkable, but they're significantly more complex than professional services for learning bounded patterns. The "established" qualifier reduces chaos but doesn't eliminate interconnection.
 
 ### The Observability Foundation
 
@@ -100,10 +104,11 @@ Without observable work, there's nothing to learn from. Verticals with primarily
 | **Non-Profit** | ~ | ✗ | ~ | ✓ | ✓ | ✓ | ✓ | ~ | ✓ | ✓ | ✓ | **6** | **1** |
 
 ### Quick Interpretation
-- **11 strong marks**: Professional Services is exceptional
-- **8+ strong marks**: Tech/SaaS is very strong, Financial Services would be excellent if not for regulation/integration
+- **11 strong marks**: Professional Services is exceptional—the clear winner
+- **8+ strong marks**: Tech/SaaS has strong fundamentals but hidden complexity (interconnection not fully captured in framework scoring); Financial Services would be excellent if not for regulation/integration
 - **2-3 deal-breaker marks**: Healthcare, Financial Services face significant friction despite strong fundamentals
 - **Willingness to Pay ✗**: Hospitality and Non-Profit have fundamental business model challenges
+- **Note**: The scoring table doesn't fully capture the qualitative difference between Professional Services' case-based bounded context and SaaS's interconnected operations
 
 ---
 
@@ -156,14 +161,19 @@ Without observable work, there's nothing to learn from. Verticals with primarily
 | **Domain Expertise** | ✓ | Easy to access former operators, well-documented practices |
 | **Integration** | ✓ | Highest accessibility: Digital-first culture, API-friendly, modern tool stack |
 
-**Overall Assessment**: Very strong vertical with some caveats. The key is **segment selection**: target Series A+ companies with established product-market fit, not pre-product-market-fit startups. Established SaaS companies have stable enough patterns to learn from while maintaining high willingness to pay and excellent observability.
+**Overall Assessment**: Strong business fundamentals (high willingness to pay, excellent observability, low deployment friction) but **meaningfully more complex for learning than professional services**. The interconnected nature of SaaS operations—where product, engineering, GTM, and customer success are tightly coupled—makes pattern isolation harder. This doesn't make it unviable, but it does mean:
+- More per-organization customization required
+- Slower learning transfer between customers
+- Less clear compounding of insights compared to professional services
+
+The key is **segment selection**: target Series A+ companies with established product-market fit, not pre-product-market-fit startups. But even established SaaS companies remain more interconnected than the case-based model of professional services.
 
 **Sub-segment Guidance**:
-- ✓ **Series A+ SaaS**: Stable enough to learn, still need efficiency, high tool adoption
-- ✓ **Software development shops**: Project-based (more bounded), client-driven work
-- ✗ **Pre-PMF startups**: Too interconnected, constantly pivoting, hard to learn stable patterns
+- ~ **Series A+ SaaS**: Reduced chaos compared to early stage, but still fundamentally interconnected operations
+- ✓ **Software development shops**: Project-based (more bounded), client-driven work—closer to professional services model
+- ✗ **Pre-PMF startups**: Extreme interconnection, constantly pivoting, hard to learn any stable patterns
 
-**Primary Risk**: Ensuring segment focus on established companies, not early-stage chaos.
+**Primary Risk**: The interconnected nature of SaaS work may require significantly more effort to extract transferable patterns compared to professional services. Product investment and learning velocity could be notably slower.
 
 ---
 
