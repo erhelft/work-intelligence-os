@@ -92,23 +92,25 @@ Signal: Customers with work product integration report higher satisfaction (Expe
 
 **Partners experience 25-30+ meetings/week**
 *Source: 5_business-usecase-with-vertical.md - Volume Analysis*
-Signal: Law firm interviews confirm meeting density (Expected Phase 6, 4-6 weeks)
+Signal: Law firm interviews confirm partners average 25-30+ meetings/week (Expected Phase 6, 4-6 weeks)
 
 **Calendar intelligence solves acute pain (8+ severity)**
 *Source: 5_business-usecase-with-vertical.md - Pain Assessment*
-Signal: Law firm interviews rate coordination pain severity (Expected Phase 6, 4-6 weeks)
+Signal: Law firm interviews rate coordination pain at 8+ severity (Expected Phase 6, 4-6 weeks)
+Signal: Customers report calendar issues as top 3 operational pain points (Expected Phase 6, 4-6 weeks)
 
 ### Low Confidence
 
 **Strategic intent capturable from calendar data**
 *Source: 2_high-level-strategy.md - Learning Mechanism*
 *Note: Also appears in Technical category*
-Signal: Technical prototype demonstrates preference learning quality (Expected Phase 6D, 5-6 weeks)
-Signal: MVP user feedback on intelligence accuracy (Expected Phase 8, 3-4 months)
+Signal: Prototype testing shows system learns user preferences accurately (Expected Phase 6D, 5-6 weeks)
+Signal: MVP users report system understands their priorities without explicit rules (Expected Phase 8, 3-4 months)
 
 **Individual calendar value leads to org-wide adoption**
 *Source: 5_business-usecase-with-vertical.md - Bottom-up Entry*
-Signal: Expansion patterns from individual to firm-wide usage (Expected Phase 8-9, 4-6 months)
+Signal: Individual users invite colleagues to use product (Expected Phase 8, 3-4 months)
+Signal: Firm-wide purchases follow individual champion adoption (Expected Phase 9, 6-9 months)
 
 ---
 
@@ -118,38 +120,43 @@ Signal: Expansion patterns from individual to firm-wide usage (Expected Phase 8-
 
 **Professional Services is optimal first vertical (11/11 strong marks)**
 *Source: 4_selection-vertical.md - Vertical Evaluation*
-Signal: Exceptional across TAM, learning suitability, approachability (Completed Nov 2025)
+Signal: Law firm customer acquisition faster than alternative verticals (Expected Phase 9, 6-9 months)
+Signal: Learning quality from law firm data enables Product 2 development (Expected Phase 10, 12-18 months)
 
 **Calendar × Law Firms optimal combination (63/70 score)**
 *Source: 5_business-usecase-with-vertical.md - Combination Analysis*
-Signal: Highest scoring of 9 evaluated combinations (Completed Nov 2025)
+Signal: Law firm + Calendar achieves better metrics than alternative combinations would have (Expected Phase 9, 6-9 months)
+Signal: Expansion into Product 2 with law firms succeeds (Expected Phase 10, 12-18 months)
 
 **Financial Services too high friction for entry vertical**
 *Source: 4_selection-vertical.md + 5_business-usecase-with-vertical.md - Integration Complexity*
-Signal: Regulatory compliance and proprietary systems create deployment barriers (Completed Nov 2025)
+Signal: Financial services prospect conversations confirm integration barriers (Expected Phase 6 or Phase 9, 4-6 weeks or 6-9 months)
+Signal: Sales cycle length and close rates materially worse than law firms (Expected Phase 9+, 6-12 months)
 
 ### Medium Confidence
 
 **Law firms willing to pay $75-150/user/month premium pricing**
 *Source: 5_business-usecase-with-vertical.md - Pricing Analysis*
-Signal: Law firm interviews validate stated willingness to pay (Expected Phase 6, 4-6 weeks)
-Signal: Design partner conversion to paid at target pricing (Expected Phase 8, 3-4 months)
-Signal: First 10-20 sales close at target pricing without heavy discounting (Expected Phase 9, 6-9 months)
+Signal: Law firm interviews validate stated willingness to pay at target price (Expected Phase 6, 4-6 weeks)
+Signal: Design partners convert to paid customers at $75-150/user/month (Expected Phase 8, 3-4 months)
+Signal: First 10-20 customers close at target pricing without >20% discounting (Expected Phase 9, 6-9 months)
 
 ### Low Confidence
 
 **Practice manager or overwhelmed partner is likely champion**
 *Source: 5_business-usecase-with-vertical.md - Infrastructure Analysis*
-Signal: Law firm interviews identify consistent buyer persona (Expected Phase 6, 4-6 weeks)
-Signal: Sales conversations validate champion role (Expected Phase 9, 6-9 months)
+Signal: Law firm interviews reveal practice managers/partners as consistent champions (Expected Phase 6, 4-6 weeks)
+Signal: Sales data confirms 70%+ of deals have practice manager or partner champion (Expected Phase 9, 6-9 months)
 
 **Repeatable sales motion achievable in <60-90 days**
 *Source: Assumption from Phase 9 planning*
-Signal: First 10-20 sales cycles show consistent close rates and timing (Expected Phase 9, 6-9 months)
+Signal: Sales cycles 11-20 show <60-90 day average close time (Expected Phase 9, 6-9 months)
+Signal: Close rates stabilize across first 20 opportunities (Expected Phase 9, 6-9 months)
 
 **No direct competitor targeting law firm calendar intelligence**
 *Source: Hypothesis requiring validation*
-Signal: Competitive landscape mapping and analysis (Expected Phase 5, 2-3 weeks)
+Signal: Competitive research finds no direct law firm calendar intelligence competitors (Expected Phase 5, 2-3 weeks)
+Signal: Customer conversations confirm no current solution addresses this (Expected Phase 6, 4-6 weeks)
 
 ---
 
@@ -159,30 +166,31 @@ Signal: Competitive landscape mapping and analysis (Expected Phase 5, 2-3 weeks)
 
 **Practice management system integration technically feasible**
 *Source: 5_business-usecase-with-vertical.md - Integration Complexity*
-Signal: Clio/MyCase API research confirms integration capability (Expected Phase 6B, 4-6 weeks)
-Signal: MVP integration with practice management systems works reliably (Expected Phase 8, 3-4 months)
+Signal: Clio/MyCase API documentation review confirms required endpoints exist (Expected Phase 6B, 4-6 weeks)
+Signal: MVP successfully integrates with Clio/MyCase in production (Expected Phase 8, 3-4 months)
 
 ### Low Confidence
 
 **Current LLMs sufficient for calendar optimization intelligence**
 *Source: Hypothesis requiring validation*
-Signal: Technical prototype quality assessment (Expected Phase 6D, 5-6 weeks)
-Signal: MVP accuracy and user satisfaction metrics (Expected Phase 8, 3-4 months)
+Signal: Prototype achieves acceptable accuracy in user testing (Expected Phase 6D, 5-6 weeks)
+Signal: MVP users rate intelligence quality as "good" or better (Expected Phase 8, 3-4 months)
 
 **Strategic intent capturable from calendar data**
 *Source: 2_high-level-strategy.md - Learning Mechanism*
 *Note: Also appears in Product category*
-Signal: Technical prototype demonstrates preference learning (Expected Phase 6D, 5-6 weeks)
-Signal: MVP captures priorities and constraints from scheduling behavior (Expected Phase 8, 3-4 months)
+Signal: Prototype correctly infers user preferences from calendar patterns (Expected Phase 6D, 5-6 weeks)
+Signal: MVP users confirm system understands their unstated priorities (Expected Phase 8, 3-4 months)
 
 **Synthesis architecture can work across multiple products**
 *Source: 2_high-level-strategy.md - Multi-Product Platform*
-Signal: Product 2 integration demonstrates cross-product intelligence (Expected 12-18 months)
-Signal: Calendar + Projects data reveals firm priorities (Expected Phase 10, 12-18 months)
+Signal: Product 2 MVP successfully synthesizes Calendar + new product data (Expected Phase 10, 12-18 months)
+Signal: Cross-product insights demonstrably better than single-product insights (Expected Phase 10, 12-18 months)
 
 **Design partners willing to convert to paying customers**
 *Source: Assumption from Phase 8 planning*
-Signal: Design partner feedback and willingness to pay after pilot (Expected Phase 8, 3-4 months)
+Signal: Design partners agree to paid contracts after pilot (Expected Phase 8, 3-4 months)
+Signal: Design partners pay target pricing without material discounts (Expected Phase 8, 3-4 months)
 
 ---
 
@@ -192,20 +200,21 @@ Signal: Design partner feedback and willingness to pay after pilot (Expected Pha
 
 **Deep monetization viable with multiple products per customer**
 *Source: 2_high-level-strategy.md - Deep Monetization Strategy*
-Signal: Product 2 adoption from existing Product 1 customers (Expected Phase 10, 12-18 months)
-Signal: Revenue per customer increases with additional products (Expected 12-24 months)
+Signal: Product 2 trial rate among Product 1 customers exceeds 40% (Expected Phase 10, 12-18 months)
+Signal: Revenue per customer grows 60%+ with Product 2 adoption (Expected Phase 10-11, 12-24 months)
 
 **Trust transfers from Product 1 to Product 2**
 *Source: 2_high-level-strategy.md - Trust Transfer Hypothesis*
-Signal: Product 2 trial rates among Product 1 customers (Expected Phase 10, 12-18 months)
-Signal: Customer attribution of success to business understanding vs features (Expected Phase 10, 12-18 months)
+Signal: Product 2 close rate higher with Product 1 customers than new prospects (Expected Phase 10, 12-18 months)
+Signal: Customer interviews credit business understanding over features as reason for expansion (Expected Phase 10, 12-18 months)
 
 ### Low Confidence
 
 **Strong retention (90%+) achievable after 6 months**
 *Source: Assumption from Phase 9 planning*
-Signal: Customer retention metrics after 6-month usage period (Expected Phase 9, 9-12 months)
+Signal: Cohort analysis shows 90%+ retention at 6-month mark (Expected Phase 9, 9-12 months)
 
 **Strategic lock-in begins working within 6 months**
 *Source: 1_intelligence-os-opportunity.md - Structural Defensibility*
-Signal: Customer switching cost perception and retention data (Expected Phase 9, 9-12 months)
+Signal: Customer interviews report high switching costs after 6 months (Expected Phase 9, 9-12 months)
+Signal: Churn attempts delayed by perceived cost of losing learned intelligence (Expected Phase 9, 9-12 months)
