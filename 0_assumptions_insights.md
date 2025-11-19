@@ -6,7 +6,8 @@
 
 **Single product cannot capture complete business context**
 *Source: 3_framework-business-usecase.md - 98/2 Rule*
-Signal: Framework validation showed need for multiple primitives (Completed Nov 2025)
+Signal: Product 2 reveals insights impossible from Product 1 alone (Expected Phase 10, 12-18 months)
+Signal: Customer feedback attributes value to cross-product synthesis vs individual features (Expected Phase 10, 12-18 months)
 
 **Billable hours create perfect business attribution**
 *Source: 5_business-usecase-with-vertical.md - Combination Analysis*
@@ -14,35 +15,42 @@ Signal: Law firm interviews validate partners value time at $500-1000/hr (Expect
 
 **Cross-org learning potential drives scale economics**
 *Source: 4_framework-vertical.md - Professional Services Characteristics*
-Signal: Pattern transferability observed across law firm customers (Expected Phase 9, 6-9 months)
+Signal: Second law firm customer successfully adopts patterns learned from first customer (Expected Phase 9, 6-9 months)
+Signal: Deployment time decreases with each new customer as learning accumulates (Expected Phase 9+, 9-12 months)
 
 ### Medium Confidence
 
 **Multi-product strategy required for Phase 3 intelligence**
 *Source: 2_high-level-strategy.md - Learning Level 2 Strategy*
-Signal: Cross-product synthesis demonstrates firm priorities from Calendar + Projects data (Expected 18-24 months)
+Signal: Product 2 pilot reveals firm priorities that Calendar alone couldn't surface (Expected Phase 10, 12-18 months)
+Signal: Customers attribute strategic insights to multi-product synthesis (Expected 18-24 months)
 
 **Trust accumulates through demonstrated business understanding**
 *Source: 2_high-level-strategy.md - Trust Transfer*
-Signal: Product 2 adoption rates from existing Product 1 customers (Expected 12-18 months)
+Signal: Product 2 trial rates among Product 1 customers exceed market baseline (Expected Phase 10, 12-18 months)
+Signal: Sales cycle for Product 2 is shorter with existing customers than new customers (Expected Phase 10, 12-18 months)
 
 **Vertical depth creates defensibility over horizontal breadth**
 *Source: 4_selection-vertical.md - Professional Services Analysis*
-Signal: Customer retention and pricing power vs horizontal competitors (Expected 12-18 months)
+Signal: Retention rates exceed horizontal competitors (Expected 12-18 months)
+Signal: Price premium sustained vs horizontal alternatives (Expected 12-18 months)
 
 **Manual workflow infrastructure provides critical learning foundation**
 *Source: 5_business-usecase-with-vertical.md - Use Case Infrastructure Analysis*
-Signal: Access to expert practitioners (legal assistants, case managers) as training data source for Phase 2 learning systems (Expected Phase 6-7, 4-8 weeks)
+Signal: Law firm interviews confirm access to legal assistants/case managers for learning (Expected Phase 6, 4-6 weeks)
+Signal: Phase 2 learning system quality improves from practitioner input (Expected Phase 8-10, 6-12 months)
 
 **Phase 2 products must capture strategic intent, not just operational behavior**
 *Source: 2_high-level-strategy.md - Learning Level 2 Products*
-Signal: Learning mechanism quality assessment in MVP (Expected Phase 8, 3-4 months)
+Signal: MVP users report system understands their priorities vs just following rules (Expected Phase 8, 3-4 months)
+Signal: System recommendations align with unstated preferences (Expected Phase 8, 3-4 months)
 
 ### Low Confidence
 
 **Architecture must synthesize across products from day one**
 *Source: 2_high-level-strategy.md - Avoiding Salesforce Fragmentation*
-Signal: Product 2 integration demonstrates cross-product intelligence (Expected 12-18 months)
+Signal: Product 2 launch successfully leverages Product 1 data without major refactoring (Expected Phase 10, 12-18 months)
+Signal: Cross-product insights emerge immediately rather than requiring integration work (Expected Phase 10, 12-18 months)
 
 ---
 
@@ -52,27 +60,33 @@ Signal: Product 2 integration demonstrates cross-product intelligence (Expected 
 
 **Calendar is optimal first product (highest score 74/90)**
 *Source: 3_selection-business-usecase.md - Primitive Evaluation*
-Signal: Scoring validated across learning value, business viability, practical feasibility (Completed Nov 2025)
+Signal: Calendar product achieves faster customer adoption than alternative first products (Expected Phase 8-9, 4-6 months)
+Signal: Calendar generates more valuable learning data for Product 2 than alternatives would have (Expected Phase 10, 12-18 months)
 
 **Calendar sits on most critical resource (time)**
 *Source: 3_selection-business-usecase.md - Resource Criticality*
-Signal: Universal scarcity validated across all evaluated verticals (Completed Nov 2025)
+Signal: Customer interviews rate calendar/time as top pain point (Expected Phase 6, 4-6 weeks)
+Signal: Willingness to pay correlates with time saved vs other efficiency gains (Expected Phase 8-9, 4-6 months)
 
 **Calendar acts as integration hub (proximity score 9/10)**
 *Source: 3_selection-business-usecase.md - Integration Multiplier*
-Signal: Natural connections to meetings, projects, communication validated in framework (Completed Nov 2025)
+Signal: Product 2 development effort reduced due to Calendar foundations (Expected Phase 10, 12-18 months)
+Signal: Calendar data enables richer insights in subsequent products (Expected Phase 10, 12-18 months)
 
 **Calendar beats Projects as first product**
 *Source: 5_business-usecase-with-vertical.md - Combination Rankings*
-Signal: Higher volume (daily vs weekly), faster feedback (hours vs days) validated (Completed Nov 2025)
+Signal: Calendar achieves daily active usage while Projects-first alternative would show weekly usage (Expected Phase 8, 3-4 months)
+Signal: Learning cycle speed advantage materializes in faster improvements (Expected Phase 8-9, 4-6 months)
 
 **Meeting intelligence best as Product 3-4 after trust established**
 *Source: 3_selection-business-usecase.md - Adoption Friction Analysis*
-Signal: Recording consent and confidentiality concerns create adoption barriers (Completed Nov 2025)
+Signal: Early customer conversations confirm recording concerns as adoption barrier (Expected Phase 6, 4-6 weeks)
+Signal: Product 1 customers express higher willingness to adopt recording features than new prospects (Expected Phase 10, 12-18 months)
 
 **Domain-specific work product critical for actionable intelligence**
 *Source: 3_framework-business-usecase.md - Primitive 10 Analysis*
-Signal: Vertical selection determines accessibility of work product data (Completed Nov 2025)
+Signal: Intelligence quality demonstrably higher with work product access vs without (Expected Phase 8-10, 6-12 months)
+Signal: Customers with work product integration report higher satisfaction (Expected Phase 9-10, 6-12 months)
 
 ### Medium Confidence
 

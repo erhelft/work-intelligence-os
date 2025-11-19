@@ -1,291 +1,172 @@
 # Main Scheduling Flows
 
 ## Purpose
-This document maps the core scheduling flows in law firm calendar management, considering different initiators, timing, and meeting characteristics. These flows form the foundation for Phase 1 behavioral automation design.
+This document maps the core scheduling flows in law firm calendar management across different meeting types and complexity levels. These flows serve as the foundation for understanding scheduling coordination challenges.
 
 ---
 
-## Flow Classification
+## Flow Dimensions
 
-### Primary Dimensions
-1. **Initiator**: Who starts the scheduling process?
-   - User-initiated (outbound)
-   - 3rd party-initiated (inbound)
-   - System-initiated (reactive/cascade)
+**Meeting Type**: Who participates?
+- **External**: Includes clients, opposing counsel, experts, court reporters, or any non-firm participants
+- **Internal**: Firm-only participants (partners, associates, assistants, staff)
 
-2. **Meeting Type**: Who participates?
-   - Internal (firm-only participants)
-   - External (includes clients, opposing counsel, experts, etc.)
+**Complexity**: How many parties involved?
+- **Single-party**: 1:1 meetings (two people total)
+- **Multi-party**: 3+ people involved in the meeting
 
-3. **Complexity**: How many parties?
-   - Single-party (1:1, two people)
-   - Multi-party (3+ people)
-
-4. **Timing**: When does this happen?
-   - Planned (advance scheduling)
-   - Ad-hoc (reactive/emergency changes)
+**Initiator**: Who starts the scheduling process?
+- **User-initiated**: Partner or firm assistant initiates scheduling
+- **3rd party-initiated**: Client, opposing counsel, or external party initiates scheduling
 
 ---
 
 ## Core Flows
 
-### Flow 1: User Schedules with 3rd Party (Outbound, Planned)
+### Flow 1: External + Single-Party
 
-**Description**: Partner or assistant wants to schedule a meeting with external party in advance.
+**Use Case**: Partner needs to schedule 1:1 client consultation about an ongoing case.
 
-#### Variants by Dimensions
+**Initiator**: Can be either user-initiated or 3rd party-initiated
+- User-initiated: Partner reaches out to schedule with client
+- 3rd party-initiated: Client requests meeting with partner
 
-**1A: External + Single-Party (1:1 client meeting)**
-- **Trigger**: Partner needs to meet with client about case
-- **Current process**: 
-  - Partner/assistant emails client proposing times
-  - Back-and-forth to find mutual availability
-  - Send calendar invite once confirmed
-- **Pain points**: 
-  - 3-5 email exchanges per meeting
-  - Partner coordination time (15-30 min/meeting)
-  - Timezone confusion for remote clients
-- **Phase 1 solution**: 
-  - Share booking link with available slots
-  - Client self-schedules
-  - Automatic timezone handling
-- **Success criteria**: Reduce coordination time from 15-30 min to <2 min
+**Current Workflow**:
+1. One party emails/calls the other requesting a meeting
+2. Proposed times are shared (usually 2-3 options)
+3. Back-and-forth exchange to find mutually available time (typically 3-5 exchanges)
+4. Once time agreed upon, calendar invite is sent
+5. Confirmation received and meeting scheduled
+6. If timezone differences exist, manual conversion required
 
-**1B: External + Multi-Party (deposition with 5+ participants)**
-- **Trigger**: Need to coordinate deposition (partner + client + opposing counsel + court reporter + expert)
-- **Current process**:
-  - Assistant polls all parties for availability
-  - Days/weeks of back-and-forth coordination
-  - Multiple rounds as conflicts emerge
-- **Pain points**:
-  - 3-5 hours coordination time per complex meeting
-  - Meeting delayed 2-4 weeks due to coordination
-  - Calendar conflicts discovered late
-- **Phase 1 solution**:
-  - Collect availability from all parties
-  - Find overlapping slots automatically
-  - Send coordinated invites to all
-- **Success criteria**: Reduce coordination time from 3-5 hrs to <30 min; schedule within 1 week
-
-**1C: Internal + Single-Party (partner 1:1 with associate)**
-- **Trigger**: Partner needs to meet with associate about case strategy
-- **Current process**:
-  - Direct calendar check or quick message
-  - Usually easy due to same organization
-- **Pain points**:
-  - Lower priority but still requires manual coordination
-  - Interruptions to find time
-- **Phase 1 solution**:
-  - Internal booking links or instant scheduling
-  - Auto-find next available slot
-- **Success criteria**: Zero coordination overhead
-
-**1D: Internal + Multi-Party (case team meeting)**
-- **Trigger**: Need case team meeting with 3-5 firm members
-- **Current process**:
-  - Assistant checks multiple calendars
-  - Finds common availability
-  - Sends invites
-- **Pain points**:
-  - Moderate coordination time (30-60 min)
-  - Often results in suboptimal times for some
-- **Phase 1 solution**:
-  - Multi-calendar availability check
-  - Auto-find overlapping slots
-  - Coordinated invites
-- **Success criteria**: Reduce coordination from 30-60 min to <5 min
+**Current Challenges**:
+- 3-5 email exchanges per meeting consume 15-30 minutes of coordination time
+- Partner time spent on coordination instead of billable work (Problem #3)
+- Response delays impact client experience and relationship quality
+- Timezone confusion for remote/international clients causes errors (Problem #1)
+- Assistant overhead managing back-and-forth for multiple partners simultaneously
+- No systematic capture of client scheduling preferences
+- First-come-first-served regardless of meeting value or client priority
 
 ---
 
-### Flow 2: 3rd Party Schedules with User (Inbound, Planned)
+### Flow 2: External + Multi-Party
 
-**Description**: External party wants to schedule meeting with partner/firm in advance.
+**Use Case**: Coordinating a deposition involving partner, client, opposing counsel, court reporter, and expert witness (5+ participants).
 
-#### Variants by Dimensions
+**Initiator**: Can be either user-initiated or 3rd party-initiated
+- User-initiated: Firm needs to schedule deposition and coordinates all parties
+- 3rd party-initiated: Opposing counsel proposes deposition and seeks coordination
 
-**2A: External + Single-Party (new client inquiry)**
-- **Trigger**: Prospective client wants initial consultation
-- **Current process**:
-  - Client emails/calls requesting meeting
-  - Assistant responds with available times
-  - Back-and-forth until confirmed
-- **Pain points**:
-  - Response time delay impacts client experience
-  - Assistant coordination overhead
-  - First-come-first-served regardless of client value
-- **Phase 1 solution**:
-  - Public booking link on website/email signature
-  - Client self-schedules from available slots
-  - Automatic confirmation
-- **Success criteria**: Zero assistant time; instant booking confirmation
+**Current Workflow**:
+1. One party identifies need for multi-party meeting
+2. Assistant/coordinator collects availability from all participants
+3. Availability is compiled manually (often via email chains or calls)
+4. Assistant identifies overlapping time slots
+5. Proposed time is shared with all parties for confirmation
+6. Multiple rounds of adjustment as conflicts emerge
+7. Once consensus reached, invites sent to all parties
+8. Process takes days to weeks depending on participant complexity
 
-**2B: External + Multi-Party (opposing counsel requests mediation)**
-- **Trigger**: External party initiates complex multi-party meeting
-- **Current process**:
-  - Opposing counsel proposes times
-  - Assistant checks partner + client + mediator availability
-  - Multiple rounds of coordination
-- **Pain points**:
-  - Same as Flow 1B but initiated externally
-  - Reactive mode makes coordination harder
-- **Phase 1 solution**:
-  - Provide available slots considering all required parties
-  - External party selects from viable options
-  - System confirms with all parties
-- **Success criteria**: Reduce coordination from hours to minutes
-
-**2C: Internal + Single-Party (associate requests partner time)**
-- **Trigger**: Associate needs guidance from partner
-- **Current process**:
-  - Direct message or calendar check
-  - Quick scheduling usually
-- **Pain points**:
-  - Interrupts partner's flow
-  - No priority filtering (urgent vs routine)
-- **Phase 1 solution**:
-  - Internal booking links by meeting type
-  - Auto-schedule based on urgency rules
-- **Success criteria**: Zero partner interruption for scheduling
-
-**2D: Internal + Multi-Party (admin schedules firm meeting)**
-- **Trigger**: Firm administrator needs all-hands or department meeting
-- **Current process**:
-  - Check multiple calendars for common availability
-  - Send invites to group
-- **Pain points**:
-  - Time-consuming for large groups
-  - Often results in conflicts requiring reschedule
-- **Phase 1 solution**:
-  - Group availability finder
-  - Optimal time suggestion based on most availability
-  - Bulk invite sending
-- **Success criteria**: Find optimal time in <5 min
+**Current Challenges**:
+- 3-5 hours of coordination time per complex meeting (Problem #6)
+- Meeting delayed 2-4 weeks due to coordination difficulty
+- Calendar conflicts discovered late in the process, requiring restart
+- Managing multiple email threads and losing track of responses
+- Difficulty finding overlapping availability across busy schedules
+- Some participants not included or invited to wrong time
+- Timezone complexity multiplied across multiple parties
+- Assistant burden and frustration with complex coordination
+- Lost case momentum and client dissatisfaction with delays
 
 ---
 
-### Flow 3: Ad-Hoc Event Change Causes Schedule Reshuffle (Reactive)
+### Flow 3: Internal + Single-Party
 
-**Description**: Existing meeting is cancelled/rescheduled, triggering cascade of schedule changes.
+**Use Case**: Partner needs to meet 1:1 with associate to discuss case strategy.
 
-#### Variants by Dimensions
+**Initiator**: Can be either user-initiated or 3rd party-initiated
+- User-initiated: Partner requests time with associate for guidance
+- 3rd party-initiated: Associate requests partner time for case review
 
-**3A: External meeting cancelled → Affects external dependencies**
-- **Trigger**: Court date rescheduled, forcing all dependent meetings to move
-- **Example cascade**:
-  - Court date moves from June 15 → July 10
-  - Must reschedule: client prep (was June 14), witness prep (was June 12-13), expert consultation (was June 10), opposing counsel meeting (was June 8)
-- **Current process**:
-  - Assistant manually identifies all dependent meetings
-  - Coordinates new times for each (5-10 meetings)
-  - 3-5 hours of coordination work
-- **Pain points**:
-  - Massive assistant time burden
-  - Case timeline delays
-  - Client inconvenience
-  - Some meetings fall through cracks
-- **Phase 1 solution**:
-  - Identify linked/dependent meetings (tagging system)
-  - Suggest new times for cascade automatically
-  - Bulk rescheduling coordination
-- **Success criteria**: Reduce 3-5 hr coordination to <30 min; zero missed dependencies
+**Current Workflow**:
+1. One party messages/emails the other requesting meeting
+2. Quick calendar check by both parties
+3. Time proposed and usually quickly accepted (same organization makes this easier)
+4. Calendar invite sent
+5. Meeting scheduled
 
-**3B: External meeting cancelled → Gap recovery opportunity**
-- **Trigger**: Client cancels with <24hr notice, leaves billable hour gap
-- **Current process**:
-  - Partner has unexpected free hour
-  - Usually goes unfilled (too late to schedule new client meeting)
-  - Wasted billable hour opportunity
-- **Pain points**:
-  - Lost billable hour ($500-1000 revenue loss)
-  - Partner prep time wasted
-- **Phase 1 solution**:
-  - Alert partner immediately of gap
-  - Suggest alternate uses: other client reschedule, focus work, waitlist bookings
-  - Auto-offer slot to waitlist clients
-- **Success criteria**: Recover 50%+ of late-cancel gaps with productive use
-
-**3C: Internal meeting cancelled → Time reallocation**
-- **Trigger**: Internal meeting cancelled, frees partner time
-- **Current process**:
-  - Partner keeps as free time or manually decides what to do
-  - Often becomes fragmented/unproductive time
-- **Pain points**:
-  - Opportunity to reallocate to billable work missed
-  - Time not used strategically
-- **Phase 1 solution**:
-  - Suggest reallocation options
-  - Offer to pending clients if appropriate
-  - Convert to focus block if meeting-heavy day
-- **Success criteria**: Freed time used productively 80%+ of the time
-
-**3D: Partner emergency → Full day reshuffle**
-- **Trigger**: Partner illness/emergency, must cancel entire day of meetings (8-12 meetings)
-- **Current process**:
-  - Assistant frantically calls/emails all affected parties
-  - Reschedules each meeting individually
-  - 4-6 hours of crisis coordination
-  - Client frustration and relationship damage
-- **Pain points**:
-  - Massive operational burden
-  - Client inconvenience
-  - Revenue impact from delayed meetings
-  - Assistant stress
-- **Phase 1 solution**:
-  - One-click "reschedule all meetings for [date]"
-  - System automatically finds next available slots
-  - Sends coordinated notifications with context
-  - Prioritizes urgent matters first
-- **Success criteria**: Handle full-day reshuffle in <1 hr; maintain client satisfaction
+**Current Challenges**:
+- Still requires manual coordination despite being internal
+- Interruptions to partner/associate flow to negotiate time
+- No priority filtering—urgent matters treated same as routine check-ins
+- When partner has limited availability, multiple back-and-forth exchanges
+- No systematic approach to recurring 1:1s (each scheduled manually)
+- Difficulty capturing and maintaining scheduling preferences
+- Meeting may not align with optimal times for either party
 
 ---
 
-## Flow Interaction Matrix
+### Flow 4: Internal + Multi-Party
 
-| Flow Type | External + Single | External + Multi | Internal + Single | Internal + Multi |
-|-----------|------------------|------------------|-------------------|------------------|
-| **Outbound (User initiates)** | 1A: Client meeting | 1B: Deposition | 1C: Associate 1:1 | 1D: Case team |
-| **Inbound (3rd party initiates)** | 2A: New client inquiry | 2B: Mediation request | 2C: Associate requests | 2D: Admin schedules |
-| **Reactive (Change cascade)** | 3A: Court date moves | 3A: Cascade coordination | 3C: Time reallocation | 3C: Group reshuffle |
-| **Reactive (Gap recovery)** | 3B: Late cancel recovery | 3B: Complex gap fill | 3C: Focus time | 3C: Team time |
+**Use Case**: Case team meeting with partner, two associates, paralegal, and legal assistant (5 people) to align on case strategy.
 
----
+**Initiator**: Can be either user-initiated or 3rd party-initiated
+- User-initiated: Partner or team lead schedules team meeting
+- 3rd party-initiated: Administrator schedules firm-wide or department meeting
 
-## Priority for Phase 1 Development
+**Current Workflow**:
+1. Meeting organizer identifies need for group meeting
+2. Assistant checks calendars of all required participants
+3. Assistant manually identifies overlapping availability
+4. Time slot selected based on availability (often suboptimal for some)
+5. Calendar invites sent to all participants
+6. Conflicts may emerge, requiring rescheduling
 
-Based on business impact from problems document:
-
-### Tier 1 (Must Have)
-1. **Flow 1A** (External, single-party outbound) - Highest volume, addresses Problem #3 (partner time)
-2. **Flow 2A** (External, single-party inbound) - Client experience, addresses Problem #3 (partner time)
-3. **Flow 3B** (Late cancel recovery) - Addresses Problem #2 (revenue loss from gaps)
-4. **Flow 3A** (Cascade rescheduling) - Addresses Problem #5 (cascade burden)
-
-### Tier 2 (Should Have)
-5. **Flow 1B** (External, multi-party outbound) - Addresses Problem #6 (multi-party coordination)
-6. **Flow 2B** (External, multi-party inbound) - Addresses Problem #6 (multi-party coordination)
-7. **Flow 3D** (Emergency full-day reshuffle) - Addresses Problem #1 (coordination errors) and Problem #5
-
-### Tier 3 (Nice to Have)
-8. **Flows 1C, 1D, 2C, 2D, 3C** (Internal meetings) - Lower business impact in Phase 1; more relevant for Phase 2-3 strategic optimization
+**Current Challenges**:
+- 30-60 minutes coordination time per multi-party internal meeting
+- Larger groups make finding common time increasingly difficult
+- Often results in suboptimal times where some participants have conflicts
+- Back-to-back scheduling without buffer time considerations
+- No consideration of meeting purpose vs. time of day appropriateness
+- Recurring team meetings rescheduled manually each occurrence
+- As firm grows, scaling challenge for firm-wide meetings
 
 ---
 
-## Next Steps
+### Flow 5: Ad-Hoc Event Change
 
-1. **For each Tier 1 flow**: Map detailed user journey (current state → Phase 1 → success metrics)
-2. **Define technical requirements**: What data, integrations, and automation needed per flow
-3. **Identify shared components**: Booking engine, conflict detection, notification system used across flows
-4. **Design validation plan**: How to test each flow with design partner firms
+**Use Case**: Court date rescheduled from June 15 to July 10, forcing cascade of dependent meetings to move (client prep, witness prep, expert consultations, opposing counsel meetings).
 
----
+**Initiator**: External event or emergency triggers reactive rescheduling
+- Court date changes
+- Client cancels with short notice
+- Partner illness/emergency
+- Expert witness availability changes
+- Unexpected conflict emerges
 
-## Notes
+**Current Workflow**:
+1. Change event occurs (cancellation, reschedule, emergency)
+2. Assistant/partner manually identifies all affected or dependent meetings
+3. For each affected meeting, initiate individual rescheduling:
+   - Contact all participants
+   - Find new mutually available times
+   - Send new invites
+   - Confirm attendance
+4. Process repeated for each meeting in cascade (5-10+ meetings common)
+5. Takes 3-6 hours for significant cascades
+6. Some meetings may be missed or fall through cracks
 
-- This document focuses on **Phase 1 behavioral automation** - logistics handling without strategic context
-- **Phase 2-3 additions** (out of scope for now):
-  - Priority-based time allocation (Problem #4)
-  - Strategic meeting value assessment
-  - Learned preference optimization
-  - Buffer time and prep time intelligence (Problem #7)
-- All flows assume **calendar integration** (Google/Outlook) as baseline
-- **Phase 1 success** = eliminate coordination overhead, not optimize strategic value (that's Phase 2-3)
+**Current Challenges**:
+- Massive assistant time burden: 3-5 hours per cascade (Problem #5)
+- Manual identification of dependent meetings—some missed
+- Coordinating reschedules for 5-10+ meetings simultaneously
+- Late cancellations (<24hr) leave billable hour gaps that cannot be recovered (Problem #2)
+- Lost billable hours: $500-1000 per unfilled gap
+- Partner prep time wasted when client cancels last-minute
+- Case timeline delays impact client outcomes and satisfaction
+- Emergency situations (partner illness) require rescheduling entire day of meetings (8-12 meetings)
+- Client relationship damage from poor coordination experience
+- Assistant stress and burnout from crisis coordination
+- No systematic way to reallocate freed time to productive use
+- Revenue impact from delayed or missed billable opportunitiesפח

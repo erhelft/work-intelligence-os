@@ -72,7 +72,7 @@
 - **Revenue loss from scheduling errors**: Double-bookings, timezone mistakes, wrong attendees, late cancellations without recovery cause lost billable hours. Weekly occurrence per firm, $500-1000 per incident, compounds to $25K-50K annual revenue loss per firm from preventable errors.
 
 ### Secondary Problem
-**Legal assistant operational inefficiency consuming high-cost administrative hours that could be reallocated to higher-value work.**
+**Legal assistant operational inefficiency consuming high-cost administrative hours that could be reallocated to higher-value work or less EAs.**
 
 **Current state impacts**:
 - **Assistant coordination overhead**: 3-5 hours/week per partner calendar managed = $15K-30K annual cost for repetitive administrative work that could be automated. Firm with 20 partners and 5 assistants = 15-25 hrs/week total spent on scheduling coordination.
@@ -89,11 +89,10 @@
 - Can't fix with current tools because horizontal schedulers don't understand billable hours (treat all time equally) and legal assistants scale linearly (one assistant per 3-5 partners = $40-60K/year each)
 - At scale: 20 partners × $50K-250K recovery = $1M-5M annual value per firm
 
-**Our hypothesis**: Behavioral automation (Phase 1) that handles slot finding, conflict detection, self-service booking, and rescheduling logistics will recover 1-2 billable hours per partner per week.
-- Self-service booking links eliminate 80% of back-and-forth emails (save 15-30 min per meeting scheduled)
-- Automatic conflict detection prevents double-booking reschedule cascades (save 1-2 hrs/week)
-- Multi-party coordination finds overlapping availability automatically (save 2-3 hrs per complex meeting)
-- Value compounds: Every hour recovered = $500-1000 billable opportunity
+**Our hypothesis**: AI-powered calendar intelligence that eliminates coordination overhead will recover 1-2 billable hours per partner per week.
+- Automates client scheduling without email back-and-forth (saves 15-30 min per meeting)
+- Handles multi-party availability finding instantly (saves 2-3 hrs per complex meeting)
+- Prevents coordination cascades through real-time conflict detection
 
 **Business outcome**: 1-2 hours/week × 50 weeks × $500-1000/hr = $25K-100K revenue recovery per partner annually
 
@@ -107,11 +106,10 @@
 - Can't fix with current tools because manual processes have human error rate (assistant turnover loses institutional knowledge, partner self-management has no guardrails)
 - Multiply: Timezone errors, wrong attendee invites, late-notice cancellations without recovery add another $25K-50K annual loss
 
-**Our hypothesis**: Automated conflict detection, timezone handling, and real-time calendar syncing will eliminate coordination errors.
-- Free/busy checking prevents double-bookings (100% error elimination)
-- Automatic timezone conversion prevents wrong-time no-shows (100% error elimination)  
-- Cancellation alerts + automatic rescheduling suggestions recover 50%+ of late-cancel gaps
-- Error rate goes from weekly (human baseline) to <1 per 100 bookings (automated system)
+**Our hypothesis**: Intelligent scheduling constraints and real-time conflict resolution will eliminate coordination errors that cause lost billable hours.
+- Prevents double-bookings and timezone mistakes through automated conflict detection
+- Recovers 50%+ of late-cancellation gaps through proactive rescheduling
+- Reduces error rate from weekly occurrences to <1 per 100 bookings
 
 **Business outcome**: Eliminate $50K-100K annual revenue loss from coordination failures per firm
 
@@ -125,11 +123,10 @@
 - Can't fix with current tools because horizontal schedulers require too much configuration per meeting type and don't integrate with legal context (which client, which case, what meeting type)
 - Scale impact: As firms grow, assistant hiring scales linearly with partner count
 
-**Our hypothesis**: Self-service booking + automated rescheduling will reduce assistant coordination time by 60-80%.
-- Partners use booking links for client meetings (eliminates 80% of assistant back-and-forth)
-- Automated rescheduling handles cancellations without assistant intervention
-- Assistants focus on high-value work: complex multi-party coordination, client relationship management, case logistics
-- Efficiency gain lets each assistant manage more partners (4→6-7 partners per assistant)
+**Our hypothesis**: Automated coordination workflows will reduce assistant scheduling time by 60-80%, freeing capacity for strategic work.
+- Eliminates routine coordination overhead (client scheduling, simple reschedules)
+- Handles cascade rescheduling through intelligent dependency management
+- Enables each assistant to manage 6-7 partners instead of 4
 
 **Business outcome**: $10K-20K annual savings per assistant in freed capacity, or ability to scale firm without proportional assistant hiring
 
