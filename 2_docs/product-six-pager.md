@@ -1,7 +1,9 @@
 # One-Pager Template
 
 ## Purpose
-Quick context for any initiative: what you're building, why it matters, how to validate it, and decision criteria.
+Extensive context for new business, new products or major product offerings: what we're building, why it matters, how to validate it, and decision criteria.
+
+**DO NOT USE THIS FOR SMALL FEATURES OR INITIATIVE**
 
 ---
 
@@ -35,8 +37,8 @@ Quick context for any initiative: what you're building, why it matters, how to v
 - [What's broken about current state - business outcomes, not features]
 - [What trade-offs people make today - this reveals the gap]
 
-**Your new approach**:
-- [How you're different - not "better", but fundamentally different]
+**Our new approach**:
+- [How we're different - not "better", but fundamentally different]
 - [Why it's defensible - what makes this not easily copied]
 
 ### Why Now?
