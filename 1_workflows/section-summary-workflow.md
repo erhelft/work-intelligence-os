@@ -1,8 +1,24 @@
 # Workflow: Section Summary & Document Updates
 
 ## Input Required
-- Path to completed document
-- Phase name/number (if applicable)
+
+Before starting, answer these questions:
+
+**1. Which project does this completed work belong to?**
+- Intelligence OS strategy? (`4_work-intelligence-os/`)
+- Calendar for Law Firms execution? (`5_calendar-law-firms/`)
+- Other? (specify project folder)
+
+**2. Provide the file paths for the three tracking documents to update:**
+- One-pager path: _______________ (e.g., `4_work-intelligence-os/0_intelligence-one-pager.md`)
+- Masterplan path: _______________ (e.g., `4_work-intelligence-os/0_intelligence-masterplan.md`)
+- Assumptions path: _______________ (e.g., `4_work-intelligence-os/0_intelligence-assumptions.md`)
+
+**3. Path to completed document:** _______________
+
+**4. Phase name/number (if applicable):** _______________
+
+**Note**: This prompt-first approach prevents accidental updates to wrong files and allows flexibility for future projects.
 
 ---
 
@@ -32,9 +48,10 @@ For each insight:
 
 ## Step 2: Update One-Pager
 
-1. Search 0_one_pager.md for section headers (lines starting with ##)
-2. Identify where new section belongs based on content flow
-3. Add new section with one-pager summary from Step 1
+1. Open the **one-pager file path** you specified in Input Required
+2. Search for section headers (lines starting with ##)
+3. Identify where new section belongs based on content flow
+4. Add new section with one-pager summary from Step 1
 
 **CRITICAL RULE**: Only include insights/decisions that are **explicitly stated** in the source documents. Rephrase for clarity and investor audience, but NEVER synthesize new insights, sequences, or conclusions that weren't in the original docs. If something seems implied but wasn't explicitly written, do NOT include it.
 
@@ -44,9 +61,10 @@ For each insight:
 
 **If marking phase complete:**
 
-1. Search 0_the_masterplan.md for "PHASE [N]: [NAME]"
-2. Read that section only (use context around search result)
-3. Replace with completed phase format:
+1. Open the **masterplan file path** you specified in Input Required
+2. Search for "PHASE [N]: [NAME]"
+3. Read that section only (use context around search result)
+4. Replace with completed phase format:
 
 ```markdown
 ### PHASE [N]: [NAME]
@@ -65,8 +83,9 @@ For each insight:
 
 **If adding next phase outline:**
 
-1. Find where to insert (after last phase section)
-2. Add outline format:
+1. Open the **masterplan file path** you specified in Input Required
+2. Find where to insert (after last phase section)
+3. Add outline format:
 
 ```markdown
 ### PHASE [N]: [NAME]
@@ -89,9 +108,10 @@ For each insight:
 
 ## Step 4: Update Insights & Assumptions
 
-1. Search 0_assumptions_insights.md for "## [CATEGORY]" (Strategy/Product/GTM/Technical/Business Model)
-2. Within that category, find appropriate confidence level subsection (### High Confidence, ### Medium Confidence, ### Low Confidence)
-3. Append new insight to appropriate confidence subsection:
+1. Open the **assumptions file path** you specified in Input Required
+2. Search for "## [CATEGORY]" (Strategy/Product/GTM/Technical/Business Model)
+3. Within that category, find appropriate confidence level subsection (### High Confidence, ### Medium Confidence, ### Low Confidence)
+4. Append new insight to appropriate confidence subsection:
 
 ```markdown
 **[Insight statement]**
@@ -113,17 +133,20 @@ Signal: [what activity] ([when/timeline])
 
 ## Anti-Patterns (Don't Do This)
 
-❌ "Read the entire 0_the_masterplan.md and rewrite it with updates"
-✅ "Search for PHASE [N] in 0_the_masterplan.md, read that section only, update it"
+❌ "Read the entire masterplan and rewrite it with updates"
+✅ "Search for PHASE [N] in the specified masterplan file, read that section only, update it"
 
-❌ "Read all of 0_assumptions_insights.md and add new ones"
-✅ "Search for ## [Category] in 0_assumptions_insights.md, read that section, append new insight"
+❌ "Read all of assumptions file and add new ones"
+✅ "Search for ## [Category] in the specified assumptions file, read that section, append new insight"
 
-❌ "Review full 0_one_pager.md to decide where new section goes"
+❌ "Review full one-pager to decide where new section goes"
 ✅ "Read section headers only (lines with ##), identify placement, insert"
 
 ❌ "Re-read completed doc multiple times while updating each file"
 ✅ "Extract everything needed once in Step 1, then use that extraction for all updates"
+
+❌ "Update wrong project's files (Intelligence vs Calendar)"
+✅ "Answer Input Required questions first, then use those specified paths for all updates"
 
 ---
 
