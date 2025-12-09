@@ -4,7 +4,7 @@
 
 **The Problem**: Law firm partners lose 2-5 hours per week to scheduling coordination—high-value lawyers at $500-1000/hr billing rates doing administrative work that should be automated. Beyond time waste, coordination errors (double-bookings, timezone confusion, wrong attendees), late client cancellations, and poor time allocation result in lost billable hours worth $125K-250K annually per partner. The pain is quantifiable, universal across firms, and directly impacts P&L, yet no one has built calendar intelligence specifically for professional services where time literally equals money.
 
-**The Opportunity**: We're building Phase 1 behavioral calendar automation for law firms—automated scheduling logistics that recovers 1-2 billable hours per partner per week while establishing the data foundation for future context-aware and strategic intelligence. This is the #1 ranked business combination (63/70) out of 9 evaluated across three verticals and three use cases. Billable hours create perfect ROI attribution, enabling premium pricing ($75-150/user vs. $10-20 horizontal market). 25-30 meetings per week per partner generates massive learning data, and calendar patterns reveal firm priorities—the foundation for Phase 3 strategic intelligence.
+**The Opportunity**: We're building Phase 1 behavioral calendar automation for law firms—entering through legal assistant productivity (60-80% time savings) to establish operational trust and data foundation, then expanding to partner self-scheduling and billable hour optimization. This staged approach overcomes the penetration difficulty of law firms (prove tactical value before claiming strategic value) while building toward context-aware and strategic intelligence. Law firms' 25-30 meetings per week per partner generates massive learning data, and established procurement patterns ($50-100/user for practice management systems) enable premium pricing expansion ($75-150/user) once billable hour ROI is proven in Phase 2.
 
 **Why This Works**: $17B legal tech market with established buying patterns for productivity tools. Law firms have clear manual infrastructure (legal assistants managing calendars) to learn from, perfect business attribution (billable hours = measurable revenue), and premium pricing tolerance because time savings convert directly to dollars. Unlike tech companies' interconnected operations, law firms' case-based work offers bounded context that makes pattern learning tractable in Phase 2-3.
 
@@ -52,6 +52,28 @@
 - Strategic lock-in (Phase 3): Understanding firm priorities and resource allocation is existential like losing executive coach
 - Vertical focus: Deep legal workflows integration creates switching costs horizontal tools can't match
 
+### Positioning Evolution (Trojan Horse Strategy)
+
+**Phase 1 Entry Positioning: "Smart Scheduling for Law Firms"**
+- **Message to Head of Operations**: "Reduce EA scheduling coordination time by 60-80% with legal workflow automation designed for law firm operations"
+- **Differentiation vs. competitors**: Legal-specific workflows (depositions, court dates, multi-party coordination, case context) vs. horizontal tools like Calendly that treat all meetings identically
+- **NOT emphasizing yet**: Billable hour optimization, strategic intelligence, revenue impact (too early—no trust established, no data collected, no operational proof)
+- **Value proof needed**: EA time savings, coordination error elimination, partner adoption among self-schedulers, operational reliability
+- **Pricing rationale**: $3K-5K/month justified by EA productivity gains (avoid comparisons to Calendly's $10/user consumer pricing)
+
+**Phase 2 Expansion Positioning: "Calendar Intelligence for Professional Services"**
+- **Message to Practice Manager**: "Optimize billable hour allocation and recover $1M-5M annually in lost partner time through intelligent calendar management that understands your business model"
+- **Differentiation vs. competitors**: ROI attribution through billable hours, practice management integration for case priority context, revenue protection through intelligent scheduling, strategic time allocation insights
+- **Enabled by**: 6+ months of calendar pattern data, proven EA and partner adoption creating trust, practice management API integration providing case context
+- **Value proof available**: Billable hour recovery metrics, revenue protection from prevented errors, priority-based time allocation, firm-level strategic insights
+- **Pricing rationale**: $5K-10K/month (or $75-150/user) justified by measurable revenue impact and strategic value
+
+**Why staged positioning works**:
+- **Trust before strategy**: Prove tactical value (EA efficiency) before claiming strategic value (revenue optimization). Law firms won't believe billable hour claims from unknown vendor.
+- **Data before intelligence**: Need 6+ months of scheduling patterns to deliver billable hour insights credibly. Can't claim "intelligent optimization" with no historical data.
+- **Adoption before monetization**: EA + partner usage creates network effects and switching costs before justifying premium pricing. Operational lock-in enables strategic upsell.
+- **Penetration over positioning**: Law firms are hard to penetrate. "Better EA tool" gets in the door; "strategic revenue optimization" gets stalled in evaluation. Enter humble, expand bold.
+
 ### Why Now?
 1. **Technology unlock**: LLM-based context understanding makes Phase 2-3 strategic intelligence feasible. Previously, pattern recognition required manual rule configuration. Now, systems can learn scheduling preferences, understand meeting importance signals, and eventually grasp strategic context from unstructured data (emails, meeting notes, strategic documents).
 
@@ -79,43 +101,11 @@
 
 - **Cascade rescheduling burden**: When one meeting changes, assistants spend 3-5 hours coordinating dependent meeting changes. Monthly occurrence, impacts case timelines and client relationships while diverting assistants from strategic work.
 
-### Value Streams (Priority Order)
+### Value Streams (Ordered by GTM Phase, Not Strategic Importance)
 
-#### 1. Partner Time Recovery - Immediate Billable Hour Impact
-**Addresses**: Problems #3 (partner coordination time), #6 (multi-party coordination), #8 (undocumented preferences)
+**Note**: While Partner Time Recovery represents the highest strategic value and revenue impact ($1M-5M per firm), we enter the market through Legal Assistant Productivity because it's the accessible penetration point. The ordering below reflects our go-to-market sequence, not the ultimate business value.
 
-**Current state - Business impact**: Partners spend 2-5 hours/week on scheduling logistics that could be billable client work.
-- Specific example: 50-person firm, 20 partners, 3 hrs/week average = 60 hrs/week = $30K-60K/week = $1.5M-3M annually lost to coordination overhead
-- Can't fix with current tools because horizontal schedulers don't understand billable hours (treat all time equally) and legal assistants scale linearly (one assistant per 3-5 partners = $40-60K/year each)
-- At scale: 20 partners × $50K-250K recovery = $1M-5M annual value per firm
-
-**Our hypothesis**: AI-powered calendar intelligence that eliminates coordination overhead will recover 1-2 billable hours per partner per week.
-- Automates client scheduling without email back-and-forth (saves 15-30 min per meeting)
-- Handles multi-party availability finding instantly (saves 2-3 hrs per complex meeting)
-- Prevents coordination cascades through real-time conflict detection
-
-**Business outcome**: 1-2 hours/week × 50 weeks × $500-1000/hr = $25K-100K revenue recovery per partner annually
-
-**Proof point**: Time tracking integration with 10 design partner firms over 90 days. Measure: meetings scheduled, coordination time pre/post, billable hours increase week-over-week.
-
-#### 2. Revenue Protection - Coordination Error Elimination
-**Addresses**: Problems #1 (coordination errors), #2 (late cancellations), #5 (cascade rescheduling delays)
-
-**Current state - Business impact**: Scheduling mistakes cause lost billable hours weekly.
-- Specific example: Partner double-booked, realizes conflict day-of, cancels on client = lost $1000 billable hour + client relationship damage. Weekly occurrence across 20-partner firm = $50K annual revenue loss from preventable errors.
-- Can't fix with current tools because manual processes have human error rate (assistant turnover loses institutional knowledge, partner self-management has no guardrails)
-- Multiply: Timezone errors, wrong attendee invites, late-notice cancellations without recovery add another $25K-50K annual loss
-
-**Our hypothesis**: Intelligent scheduling constraints and real-time conflict resolution will eliminate coordination errors that cause lost billable hours.
-- Prevents double-bookings and timezone mistakes through automated conflict detection
-- Recovers 50%+ of late-cancellation gaps through proactive rescheduling
-- Reduces error rate from weekly occurrences to <1 per 100 bookings
-
-**Business outcome**: Eliminate $50K-100K annual revenue loss from coordination failures per firm
-
-**Proof point**: Track error incidents (double-bookings, timezone mistakes, late-cancel recovery rate) pre/post over 90 days with design partners. Target: Zero critical errors, 80%+ late-cancel recovery.
-
-#### 3. Legal Assistant Productivity - Operational Efficiency
+#### 1. Legal Assistant Productivity - Entry Wedge (Phase 1, Months 1-3)
 **Addresses**: Problems #5 (cascade rescheduling), #6 (multi-party coordination), #8 (preference knowledge loss)
 
 **Current state - Business impact**: Legal assistants spend 3-5 hours/week per partner calendar managed on scheduling coordination.
@@ -131,6 +121,49 @@
 **Business outcome**: $10K-20K annual savings per assistant in freed capacity, or ability to scale firm without proportional assistant hiring
 
 **Proof point**: Survey assistants weekly on time spent coordinating vs. other work. Track booking volume handled automatically vs. requiring assistant intervention. Target: 60%+ reduction in manual coordination time.
+
+**GTM role**: **PRIMARY ENTRY VALUE** - Sold to Head of Operations to prove operational efficiency. Establishes product adoption, trust foundation, and data collection. Must succeed here or product fails at entry.
+
+#### 2. Partner Time Recovery - Expansion A (Phase 1, Months 3-6)
+**Addresses**: Problems #3 (partner coordination time), #6 (multi-party coordination), #8 (undocumented preferences)
+
+**Current state - Business impact**: Partners spend 2-5 hours/week on scheduling logistics that could be billable client work.
+- Specific example: 50-person firm, 20 partners, 3 hrs/week average = 60 hrs/week = $30K-60K/week = $1.5M-3M annually lost to coordination overhead
+- Can't fix with current tools because horizontal schedulers don't understand billable hours (treat all time equally) and legal assistants scale linearly (one assistant per 3-5 partners = $40-60K/year each)
+- At scale: 20 partners × $50K-250K recovery = $1M-5M annual value per firm
+
+**Our hypothesis**: Partners see EAs using the system successfully and want self-service access. AI-powered calendar intelligence that eliminates coordination overhead will recover 1-2 billable hours per partner per week.
+- Automates client scheduling without email back-and-forth (saves 15-30 min per meeting)
+- Handles multi-party availability finding instantly (saves 2-3 hrs per complex meeting)
+- Prevents coordination cascades through real-time conflict detection
+- Partners without dedicated EA support can self-manage with same efficiency
+
+**Business outcome**: 1-2 hours/week × 50 weeks × $500-1000/hr = $25K-100K revenue recovery per partner annually
+
+**Proof point**: Partner adoption rate after EA rollout. Self-service booking usage by partners without EAs. Time tracking integration showing coordination time reduction.
+
+**GTM role**: **USER BASE EXPANSION** - Creates network effects, increases data volume for Phase 2, builds partner champions for strategic purchase. This is where the highest strategic value begins materializing, but requires EA foundation first.
+
+#### 3. Revenue Protection - Expansion B (Phase 2, Months 6+)
+**Addresses**: Problems #1 (coordination errors), #2 (late cancellations), #4 (priority-blind scheduling)
+
+**Current state - Business impact**: Scheduling mistakes cause lost billable hours weekly.
+- Specific example: Partner double-booked, realizes conflict day-of, cancels on client = lost $1000 billable hour + client relationship damage. Weekly occurrence across 20-partner firm = $50K annual revenue loss from preventable errors.
+- Can't fix with current tools because manual processes have human error rate (assistant turnover loses institutional knowledge, partner self-management has no guardrails)
+- Multiply: Timezone errors, wrong attendee invites, late-notice cancellations without recovery add another $25K-50K annual loss
+- Problem #4 (priority-blind scheduling) requires context-aware intelligence to understand case urgency and client value
+
+**Our hypothesis**: Intelligent scheduling constraints and real-time conflict resolution will eliminate coordination errors. With 6+ months of calendar data + practice management integration, system can optimize for billable hour value.
+- Prevents double-bookings and timezone mistakes through automated conflict detection
+- Recovers 50%+ of late-cancellation gaps through proactive rescheduling with next-priority client
+- Reduces error rate from weekly occurrences to <1 per 100 bookings
+- Priority-aware scheduling: high-value clients get optimal time slots, urgent cases get protected time
+
+**Business outcome**: Eliminate $50K-100K annual revenue loss from coordination failures per firm; optimize time allocation for revenue maximization
+
+**Proof point**: Track error incidents (double-bookings, timezone mistakes, late-cancel recovery rate) pre/post over 90 days with design partners. Target: Zero critical errors, 80%+ late-cancel recovery. Phase 2: Measure billable hour optimization through case priority matching.
+
+**GTM role**: **STRATEGIC VALUE UNLOCK** - With 6+ months of calendar data + practice management integration, introduce billable hour optimization intelligence. Converts operational tool into revenue intelligence platform. Enables Practice Manager economic buyer engagement and premium pricing justification.
 
 #### 4. Strategic Time Allocation - OUT OF SCOPE (Phase 2+)
 **Would address**: Problems #4 (priority-blind scheduling), #7 (insufficient buffer time)
@@ -159,18 +192,41 @@ These problems require context-aware intelligence (Phase 2) and strategic unders
 - **Mid/large firms (50-200 attorneys)**: Legal assistants managing multiple partner calendars, seeking efficiency improvements
 - **Practice area specialization**: Litigation-focused firms with high meeting density (depositions, court dates, client meetings) vs. transactional practices
 
-**Buyer persona** (Primary):
+### Buyer Personas (Sequential GTM)
+
+**Phase 1 Entry Buyer:**
+- **Title**: Head of Operations / EA Manager / Office Administrator
+- **Pain**: "My legal assistants spend 15-25 hours/week on manual scheduling coordination across multiple partner calendars. I need to improve their productivity without adding headcount. EAs are overwhelmed, and I can't justify hiring more."
+- **Budget**: $3K-5K monthly from operational efficiency budget. Already paying for productivity tools (practice management systems at $50-100/user).
+- **Decision criteria**: EA adoption and satisfaction, measurable time savings per EA (60%+ reduction), minimal training required, doesn't disrupt existing workflows, integrates with current calendars (Google/Outlook).
+- **Success proof**: 60-80% reduction in EA scheduling time within 60 days. If EAs don't use it or don't save time, won't renew.
+
+**Phase 2 Expansion Buyer (After 6+ months operational proof):**
 - **Title**: Practice Manager / Firm Administrator / Director of Operations
-- **Pain**: "Partners complain about scheduling chaos, clients complain about difficulty getting meetings, we're losing billable hours to coordination overhead. Need to prove ROI on any tool purchase."
-- **Budget**: $3K-10K monthly for firm-wide tools justified by partner productivity or revenue impact. Legal tech budget exists (already paying $50-100/user/month for practice management).
-- **Decision criteria**: Needs measurable ROI (billable hours recovered), partner adoption proof (won't pay for unused tools), integration with existing systems (Google/Outlook calendars, ideally Clio/MyCase integration roadmap).
+- **Pain**: "Partners complaining about coordination chaos, billable hours lost to scheduling overhead, revenue leakage from errors. Need measurable ROI on firm-wide strategic tools, not just operational efficiency."
+- **Budget**: $5K-10K monthly justified by revenue impact (billable hour recovery). Legal tech strategic budget (separate from operational tools).
+- **Decision criteria**: Proven EA and partner adoption, measurable billable hour recovery (1-2 hrs/week per partner), firm-wide value creation, integration roadmap with practice management systems (Clio/MyCase for case context).
+- **Success proof**: 1-2 billable hours recovered per partner per week. Firm-wide ROI in billable hour improvement and revenue protection.
 
-**Economic buyers** (Influencers with budget):
-- **Partners (especially senior/managing partners)**: Care about personal time recovery ("I spend too much time on email") and firm profitability. Will champion if they experience value directly. Need to see 1-2 hours/week savings quantified.
-- **Legal Assistants / Secretaries**: Care about workflow efficiency and not being overwhelmed managing multiple partner calendars. Will champion if tool makes their job easier, resist if seen as replacement threat. Need to position as "assistant augmentation" not "assistant replacement."
-- **Billing/Finance Director**: Cares about revenue impact and utilization rates. Will champion if billable hour metrics improve measurably. Need to show realization rate improvement or billable hour increase per partner.
+### Economic Influencers
 
-**Why multi-stakeholder is strength**: Different stakeholders quantify different pain—partners see time waste, assistants see coordination burden, finance sees revenue loss. Product delivers value to all three, creating multiple champions. If practice manager stalls, partner can escalate; if assistant resists, finance director justifies based on ROI. Multiple paths to yes.
+**Phase 1 Influencers:**
+- **Legal Assistants / Secretaries**: Must champion in Phase 1 or product fails. Care about workflow efficiency and not being overwhelmed. Will champion if tool makes their job easier, resist if seen as replacement threat. Position as "assistant augmentation" not "assistant replacement."
+- **Partners without dedicated EAs**: Early adopters for self-scheduling once EAs prove value. Create grassroots demand ("I want access too"). Care about personal time recovery from coordination overhead.
+
+**Phase 2 Influencers:**
+- **Partners (especially senior/managing partners)**: Care about firm profitability and personal time recovery. Will champion expansion if they experience value directly. Need to see 1-2 hours/week savings quantified in billable terms.
+- **Billing/Finance Director**: Becomes relevant in Phase 2 when presenting billable hour optimization case. Cares about revenue impact and utilization rates. Will champion if billable hour metrics improve measurably (realization rate improvement, billable hour increase per partner).
+
+### Sequential Value Expansion Strategy
+
+Different stakeholders quantify different pain—EAs see coordination burden, partners see time waste, finance sees revenue loss. We don't sell to all simultaneously; we sell sequentially:
+
+1. **Entry**: Head of Operations buys on EA productivity. If EAs don't adopt, product fails here.
+2. **Expansion A**: Partners without EAs see success and demand self-service access. Usage base grows, data accumulates.
+3. **Expansion B**: With 6+ months of data and proven adoption, Practice Manager buys strategic upgrade on billable hour ROI. Finance Director validates revenue impact.
+
+Each expansion builds on previous adoption. Multiple champions emerge at each stage, but forcing strategic conversation too early (before operational proof) creates friction.
 
 ---
 
@@ -247,29 +303,53 @@ These problems require context-aware intelligence (Phase 2) and strategic unders
 
 ## Success Metrics
 
-**Strategic note**: Multi-dimensional proof across three stakeholders (partners, assistants, leadership) validates category positioning. Single metric (e.g., "meetings scheduled") would commoditize to Calendly comparison. Three dimensions create category: time recovery + error elimination + strategic data foundation.
+**Strategic note**: Success metrics are phased to match GTM strategy. Phase 1 (first 90 days) focuses on operational proof that unlocks entry and expansion. Phase 2 (months 6-12) focuses on strategic value that justifies premium positioning. Attempting to prove billable hour recovery too early would fail because we haven't established trust, data foundation, or adoption base.
 
-### Primary Metrics (Prove in 90 days with 10 design partners)
+### Phase 1 Entry Validation (First 90 days with 10 design partners)
 
-**1. Billable Hour Recovery** (Partners)
-- **Target**: 1-2 hours/week recovered per partner, measured via time tracking integration
-- **Measurement**: Pre/post comparison of time spent on "scheduling coordination" category in time tracking; partner self-reported weekly survey; meetings scheduled automatically vs. manually
-- **Why this proves value**: Direct revenue impact at $500-1000/hr billing rates. Proves premium pricing justification ($75-150/user creates ROI payback in <1 month per partner).
-
-**2. Coordination Error Elimination** (Revenue Protection)
-- **Target**: Zero critical errors (double-bookings, timezone mistakes); 80%+ late-cancellation gap recovery
-- **Measurement**: Track incidents reported by partners/clients; monitor calendar conflicts caught/prevented; measure time between cancellation and successful rescheduling
-- **Why this validates**: Proves reliability required for professional context. One double-booking with high-value client risks six-figure relationship. Error elimination is table stakes for legal workflows.
-
-**3. Assistant Time Savings** (Operational Efficiency)
+**1. Assistant Time Savings** (PRIMARY ENTRY METRIC)
 - **Target**: 60-80% reduction in manual coordination time for legal assistants
-- **Measurement**: Weekly time log surveys of assistants (hours spent on scheduling vs. other work); booking volume handled automatically vs. requiring assistant intervention
-- **Why this validates**: Proves operational leverage—firms can scale without linear assistant hiring. Also validates assistant adoption (if they don't use it, partners won't either).
+- **Measurement**: Weekly time log surveys of assistants (hours spent on scheduling vs. other work); booking volume handled automatically vs. requiring assistant intervention; assistant satisfaction scores
+- **Why this proves value**: Validates operational buyer (Head of Operations) value proposition. If EAs don't adopt, don't save time, or aren't satisfied, product fails at entry point. No EA success = no firm access = no expansion opportunity.
+- **Success threshold**: Must achieve 60%+ time savings within 60 days or we've failed product-market fit for entry wedge.
 
-**4. Usage & Adoption** (Product-Market Fit Signal)
-- **Target**: 70%+ of partners actively using within 60 days; 80%+ retention at 90 days
-- **Measurement**: Weekly active users, booking links shared, self-service bookings completed, retention cohorts
-- **Why this validates**: High adoption proves value is real and sustained, not novelty effect. 70%+ adoption within firm creates network effect (clients expect this booking experience from all partners).
+**2. EA & Partner Adoption** (Product-Market Fit Signal)
+- **Target**: 80%+ EA active usage within 30 days; 40%+ of self-scheduling partners using within 90 days
+- **Measurement**: Weekly active users (EAs and partners separately), booking links shared, self-service bookings completed by EAs vs. partners, usage frequency
+- **Why this validates**: Proves product stickiness and expansion potential. EA adoption is mandatory for entry. Partner adoption signals natural expansion opportunity (Expansion A). High partner adoption means we can grow user base and data volume for Phase 2.
+- **Success threshold**: 80%+ EA adoption is pass/fail. 40%+ partner adoption proves expansion potential exists.
+
+**3. Coordination Error Elimination** (Reliability Proof)
+- **Target**: Zero critical errors (double-bookings, timezone mistakes that cause meeting failures); 80%+ late-cancellation gap recovery
+- **Measurement**: Incident tracking (errors reported by partners/clients), conflict prevention (automated catches), rescheduling success rate, client complaints
+- **Why this validates**: Proves reliability required for professional context. One double-booking with high-value client risks six-figure relationship. Error elimination is table stakes for legal workflows. Without this, can't expand to billable hour optimization.
+- **Success threshold**: Zero critical errors in 90 days. Any major scheduling failure undermines trust required for strategic expansion.
+
+**4. Data Foundation Capture** (Phase 2 Enablement)
+- **Target**: 100% of scheduling decisions captured with metadata (meeting types, attendee patterns, cancellation reasons, time preferences, case associations)
+- **Measurement**: Data completeness audit (% of bookings with full metadata), pattern recognition capability testing (can system identify VIP clients, urgent cases, partner preferences?)
+- **Why this validates**: Proves Phase 2 readiness. Without rich behavioral data, can't deliver billable hour intelligence in expansion. This metric ensures we're building foundation for strategic value, not just tactical tool.
+- **Success threshold**: 90%+ data completeness. If we're not capturing patterns, we can't learn from them.
+
+### Phase 2 Expansion Validation (Months 6-12, with established EA user base)
+
+**1. Billable Hour Recovery** (Partners) - STRATEGIC VALUE PROOF
+- **Target**: 1-2 hours/week recovered per self-scheduling partner
+- **Measurement**: Time tracking integration showing coordination time reduction; partner self-reported weekly surveys; comparison of manual coordination time pre/post adoption
+- **Why this proves value**: Justifies premium pricing ($75-150/user) and Practice Manager economic buyer engagement. Direct revenue impact at $500-1000/hr billing rates. This is where strategic value materializes.
+- **Monetization impact**: This metric converts operational tool into strategic platform. Enables upsell conversation with Practice Manager on billable hour ROI.
+
+**2. Revenue Protection** (Firm-wide) - ECONOMIC BUYER VALUE
+- **Target**: Eliminate 90%+ of revenue loss from coordination failures; measure priority-based scheduling impact on high-value client satisfaction
+- **Measurement**: Reduced double-booking incidents, late-cancel recovery rate with next-priority client, prevented conflicts caught proactively, high-value client meeting optimization
+- **Why this validates**: Quantifies firm-level ROI for Practice Manager strategic buyer conversation. Moves beyond "EA efficiency" to "firm revenue optimization."
+- **Monetization impact**: Firm-level revenue protection justifies premium pricing at organizational level, not just per-user.
+
+**3. Practice Management Integration Usage** (Strategic Platform Proof)
+- **Target**: 60%+ of firms using calendar + case context integration (Phase 2 capability)
+- **Measurement**: API usage with practice management systems, case-calendar linking adoption, priority-based scheduling based on case urgency/value
+- **Why this validates**: Proves transition from operational tool to strategic intelligence platform. Integration with case context enables billable hour optimization and priority-aware scheduling. This is category differentiation.
+- **Strategic impact**: Integration creates switching costs horizontal tools can't match. Positions for Phase 3 strategic intelligence.
 
 ---
 
