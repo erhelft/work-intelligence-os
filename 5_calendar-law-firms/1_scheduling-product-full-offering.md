@@ -278,5 +278,4 @@ We're building vertical-specific calendar intelligence that understands billable
 - Moat compounds: Phase 1 logistics → Phase 2 workflow lock-in → Phase 3 strategic alignment creates existential switching cost
 
 **Decision philosophy**:
-Lean validation with clear success criteria. 20-30 discovery interviews validate pain. Technical spike proves feasibility. 10 design partners prove willingness to pay and measurable value within 90 days. Multi-dimensional proof across partners (time recovery) + assistants (efficiency) + leadership (ROI) validates category positioning beyond commodity scheduling.
-
+Lean validation with clear success criteria. 20-30 discovery interviews validate pain. Technical spike proves feasibility. 10 design partners prove willingness to pay and measurable value within 90 days. Multi-dimensional proof across partners (time recovery) + assistants (efficiency) + leadership (ROI) validates category positioning beyond commodity scheduling
