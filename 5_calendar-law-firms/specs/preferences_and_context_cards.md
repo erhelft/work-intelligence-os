@@ -309,16 +309,115 @@ This document defines the user-facing preferences and context collection interfa
 
 ---
 
-## **CATEGORY 3: RELATIONAL CONTEXT**
+## **CATEGORY 3: DYNAMIC CONTEXT & PRIORITIES**
 
-**Status:** Not included in V1 - Future development
+**Tab Name:** CONTEXT & PRIORITIES  
+**Tab Description:** What's happening right now
+
+---
+
+### **Card 1: Upcoming Deadlines**
+
+**Title:** Upcoming Deadlines  
+**Subheader:** What critical deadlines need protected time? Court dates, filings, closings.
+
+**Data to Collect:**
+- Hard deadlines in next 30-90 days (court dates, filing deadlines, deal closings)
+- Work time needed before each deadline
+- Meetings or events tied to specific deadlines
+
+**Smart Default:** Empty - sync from practice management or add manually
+
+**UI Layout Option 1: Timeline View**
+- Visual timeline showing next 90 days
+- Deadlines plotted as pins/markers with countdown
+- Click to add: Deadline name, date, related matter, prep time needed
+- Auto-suggest work blocks before deadline
+- Color-coded by urgency: Red (< 7 days), Yellow (7-30 days), Green (30+ days)
+
+**UI Layout Option 2: List with Countdown**
+- List view: Deadline name | Date | Days remaining | Matter | Prep time
+- Sort by: Soonest / Matter / Date added
+- "Add deadline" button
+- Integration sync from practice management system
+- Each deadline shows: Protected time blocks automatically created
+
+---
+
+### **Card 2: Out-of-Office**
+
+**Title:** Out-of-Office  
+**Subheader:** When are you unavailable? Vacation, travel, or personal time off.
+
+**Data to Collect:**
+- Planned vacation and time off
+- Business travel with limited/no availability
+- Personal leave or unavailable periods
+
+**Smart Default:** Auto-detected from OOO calendar blocks (user confirms)
+
+**UI Layout Option 1: Calendar Picker with List**
+- Mini calendar showing upcoming months
+- Click dates to mark OOO (click-drag for ranges)
+- List below: Upcoming OOO periods with dates
+- Toggle: "Block all meetings" vs "Limited availability"
+- Note type: Vacation / Business travel / Personal leave
+- Auto-detected OOO blocks shown with "Confirm" button
+
+**UI Layout Option 2: Simple Date Range Form**
+- "Add out-of-office period" button
+- Form: Start date, end date, type (Vacation / Travel / Personal)
+- "Completely unavailable" toggle (blocks all meetings)
+- List of upcoming OOO periods
+- Auto-sync from calendar OOO events
+- Note: "No meetings will be scheduled during these periods"
+
+---
+
+### **Card 3: Temporary Changes**
+
+**Title:** Temporary Schedule Changes  
+**Subheader:** Any short-term adjustments? Remote days, hour changes, format restrictions.
+
+**Data to Collect:**
+- Short-term remote work periods
+- Temporary hour changes
+- Limited-time format restrictions
+
+**Smart Default:** Empty - user adds as needed
+
+**UI Layout Option 1: Quick Override Form**
+- "Add temporary change" button
+- Type selector: Hours / Location / Format
+- Date range picker (start/end)
+- Specific change: 
+  - Hours: Modified start/end times
+  - Location: Force remote or force office
+  - Format: In-person only / Video only
+- List of active temporary changes with end dates
+- Auto-expire when end date passes
+
+**UI Layout Option 2: Override Cards**
+- Card-based interface for each type
+- "Hours Override" card: "Working 9am-3pm only" + date range
+- "Location Override" card: "Remote all week" + date range
+- "Format Override" card: "In-person meetings only" + date range
+- Each shows remaining days: "3 days remaining"
+- Quick remove option
+- Note: "These override your normal preferences temporarily"
+
+---
+
+## **CATEGORY 4: RELATIONAL CONTEXT**
+
+**Status:** Not included in V1 - Too sensitive for initial release
 
 This category will cover:
 - Who can't meet together (conflicts of interest, ethical walls)
 - Who needs special scheduling considerations
 - External contact scheduling preferences
 
-To be developed in a future iteration.
+To be developed in a future iteration after V1.
 
 ---
 

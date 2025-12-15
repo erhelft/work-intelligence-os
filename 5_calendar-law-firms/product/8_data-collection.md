@@ -188,64 +188,9 @@ Identifies time that's already committed and unavailable for new meetings - calc
 
 ---
 
-## 4. CURRENT PRIORITIES — What am I optimizing for right now?
+## 3. DYNAMIC CONTEXT & PRIORITIES — What's happening right now?
 
-### 1. What's my focus this period?
-
-**Scheduling Impact:**
-Determines which types of meetings should be prioritized or limited right now based on current goals - helps the system understand what to optimize for during this time period.
-
-**Key Data Points:**
-- Current focus areas (e.g., "trial preparation," "closing deals," "business development")
-- Time period for this focus (this week, this month, this quarter)
-- What should be prioritized in scheduling (more client meetings, more focus time, more internal collaboration)
-
-**Collection Method:**
-- **Primary:** User explicitly sets current focus and time period
-- **Secondary:** Detect changes in calendar patterns (e.g., sudden increase in specific meeting types)
-- **Smart Default:** No focus assumed - user must explicitly set current priorities
-
----
-
-### 2. What's urgent right now?
-
-**Scheduling Impact:**
-Identifies matters or tasks that should take precedence over normal scheduling rules - enables emergency or high-priority scheduling when needed.
-
-**Key Data Points:**
-- Urgent matters or clients requiring immediate attention
-- Critical deadlines in the next 1-2 weeks
-- Time-sensitive issues overriding normal limits
-
-**Collection Method:**
-- **Primary:** User explicitly flags urgent matters or deadlines
-- **Secondary:** Detect approaching hard deadlines from matters or calendar
-- **Tertiary:** Integration with task/matter management systems showing priority levels
-- **Smart Default:** Empty - no urgency assumed unless explicitly marked
-
----
-
-### 3. What relationships need attention?
-
-**Scheduling Impact:**
-Identifies people or clients who should proactively get meeting time scheduled - ensures important relationships don't get neglected during busy periods.
-
-**Key Data Points:**
-- Clients needing regular check-ins or relationship maintenance
-- Internal relationships to nurture (mentorship, collaboration, networking)
-- Contacts who haven't been met with recently
-
-**Collection Method:**
-- **Primary:** User explicitly identifies relationships needing attention
-- **Secondary:** Analyze calendar gaps - identify VIP clients or key contacts without recent meetings
-- **Tertiary:** Reminder prompts based on time since last meeting with key relationships
-- **Smart Default:** Empty - user must explicitly identify relationships needing focus
-
----
-
-## 5. CURRENT SITUATION — What's true right now?
-
-### 1. What are my hard deadlines?
+### 1. Upcoming Deadlines
 
 **Scheduling Impact:**
 Identifies immovable deadlines that require protected time and backward scheduling - ensures critical deadline work doesn't get crowded out by meetings.
@@ -263,59 +208,42 @@ Identifies immovable deadlines that require protected time and backward scheduli
 
 ---
 
-### 2. What's my current capacity?
+### 2. Upcoming Out-of-Office
 
 **Scheduling Impact:**
-Determines whether new meeting requests should be accepted or if calendar is at/over capacity - provides real-time availability assessment.
+Blocks all meeting requests during unavailable periods - ensures no meetings are scheduled when user is on vacation, traveling, or otherwise unavailable.
 
 **Key Data Points:**
-- Current meeting load vs. ideal limits
-- Available meeting slots this week/next week
-- Overbooked periods requiring triage
+- Planned vacation and time off
+- Business travel with limited/no availability
+- Personal leave or unavailable periods
 
 **Collection Method:**
-- **Primary:** Automatic calculation based on current calendar vs. meeting limits (from Section 1.3)
-- **Secondary:** User manually adjusts capacity perception (e.g., "I'm overloaded this week")
-- **Smart Default:** Auto-calculated from calendar density and defined limits
+- **Primary:** Calendar OOO blocks and events marked as "out of office"
+- **Secondary:** User manually adds upcoming OOO periods with dates
+- **Tertiary:** Integration with HR/PTO systems
+- **Smart Default:** Empty - user must explicitly mark OOO periods
 
 ---
 
-### 3. What temporary constraints am I operating under?
+### 3. Temporary Schedule Changes
 
 **Scheduling Impact:**
-Identifies short-term limitations that should affect scheduling but aren't permanent - ensures scheduling adapts to temporary situations.
+Adjusts availability, meeting format, or location defaults temporarily for short-term situations - ensures scheduling adapts to temporary patterns.
 
 **Key Data Points:**
-- Temporary schedule changes (travel, remote work, reduced hours)
-- Short-term availability restrictions (family obligation, medical, personal)
-- Limited-time format restrictions (in-office required this week, virtual-only next week)
+- Short-term remote work periods (e.g., "working from home all next week")
+- Temporary hour changes (e.g., "short days this week, 9am-3pm only")
+- Limited-time format restrictions (e.g., "in-office meetings only this week")
 
 **Collection Method:**
-- **Primary:** User explicitly adds temporary constraints with start/end dates
-- **Secondary:** Detect calendar blocks marked as OOO, travel, or temporary holds
-- **Smart Default:** Empty - user must explicitly define temporary constraints
+- **Primary:** User explicitly adds temporary changes with start/end dates
+- **Secondary:** Detect patterns in calendar (e.g., all meetings marked remote for a specific week)
+- **Smart Default:** Empty - user must explicitly define temporary changes
 
 ---
 
-### 4. What just changed?
-
-**Scheduling Impact:**
-Captures recent changes that should trigger calendar adjustments or rescheduling - ensures the system stays current with evolving situations.
-
-**Key Data Points:**
-- Recently added urgent matters or deadlines
-- Sudden availability changes (meeting cancelled, freed up time)
-- New priorities or focus shifts
-- Team changes (someone left, new team member added)
-
-**Collection Method:**
-- **Primary:** System automatically detects changes to data in other sections (new VIP client, deadline moved, etc.)
-- **Secondary:** User explicitly flags recent changes requiring attention
-- **Smart Default:** Auto-tracked based on changes to other preference/context data
-
----
-
-## 3. RELATIONAL CONTEXT — How do I work with specific others?
+## 4. RELATIONAL CONTEXT — How do I work with specific others?
 
 **⚠️ NOT CURRENTLY SUPPORTED - TOO SENSITIVE**
 
@@ -377,13 +305,15 @@ Respects external party preferences to improve scheduling success rate and stren
 ## Implementation Notes
 
 The framework intentionally separates:
-- **Static** (sections 1-3): Changes rarely, forms the foundation
-- **Dynamic** (sections 4-5): Changes frequently, provides real-time context
+- **Static** (sections 1-2): Changes rarely, forms the foundation
+- **Dynamic** (section 3): Changes frequently, provides real-time context that overrides static preferences
+- **Future** (section 4): Relational context - not currently supported due to sensitivity
 
 This separation allows the system to:
 - Build a stable understanding of the user over time
 - Adapt quickly to changing priorities and situations
 - Make intelligent trade-offs between long-term preferences and immediate needs
+- Override defaults when real-time context demands it
 
 ---
 
