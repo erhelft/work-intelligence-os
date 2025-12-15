@@ -25,7 +25,7 @@ Determines when meetings can and cannot be scheduled - establishes the time boun
 
 ---
 
-### 2. What personal commitments affect my calendar?
+### 2. What personal time should be protected from work meetings?
 
 **Scheduling Impact:**
 Identifies time blocks that must be protected from work meetings - hard constraints that override work scheduling requests.
@@ -66,7 +66,7 @@ Sets boundaries on meeting density (how many meetings can be added) and establis
 
 ---
 
-### 4. How do I prepare for and follow up on meetings?
+### 4. How much prep/follow-up time should be planned?
 
 **Scheduling Impact:**
 Determines buffer time to automatically add before/after meetings and sets expectations for advance material sharing - prevents back-to-back scheduling when prep/follow-up is needed.
@@ -86,62 +86,59 @@ Determines buffer time to automatically add before/after meetings and sets expec
 
 ## 2. STATIC CONTEXT — Who am I in the organization?
 
-### 1. What's my role and position?
+### 1. Who's your manager? Who reports to you?
 
 **Scheduling Impact:**
-Determines organizational hierarchy for prioritizing conflicting meeting requests - whose requests take precedence when calendar conflicts arise.
+Determines organizational hierarchy for prioritizing conflicting meeting requests - whose internal requests take precedence when calendar conflicts arise.
 
 **Key Data Points:**
-- Direct manager (whose requests I cannot decline)
+- Direct manager (whose internal meeting requests take priority)
 - Direct reports (people who report to me)
-- Seniority level (Partner, Senior Associate, Associate, Junior Associate, etc.)
+- Org chart position and relationships
 
 **Collection Method:**
 - **Primary:** Firm directory or HR system integration (org chart data)
-- **Secondary:** Calendar meeting patterns - who schedules meetings with you vs. who you schedule with (indicates hierarchy)
-- **Tertiary:** Email signature analysis (extract title and credentials from outgoing emails)
-- **Smart Default:** Ask user directly during onboarding - hierarchy cannot be safely inferred without org chart data
+- **Smart Default:** Ask user directly during onboarding if org chart data unavailable
 
 ---
 
-### 2. What clients and matters am I responsible for?
+### 2. Which clients are VIP?
 
 **Scheduling Impact:**
-Identifies which external people/organizations are active clients vs. strangers - enables automatic prioritization of known client requests over cold outreach.
+VIP client meeting requests get priority scheduling and can bypass normal meeting limits.
 
 **Key Data Points:**
-- Active clients (list of client names/IDs)
-- Active matters per client
-- Role on each matter (lead attorney, supporting attorney, billing attorney)
+- VIP client names/organizations
+- Key client contacts who should get priority
+- Client relationship status (active, high-value, strategic)
 
 **Collection Method:**
-- **Primary:** Practice management system integration (Clio, MyCase, PracticePanther, etc.)
-- **Secondary:** Calendar analysis - identify recurring external attendee organizations in meeting titles/attendees
-- **Tertiary:** Email analysis - frequent external domains and contacts from the past 6 months
-- **Integration:** Billing/time-tracking system showing matters with recent time entries
+- **Primary:** Practice management system integration - identify clients with highest billing or strategic designation
+- **Secondary:** Calendar analysis - clients with recurring meetings or high meeting frequency
+- **Tertiary:** Email analysis - external contacts with high email volume from leadership
+- **Smart Default:** Empty list - user must explicitly designate VIP clients
+
+---
+
+### 3. Which matters require my involvement?
+
+**Scheduling Impact:**
+Determines which matter-related meetings I must attend vs. can delegate when scheduling conflicts arise.
+
+**Key Data Points:**
+- Matters where I'm lead attorney (required to attend)
+- Matters where I'm supporting attorney (can delegate if needed)
+- Level of involvement per matter (lead, supporting, coverage)
+
+**Collection Method:**
+- **Primary:** Practice management system integration - matters with role designation (lead vs. supporting attorney)
+- **Secondary:** Billing/time-tracking system - matters with time allocation patterns
+- **Tertiary:** Calendar analysis - matters appearing in meeting titles with required vs. optional attendance
 - **Smart Default:** Empty list - user must add manually or sync from practice management system
 
 ---
 
-### 3. Who gets priority access to my calendar?
-
-**Scheduling Impact:**
-Identifies VIP relationships whose meeting requests automatically override normal limits and rules - enables exception handling for key stakeholders.
-
-**Key Data Points:**
-- People with immediate booking rights (can book without approval)
-- People who get priority for limited time slots
-- Relationships that override normal meeting limits
-
-**Collection Method:**
-- **Primary:** Analyze calendar acceptance patterns - identify attendees whose meeting requests are never declined
-- **Secondary:** Identify recurring 1:1 meetings (indicates high-priority relationships)
-- **Tertiary:** Measure meeting acceptance speed by attendee - who gets instant accepts vs. delays?
-- **Smart Default:** No priority access assumed - all requests treated equally until user specifies
-
----
-
-### 4. What are my standing commitments?
+### 4. What recurring meetings should be protected?
 
 **Scheduling Impact:**
 Identifies time that's already committed and unavailable for new meetings - calculates true available capacity by accounting for recurring obligations.
@@ -159,7 +156,7 @@ Identifies time that's already committed and unavailable for new meetings - calc
 
 ---
 
-### 5. Where and how do I work?
+### 5. When and where can I take in-person meetings?
 
 **Scheduling Impact:**
 Determines default meeting format (in-person vs. remote) and location for new meeting requests - ensures meetings are scheduled in the right place/format based on where the user will be.
@@ -167,14 +164,12 @@ Determines default meeting format (in-person vs. remote) and location for new me
 **Key Data Points:**
 - Primary office location (which office for multi-office firms)
 - Remote work patterns (which days of the week working from home)
-- Travel frequency and patterns
+- Travel time between offices (for multi-office scheduling)
 
 **Collection Method:**
-- **Primary:** Analyze calendar location fields for in-person meetings - which office address appears most?
-- **Secondary:** Detect patterns in meeting format by day of week (e.g., all-video Fridays indicates remote work)
-- **Tertiary:** Identify calendar events explicitly marked as "OOO," "Traveling," "WFH," or "Remote"
-- **Integration:** Office badge/security system data showing actual office presence patterns
-- **Smart Default:** Office-based 5 days/week at primary office location (conservative assumption)
+- **Primary:** Ask user directly for office location and typical work patterns
+- **Secondary:** User updates when work patterns change (new office, remote schedule shift)
+- **Smart Default:** Office-based 5 days/week at primary office location
 
 ---
 
@@ -234,6 +229,51 @@ This separation allows the system to:
 - ✅ Good: "Recurring personal time blocks (school pickup, gym)"
 - ❌ Bad: "Hard constraints vs. flexible personal time"
 - Principle: Use specific, tangible examples rather than abstract categorizations
+
+---
+
+### Question Framing: Consequence Over Collection
+
+**Core Principle:** Frame questions by their scheduling CONSEQUENCE, not data COLLECTION. Users should immediately understand WHY we're asking and HOW it affects scheduling, without having to think about it.
+
+**The Problem with Data Collection Framing:**
+When questions are framed as data collection, users feel surveilled and don't understand the utility:
+- ❌ "What clients and matters am I responsible for?" → User thinks: "Why do you need to know this? Are you tracking my work?"
+- ❌ "Who do you work with?" → User thinks: "This feels invasive"
+- ❌ "What's your typical schedule?" → User thinks: "Just look at my calendar"
+
+**The Solution - Consequence-Based Framing:**
+When questions reveal their scheduling purpose, users understand the value:
+- ✅ "Which clients are VIP?" → User thinks: "Oh, their meetings get prioritized. That makes sense."
+- ✅ "Who can book you without approval?" → User thinks: "This controls auto-accept rules. Useful."
+- ✅ "What's the latest you take meetings?" → User thinks: "This sets my time boundaries. Perfect."
+
+**How to Apply This:**
+
+1. **Start with the scheduling action** - What decision does this data enable?
+2. **Frame the question around that action** - Make the consequence explicit in the question itself
+3. **Test with "So what?"** - If the user would ask "why do you need this?", reframe it
+4. **Add the impact statement** - The "Scheduling Impact" line should feel like a natural explanation, not a revelation
+
+**Examples:**
+
+| ❌ Data Collection Frame | ✅ Consequence Frame | Scheduling Impact |
+|-------------------------|---------------------|-------------------|
+| "What clients do you work with?" | "Which clients are VIP?" | Their requests get priority scheduling |
+| "What meetings do you attend?" | "Which meetings can you delegate?" | Enables substitution when overbooked |
+| "Who do you report to?" | "Whose requests take priority?" | Determines hierarchy-based scheduling |
+| "What are your relationships?" | "Whose requests override your meeting limits?" | Exception handling for key stakeholders |
+
+**The User Test:**
+When a user sees this question on their preferences screen, they should think:
+- ✅ "That makes sense, this will help the system schedule better"
+- ❌ "Why are they asking me this? What are they going to do with it?"
+
+**Why This Matters:**
+1. **Transparency** - User immediately sees WHY we need the data
+2. **Trust** - No feeling of surveillance, just utility
+3. **Accuracy** - User gives us the right data for the right purpose (e.g., VIP clients, not all clients)
+4. **Actionability** - The question itself implies the scheduling behavior
 
 ---
 
