@@ -43,30 +43,60 @@ Identifies time blocks that must be protected from work meetings - hard constrai
 
 ---
 
-### 3. What are my meeting limits and format preferences?
+### 3. How should my meeting day be structured?
 
 **Scheduling Impact:**
-Sets boundaries on meeting density (how many meetings can be added) and establishes default meeting formats (length, location, medium) for new scheduling requests.
+Sets boundaries on meeting density - determines how many meetings can be added to the calendar and when focus time should be protected.
 
 **Key Data Points:**
 - Maximum meetings per day
 - Maximum consecutive meetings without buffer
 - Focus time requirements (when, how often, minimum duration)
-- Default meeting length
-- In-person vs. video vs. phone defaults
-- Location preferences (office, client site, remote)
 
 **Collection Method:**
 - **Primary:** Analyze range and maximum of meetings per day over past 3 months - what's the typical high end?
 - **Secondary:** Identify blocks where user had multiple consecutive meetings without breaks - how common is this?
 - **Tertiary:** Detect recurring calendar blocks labeled as "focus time," "admin time," or "do not schedule"
-- **Quaternary:** Analyze calendar meeting durations - what's the most common length for meetings the user schedules?
-- **Quinary:** Analyze meeting format distribution - ratio of in-person vs. video vs. phone calls across all meetings
-- **Smart Default:** Max 6 meetings/day, max 4 consecutive meetings, 30-minute default meeting length, video by default
+- **Smart Default:** Max 6 meetings/day, max 4 consecutive meetings
 
 ---
 
-### 4. How much prep/follow-up time should be planned?
+### 4. How do I prefer to meet?
+
+**Scheduling Impact:**
+Establishes default meeting formats (length, location, medium) for new scheduling requests - ensures meetings are set up correctly from the start.
+
+**Key Data Points:**
+- Default meeting length
+- In-person vs. video vs. phone defaults
+- Location preferences (office, client site, remote)
+
+**Collection Method:**
+- **Primary:** Analyze calendar meeting durations - what's the most common length for meetings the user schedules?
+- **Secondary:** Analyze meeting format distribution - ratio of in-person vs. video vs. phone calls across all meetings
+- **Tertiary:** For in-person meetings, identify common location patterns
+- **Smart Default:** 30-minute meetings, video by default, office location for in-person
+
+---
+
+### 5. When and where can I take in-person meetings?
+
+**Scheduling Impact:**
+Determines default meeting format (in-person vs. remote) and location for new meeting requests - ensures meetings are scheduled in the right place/format based on where the user will be.
+
+**Key Data Points:**
+- Primary office location (which office for multi-office firms)
+- Remote work patterns (which days of the week working from home)
+- Travel time between offices (for multi-office scheduling)
+
+**Collection Method:**
+- **Primary:** Ask user directly for office location and typical work patterns
+- **Secondary:** User updates when work patterns change (new office, remote schedule shift)
+- **Smart Default:** Office-based 5 days/week at primary office location
+
+---
+
+### 6. How much prep/follow-up time should be planned?
 
 **Scheduling Impact:**
 Determines buffer time to automatically add before/after meetings and sets expectations for advance material sharing - prevents back-to-back scheduling when prep/follow-up is needed.
@@ -120,20 +150,22 @@ VIP client meeting requests get priority scheduling and can bypass normal meetin
 
 ---
 
-### 3. Which matters require my involvement?
+### 3. What matters am I working on?
 
 **Scheduling Impact:**
-Determines which matter-related meetings I must attend vs. can delegate when scheduling conflicts arise.
+Determines which matter-related meetings I must attend vs. can delegate when scheduling conflicts arise, and identifies team members who can substitute or should be included in meetings.
 
 **Key Data Points:**
 - Matters where I'm lead attorney (required to attend)
 - Matters where I'm supporting attorney (can delegate if needed)
 - Level of involvement per matter (lead, supporting, coverage)
+- Team members/collaborators on each matter
+- Who can substitute for me on each matter when unavailable
 
 **Collection Method:**
-- **Primary:** Practice management system integration - matters with role designation (lead vs. supporting attorney)
-- **Secondary:** Billing/time-tracking system - matters with time allocation patterns
-- **Tertiary:** Calendar analysis - matters appearing in meeting titles with required vs. optional attendance
+- **Primary:** Practice management system integration - matters with role designation and team assignments
+- **Secondary:** Billing/time-tracking system - matters with time allocation patterns and team member billing data
+- **Tertiary:** Calendar analysis - matters appearing in meeting titles with team member attendance patterns
 - **Smart Default:** Empty list - user must add manually or sync from practice management system
 
 ---
@@ -156,45 +188,130 @@ Identifies time that's already committed and unavailable for new meetings - calc
 
 ---
 
-### 5. When and where can I take in-person meetings?
-
-**Scheduling Impact:**
-Determines default meeting format (in-person vs. remote) and location for new meeting requests - ensures meetings are scheduled in the right place/format based on where the user will be.
-
-**Key Data Points:**
-- Primary office location (which office for multi-office firms)
-- Remote work patterns (which days of the week working from home)
-- Travel time between offices (for multi-office scheduling)
-
-**Collection Method:**
-- **Primary:** Ask user directly for office location and typical work patterns
-- **Secondary:** User updates when work patterns change (new office, remote schedule shift)
-- **Smart Default:** Office-based 5 days/week at primary office location
-
----
-
-## 3. RELATIONAL CONTEXT — How do I work with specific others?
-
-1. What are my ethical walls and conflict constraints?
-2. Who requires special handling and how?
-3. What do I know about external parties I coordinate with?
-
----
-
 ## 4. CURRENT PRIORITIES — What am I optimizing for right now?
 
-1. What's my focus this period?
-2. What's urgent right now?
-3. What relationships need attention?
+### 1. What's my focus this period?
+
+**Scheduling Impact:**
+Determines which types of meetings should be prioritized or limited right now based on current goals - helps the system understand what to optimize for during this time period.
+
+**Key Data Points:**
+- Current focus areas (e.g., "trial preparation," "closing deals," "business development")
+- Time period for this focus (this week, this month, this quarter)
+- What should be prioritized in scheduling (more client meetings, more focus time, more internal collaboration)
+
+**Collection Method:**
+- **Primary:** User explicitly sets current focus and time period
+- **Secondary:** Detect changes in calendar patterns (e.g., sudden increase in specific meeting types)
+- **Smart Default:** No focus assumed - user must explicitly set current priorities
+
+---
+
+### 2. What's urgent right now?
+
+**Scheduling Impact:**
+Identifies matters or tasks that should take precedence over normal scheduling rules - enables emergency or high-priority scheduling when needed.
+
+**Key Data Points:**
+- Urgent matters or clients requiring immediate attention
+- Critical deadlines in the next 1-2 weeks
+- Time-sensitive issues overriding normal limits
+
+**Collection Method:**
+- **Primary:** User explicitly flags urgent matters or deadlines
+- **Secondary:** Detect approaching hard deadlines from matters or calendar
+- **Tertiary:** Integration with task/matter management systems showing priority levels
+- **Smart Default:** Empty - no urgency assumed unless explicitly marked
+
+---
+
+### 3. What relationships need attention?
+
+**Scheduling Impact:**
+Identifies people or clients who should proactively get meeting time scheduled - ensures important relationships don't get neglected during busy periods.
+
+**Key Data Points:**
+- Clients needing regular check-ins or relationship maintenance
+- Internal relationships to nurture (mentorship, collaboration, networking)
+- Contacts who haven't been met with recently
+
+**Collection Method:**
+- **Primary:** User explicitly identifies relationships needing attention
+- **Secondary:** Analyze calendar gaps - identify VIP clients or key contacts without recent meetings
+- **Tertiary:** Reminder prompts based on time since last meeting with key relationships
+- **Smart Default:** Empty - user must explicitly identify relationships needing focus
 
 ---
 
 ## 5. CURRENT SITUATION — What's true right now?
 
-1. What are my hard deadlines?
-2. What's my current capacity?
-3. What temporary constraints am I operating under?
-4. What just changed?
+### 1. What are my hard deadlines?
+
+**Scheduling Impact:**
+Identifies immovable deadlines that require protected time and backward scheduling - ensures critical deadline work doesn't get crowded out by meetings.
+
+**Key Data Points:**
+- Hard deadlines in the next 30-90 days (court dates, filing deadlines, deal closings)
+- Work time needed before each deadline
+- Meetings or events tied to specific deadlines
+
+**Collection Method:**
+- **Primary:** Practice management system integration - matter deadlines and court dates
+- **Secondary:** Calendar events explicitly marked as deadlines
+- **Tertiary:** User manually adds critical deadlines
+- **Smart Default:** Empty - deadlines must be explicitly captured from systems or user input
+
+---
+
+### 2. What's my current capacity?
+
+**Scheduling Impact:**
+Determines whether new meeting requests should be accepted or if calendar is at/over capacity - provides real-time availability assessment.
+
+**Key Data Points:**
+- Current meeting load vs. ideal limits
+- Available meeting slots this week/next week
+- Overbooked periods requiring triage
+
+**Collection Method:**
+- **Primary:** Automatic calculation based on current calendar vs. meeting limits (from Section 1.3)
+- **Secondary:** User manually adjusts capacity perception (e.g., "I'm overloaded this week")
+- **Smart Default:** Auto-calculated from calendar density and defined limits
+
+---
+
+### 3. What temporary constraints am I operating under?
+
+**Scheduling Impact:**
+Identifies short-term limitations that should affect scheduling but aren't permanent - ensures scheduling adapts to temporary situations.
+
+**Key Data Points:**
+- Temporary schedule changes (travel, remote work, reduced hours)
+- Short-term availability restrictions (family obligation, medical, personal)
+- Limited-time format restrictions (in-office required this week, virtual-only next week)
+
+**Collection Method:**
+- **Primary:** User explicitly adds temporary constraints with start/end dates
+- **Secondary:** Detect calendar blocks marked as OOO, travel, or temporary holds
+- **Smart Default:** Empty - user must explicitly define temporary constraints
+
+---
+
+### 4. What just changed?
+
+**Scheduling Impact:**
+Captures recent changes that should trigger calendar adjustments or rescheduling - ensures the system stays current with evolving situations.
+
+**Key Data Points:**
+- Recently added urgent matters or deadlines
+- Sudden availability changes (meeting cancelled, freed up time)
+- New priorities or focus shifts
+- Team changes (someone left, new team member added)
+
+**Collection Method:**
+- **Primary:** System automatically detects changes to data in other sections (new VIP client, deadline moved, etc.)
+- **Secondary:** User explicitly flags recent changes requiring attention
+- **Smart Default:** Auto-tracked based on changes to other preference/context data
 
 ---
 
