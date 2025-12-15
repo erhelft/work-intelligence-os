@@ -315,6 +315,65 @@ Captures recent changes that should trigger calendar adjustments or rescheduling
 
 ---
 
+## 3. RELATIONAL CONTEXT — How do I work with specific others?
+
+**⚠️ NOT CURRENTLY SUPPORTED - TOO SENSITIVE**
+
+This section captures relationship-specific context and constraints, but is not being implemented in the initial version due to sensitivity concerns around conflict data and relationship management.
+
+### 1. Who can't meet together?
+
+**Scheduling Impact:**
+Prevents scheduling meetings that would violate ethical walls or create conflicts of interest - automatically flags or blocks problematic meeting combinations.
+
+**Key Data Points:**
+- Conflicting party pairs (Person A cannot meet with Person B)
+- Conflict reason (ethical wall, opposing counsel, conflict of interest)
+- Related matters or clients involved in the conflict
+
+**Collection Method:**
+- **Primary:** Practice management system integration - conflict checking database
+- **Secondary:** User manually adds specific conflict pairs and rules
+- **Integration:** Legal ethics/conflicts software if firm uses specialized tools
+- **Smart Default:** Empty list - user must explicitly define conflicts (cannot safely infer)
+
+---
+
+### 2. Who needs special scheduling considerations?
+
+**Scheduling Impact:**
+Flags relationships requiring extra prep time, specific protocols, or special handling - ensures appropriate care is taken when scheduling with these individuals.
+
+**Key Data Points:**
+- Person/organization requiring special handling
+- Type of consideration needed (extra prep, specific protocol, accessibility needs, communication preferences)
+- Specific requirements or notes
+
+**Collection Method:**
+- **Primary:** User explicitly adds these relationships and requirements
+- **Secondary:** Learn over time from user notes or meeting patterns
+- **Smart Default:** Empty list - user must explicitly define special handling requirements
+
+---
+
+### 3. What scheduling preferences do key external contacts have?
+
+**Scheduling Impact:**
+Respects external party preferences to improve scheduling success rate and strengthen relationships - reduces back-and-forth when proposing meeting times.
+
+**Key Data Points:**
+- Contact name and organization
+- Preferred meeting times (e.g., "mornings only," "no Mondays")
+- Required notice period (e.g., "needs 48 hours advance notice")
+- Format preferences (in-person vs. video, specific platforms)
+
+**Collection Method:**
+- **Primary:** User adds notes after learning preferences from interactions
+- **Secondary:** Extract from email patterns (e.g., contact consistently proposes morning times)
+- **Smart Default:** Empty list - preferences learned over time through user input
+
+---
+
 ## Implementation Notes
 
 The framework intentionally separates:
