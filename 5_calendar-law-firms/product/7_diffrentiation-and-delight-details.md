@@ -111,16 +111,29 @@ D. **Structure/Logic/Rule**:
 
 #### Delight Implementation Ideas
 
-**Idea 1: [TBD]**
+**Idea 1: Micro-Celebration for Great Finds** 💭
 
-A. **Subcomponent**: [TBD]
+A. **Subcomponent**: Top-ranked slot card — tertiary copy line (below match % and reasoning)
 
-B. **Idea**: [TBD]
+B. **Idea**: When the system finds a genuinely great slot against hard constraints, celebrate it with copy that makes the EA feel like she's getting a win, not just finding "fine" time
 
 C. **Examples**:
-   - [TBD]
+   - "Found across 4 busy calendars" (reframes coordination complexity as achievement)
+   - "Found 1 needle in the haystack" (emphasizes rarity when constraints are tight)
+   - "2 relevant slots across 80 analyzed" (shows the work the system did)
+   - "Only 3% of slots worked—this is one of them" (quantifies the difficulty)
+   - "Threaded between 2 depo preps and a client call" (celebrates navigating legal context)
 
-D. **Structure/Logic/Rule**: [TBD]
+D. **Structure/Logic/Rule**:
+   - **Trigger conditions** (must meet at least 2):
+     - High constraint complexity (5+ attendees OR 3+ hard conflicts OR tight time window)
+     - Few viable slots found (≤3 slots with >80% match)
+     - Legal context navigated (avoided depo prep, honored VIP client, etc.)
+     - Partner preference honored despite constraints
+   - **Tone calibration**: Celebratory but professional—"found" not "nailed it"
+   - **Placement**: Tertiary line, subtle gray, below the reasoning copy (doesn't compete with key info)
+   - **Only show on top recommendation**: Don't dilute by celebrating every slot
+   - **Copy formula**: Quantify the challenge (N calendars, N% of slots, specific conflicts threaded through)
 
 ---
 

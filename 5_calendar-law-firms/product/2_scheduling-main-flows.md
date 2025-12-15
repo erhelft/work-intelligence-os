@@ -5,22 +5,6 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ---
 
-## GTM Phase Prioritization
-
-**Phase 1 Priority Flows** (Entry via EA Productivity):
-- **Flow 1**: External + Single-Party — Highest EA coordination burden, entry wedge
-- **Flow 5**: Ad-Hoc Event Change — Cascade rescheduling causes massive EA time drain
-
-**Phase 1 Expansion Flows** (Partner Self-Scheduling):
-- **Flow 1 variant**: Partner self-schedules without EA involvement
-- **Flow 3**: Internal + Single-Party — Quick wins for partners without EA support
-
-**Phase 2+ Flows** (Strategic Value):
-- **Flow 2**: External + Multi-Party — Complex coordination, higher value but harder
-- **Flow 4**: Internal + Multi-Party — Firm-wide meeting optimization
-
----
-
 ## Flow Dimensions
 
 **Meeting Type**: Who participates?
@@ -39,7 +23,7 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ## Core Flows
 
-### Flow 1: External + Single-Party ⭐ PHASE 1 PRIORITY
+### Flow 1: External + Single-Party 
 
 **Use Case**: Partner needs to schedule 1:1 client consultation about an ongoing case.
 
@@ -66,7 +50,7 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ---
 
-### Flow 2: External + Multi-Party 📍 PHASE 2+
+### Flow 2: External + Multi-Party 
 
 **Use Case**: Coordinating a deposition involving partner, client, opposing counsel, court reporter, and expert witness (5+ participants).
 
@@ -97,7 +81,7 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ---
 
-### Flow 3: Internal + Single-Party 🔄 PHASE 1 EXPANSION
+### Flow 3: Internal + Single-Party 
 
 **Use Case**: Partner needs to meet 1:1 with associate to discuss case strategy.
 
@@ -123,7 +107,7 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ---
 
-### Flow 4: Internal + Multi-Party 📍 PHASE 2+
+### Flow 4: Internal + Multi-Party 
 
 **Use Case**: Case team meeting with partner, two associates, paralegal, and legal assistant (5 people) to align on case strategy.
 
@@ -150,7 +134,7 @@ This document maps the core scheduling flows in law firm calendar management acr
 
 ---
 
-### Flow 5: Ad-Hoc Event Change ⭐ PHASE 1 PRIORITY
+### Flow 5: Ad-Hoc Event Change 
 
 **Use Case**: Court date rescheduled from June 15 to July 10, forcing cascade of dependent meetings to move (client prep, witness prep, expert consultations, opposing counsel meetings).
 
