@@ -63,69 +63,49 @@ This document defines the user-facing preferences and context collection interfa
 
 ---
 
-### **Card 3: Meeting Day Structure**
+### **Card 3: Meeting Preferences**
 
-**Title:** Meeting Day Structure  
-**Subheader:** How do you prefer your days? Meeting limits, focus time, breaks.
+**Title:** Meeting Preferences  
+**Subheader:** How do you like your meeting days? Limits, length, format, focus time.
 
 **Data to Collect:**
 - Maximum meetings per day
 - Maximum consecutive meetings without buffer
 - Focus time requirements (when, how often, minimum duration)
+- Default meeting length
+- Default meeting format (in-person / video / phone)
 
 **Smart Default:**
 - Max 6 meetings/day (based on your typical high-end)
 - Max 4 consecutive meetings
 - No focus time blocks required
-
-**UI Layout Option 1: Slider Controls with Visual Preview**
-- "Maximum meetings per day" - Slider (1-10) with number display
-- "Maximum back-to-back meetings" - Slider (1-8) with number display
-- "Daily focus time" - Toggle on/off
-  - If on: Time selector (Morning / Afternoon / End of day) + Duration slider (30 min - 4 hours)
-- Visual: Mini calendar preview showing example day with limits applied
-
-**UI Layout Option 2: Simple Form with Smart Suggestions**
-- "How many meetings in one day is too many?" - Number input with +/- buttons
-- "How many meetings in a row before you need a break?" - Number input with +/- buttons
-- "Do you need protected focus time?" - Yes/No toggle
-  - If yes: "When?" (dropdown) + "How long?" (dropdown)
-- Helper text showing current average from calendar data
-
----
-
-### **Card 4: Meeting Preferences**
-
-**Title:** Meeting Format Preferences  
-**Subheader:** How do you like to meet? Default length & format.
-
-**Data to Collect:**
-- Default meeting length
-- Default meeting format (in-person / video / phone)
-
-**Smart Default:**
 - 30 minutes (your most common duration)
 - Video by default
 
-**UI Layout Option 1: Quick Selection Grid**
-- **Default Length**
-  - Button group: 15 min / 30 min / 45 min / 60 min (highlight most used)
+**UI Layout Option 1: Grouped Settings**
+- **Meeting Capacity**
+  - "Maximum meetings per day" - Slider (1-10)
+  - "Maximum back-to-back meetings" - Slider (1-8)
+- **Focus Time**
+  - "Daily focus time" - Toggle on/off
+  - If on: Time selector (Morning / Afternoon / End of day) + Duration slider
 - **Default Format**
-  - Icon buttons: In-person / Video / Phone
-  - Large, visual icons with labels
-- Note: "You can always adjust these when scheduling individual meetings"
+  - Length: Button group (15 / 30 / 45 / 60 min)
+  - Format: Icon buttons (In-person / Video / Phone)
+- Visual: Mini calendar preview showing example day
 
-**UI Layout Option 2: Dropdown Selectors with Context**
-- "How long are your meetings usually?" 
-  - Dropdown: 15 / 30 / 45 / 60 / 90 minutes
-  - Helper text: "Currently, 73% of your meetings are 30 minutes"
-- "What's your preferred meeting format?"
-  - Dropdown: In-person / Video call / Phone call / Let scheduler decide
-  - Helper text: "Video calls are easiest to schedule across locations"
+**UI Layout Option 2: Conversational Flow**
+- "How many meetings in one day is too many?" - Number input with +/- buttons
+- "How many meetings in a row before you need a break?" - Number input
+- "Do you need protected focus time?" - Yes/No toggle
+  - If yes: "When?" + "How long?"
+- "How long are your meetings usually?" - Dropdown (15/30/45/60/90 min)
+- "What's your preferred format?" - Dropdown (In-person / Video / Phone)
+- Helper text showing current patterns from calendar data
 
 ---
 
-### **Card 5: Prep & Follow-up Time**
+### **Card 4: Prep & Follow-up Time**
 
 **Title:** Prep & Follow-up Time  
 **Subheader:** Need time around meetings? Prep & follow-up buffers.
@@ -160,7 +140,7 @@ This document defines the user-facing preferences and context collection interfa
 
 ---
 
-### **Card 6: Work Location & Schedule**
+### **Card 5: Work Location & Schedule**
 
 **Title:** Work Location & Schedule  
 **Subheader:** Where do you work? Office location and remote days for in-person scheduling.
