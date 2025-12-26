@@ -1,25 +1,25 @@
-# System Prompt Template V2
+# System Prompt Template V3
 
-This template guides the creation of high-quality system prompts for AI agents. Use it alongside the agent requirements gathered during discovery.
+A comprehensive template for creating high-quality system prompts for AI agents. Use alongside agent requirements gathered during discovery.
 
 ---
 
-## General Instructions
+## 1. General Instructions
 
 ### Structure Rules
 - Follow the template shell exactly. Do not reorder sections.
 - Do not add sections not in the template.
-- Include section tags even if content is minimal (use a brief note explaining why minimal).
+- Include section tags even if content is minimal (add a brief note explaining why).
 
-### Using the Robustness Table
-- Identify agent complexity first based on discovery.
-- Use the table to determine which sections to skip, minimize, or expand.
-- The table is a **recommendation, not a blueprint**. Adjust if the agent has unusual needs (e.g., simple agent with complex tool dependencies).
+### Using the Configuration Tables
+- Identify agent complexity first → use Robustness Table for section depth
+- Identify agent characteristics → use Modifiers for content requirements
+- Both tables are **recommendations, not blueprints**. Adjust if the agent has unusual needs.
 
 ### When Over Budget
 If the generated prompt exceeds the target token range:
-1. First, verify "Skip" sections are actually empty
-2. Reduce "Minimal" sections to bare essentials (2-3 sentences)
+1. Verify "Skip" sections are empty
+2. Reduce "Minimal" sections to 2-3 sentences
 3. Trim examples (keep one good/bad pair, shorten reasoning)
 4. Reduce "Standard" sections by cutting least decision-relevant content
 5. **Never cut:** Identity core purpose, Hard Boundaries, Final Reminders
@@ -27,18 +27,22 @@ If the generated prompt exceeds the target token range:
 ### Terminology Consistency
 - Use identical terms in static instructions and dynamic context tags
 - If instructions reference `<priority_level>`, dynamic context must use `<priority_level>`
-- If instructions describe behavior for "protected time blocks," dynamic context should use that exact phrase
+- Define variables once, reference consistently throughout
 
 ### Style
 - Be direct and prescriptive ("Do X" not "Consider doing X")
-- If something is clear from the template structure, don't explain it
-- Avoid meta-commentary ("In this section we will..." — just write the content)
+- If something is clear from template structure, don't explain it
+- Avoid meta-commentary ("In this section we will...")
 
 ---
 
-## Robustness Table
+## 2. Agent Configuration
 
-### Section Robustness by Agent Complexity
+### 2a. Robustness Table
+
+Determines section depth based on agent complexity.
+
+#### Section Robustness by Complexity
 
 |                           | Simple Tool-Caller | Workflow Executor | Judgment Agent | Multi-Domain Agent |
 |---------------------------|-------------------|-------------------|----------------|-------------------|
@@ -58,18 +62,224 @@ If the generated prompt exceeds the target token range:
 
 *Judgment agents may have minimal tools or none
 
-### Robustness Levels Defined
+#### Robustness Levels
 
-| Level    | Description | Budget Guidance |
-|----------|-------------|-----------------|
-| Skip     | Omit entirely. Include empty tags with a one-line note if helpful. | 0% |
-| Minimal  | 2-4 sentences covering only the essentials. No examples or elaboration. | 2-5% |
-| Standard | Complete section with all relevant content. No extras or edge cases. | 5-10% |
-| Robust   | Expanded with additional detail, edge cases, multiple examples, or nuanced guidance. | 10-15% |
+| Level | Description | Budget |
+|-------|-------------|--------|
+| Skip | Omit entirely | 0% |
+| Minimal | 2-4 sentences, essentials only | 2-5% |
+| Standard | Complete section, no extras | 5-10% |
+| Robust | Expanded with edge cases, multiple examples, nuanced guidance | 10-15% |
 
 ---
 
-## Section Guidance
+### 2b. Agent Characteristics & Modifiers
+
+Characteristics capture risk dimensions independent of complexity. A simple tool-caller handling medical records needs stronger guardrails than a complex judgment agent scheduling internal meetings.
+
+**Capture these during discovery. They shape how every section is written—not as bolt-on additions, but as foundational context.**
+
+#### Characteristic Definitions
+
+| Characteristic | Question | Levels |
+|----------------|----------|--------|
+| **Sensitivity** | What data does this agent access or handle? | Low / Medium / High / Critical |
+| **Autonomy** | How much can it do without human confirmation? | Low / Medium / High |
+| **Exposure** | Who sees this agent's outputs? | Internal / Partner / External |
+| **Reversibility** | How easily can its actions be undone? | Easy / Moderate / Hard / Irreversible |
+| **Blast Radius** | If it fails, who or what is affected? | User / Team / Org / External |
+
+---
+
+#### Sensitivity
+
+*What data does the agent touch, and what's the damage if it leaks or is mishandled?*
+
+**Low** — Public information, non-personal data
+- No special handling required
+
+**Medium** — Business data, internal documents, work context
+- **Domain Context** should define what's internal-only vs. shareable
+- **Operational Boundaries** should clarify what data can appear in responses to whom
+
+**High** — PII, financial data, health information, legal documents
+- **Hard Boundaries** must address data exposure as absolute prohibitions. The agent should never log sensitive fields in full, never include them in error messages, never store beyond immediate need. These aren't judgment calls—they're bright lines.
+- **Domain Context** should include data handling principles: minimization, masking requirements, retention limits
+- **Output Format** must specify how sensitive fields are masked or redacted in responses
+- **Failure Handling** must address what to do if sensitive data surfaces unexpectedly (don't repeat it, don't log it, escalate)
+
+**Critical** — Auth credentials, payment data, regulated data (HIPAA, SOX, GDPR-special-category)
+- Everything from High, plus:
+- **Hard Boundaries** must require explicit confirmation before any action involving critical data—even read operations that might expose it
+- **Hard Boundaries** should require audit logging; if logging fails, the action should not proceed
+- **Operational Boundaries** should shift most actions to "Confirm Before Acting"—autonomy must be narrow when critical data is involved
+- **Failure Handling** must include incident escalation paths with specific owners
+
+**Validation criteria:**
+- [ ] If High+: Hard Boundaries explicitly prohibit logging/displaying sensitive fields
+- [ ] If High+: Output Format specifies masking approach
+- [ ] If Critical: Explicit confirmation required for critical data actions
+- [ ] Sensitive data prohibitions framed as absolute (NEVER), not conditional
+
+---
+
+#### Autonomy
+
+*How much can this agent do on its own, and what's the risk if it acts wrongly without oversight?*
+
+**Low** — Suggestions only; human executes all actions
+- **Identity** should clarify the agent's advisory role: "You suggest; you do not act"
+- **Operational Boundaries** will have minimal "Handle Autonomously" scope—mostly information retrieval
+- **Output Format** should frame outputs as recommendations, not actions taken ("I recommend..." not "I've done...")
+
+**Medium** — Acts within defined scope; confirms edge cases
+- **Operational Boundaries** should draw a clear line between autonomous scope and confirm-first scope
+- **Decision Logic** should include guidance for when to act vs. when to ask—the reasoning for where the line is drawn
+
+**High** — Broad action authority; minimal human oversight
+- High autonomy requires strong guardrails elsewhere to compensate
+- **Hard Boundaries** become more important—these are the few things it truly cannot do alone
+- **Operational Boundaries** should have an expanded "Confirm Before Acting" section to catch high-risk actions even within broad authority
+- **Decision Logic** must emphasize conservative defaults: "When uncertain, ask" or "When confidence is below X, confirm"
+- **Failure Handling** should expand rollback and recovery procedures—if no human is watching, the agent needs to catch and correct its own mistakes
+- **Final Reminders** should reinforce caution bias
+
+**Validation criteria:**
+- [ ] If Low: Identity clarifies advisory-only role
+- [ ] If Low: Output Format uses recommendation framing
+- [ ] If High: Decision Logic includes conservative defaults
+- [ ] If High: Final Reminders reinforces caution under uncertainty
+- [ ] Autonomy level matches Operational Boundaries scope
+
+---
+
+#### Exposure
+
+*Who sees what this agent produces, and what's the damage if the wrong thing is said?*
+
+**Internal** — Only internal team members see outputs
+- Technical tone is acceptable
+- Internal system details in error messages are fine (useful for debugging)
+- No special restrictions on referencing internal tools, processes, or terminology
+
+**Partner** — Vendors, clients, or integrated external systems see outputs
+- **Identity** should specify professional tone
+- **Hard Boundaries** should prohibit exposing internal system names, architecture details, or internal team structures
+- **Output Format** should require error messages that are clear but don't reveal internal workings
+
+**External** — Customers or public see outputs
+- **Identity** must include explicit tone calibration for customer communication—warmth, clarity, trust-building
+- **Hard Boundaries** must prohibit: referencing internal tools/teams/processes by name, revealing system limitations in ways that damage trust, exposing technical details that confuse or alarm
+- **Domain Context** should include customer communication principles relevant to this audience
+- **Output Format** requires customer-safe error messages that always include actionable next steps (never leave customer stuck)
+- **Failure Handling** should include customer-appropriate escalation language ("Let me connect you with someone who can help with this")
+
+**Validation criteria:**
+- [ ] If Partner+: Hard Boundaries prohibit internal detail exposure
+- [ ] If External: Identity includes customer-appropriate tone guidance
+- [ ] If External: Output Format specifies customer-safe error message requirements
+- [ ] If External: Failure Handling includes customer-facing escalation language
+
+---
+
+#### Reversibility
+
+*If the agent does something wrong, how hard is it to undo?*
+
+**Easy** — Drafts, suggestions, internal notes, read-only operations
+- Lower confirmation threshold is acceptable
+- **Operational Boundaries** can have broader autonomous scope
+
+**Moderate** — Calendar changes, file edits, configuration updates
+- **Operational Boundaries** should require confirmation for changes that affect others or external parties
+- **Output Format** can include "undo" or "change this" affordances where the system supports it
+
+**Hard** — Sent emails, published content, submitted forms, external communications
+- **Hard Boundaries** must require preview before send/publish—the agent should never send without showing what will be sent
+- **Operational Boundaries** should move all send/publish actions to "Confirm Before Acting"
+- **Examples** should include at least one example showing the preview-confirm-execute flow
+
+**Irreversible** — Payments, deletions, legal filings, binding external commitments
+- **Hard Boundaries** must require explicit confirmation with clear action summary—user must understand exactly what will happen
+- **Hard Boundaries** should prohibit batching irreversible actions—each one gets individual confirmation
+- **Operational Boundaries** should require multi-step confirmation: preview → confirm understanding → execute
+- **Output Format** should require confirmation acknowledgment before proceeding
+- **Failure Handling** must address the "uncertain completion" problem: if unsure whether an irreversible action completed, assume it did; never retry
+
+**Validation criteria:**
+- [ ] If Hard+: Hard Boundaries require preview before send/publish
+- [ ] If Irreversible: Multi-step confirmation flow addressed
+- [ ] If Irreversible: Failure Handling addresses uncertain completion
+- [ ] Reversibility level reflected in Operational Boundaries confirmation requirements
+
+---
+
+#### Blast Radius
+
+*If this agent fails or makes a mistake, how far does the damage spread?*
+
+**User** — Affects only the individual user
+- Standard failure handling is sufficient
+- Mistakes are contained and correctable
+
+**Team** — Affects shared workspace, team data, or colleagues' work
+- **Hard Boundaries** should prohibit modifying shared resources without surfacing who will be affected
+- **Operational Boundaries** should require confirmation for actions that affect others' data or work
+- **Failure Handling** should include notification guidance—affected parties should know something went wrong
+
+**Org** — Affects organization-wide systems, data, or operations
+- **Hard Boundaries** must prohibit org-wide changes without explicit authorization from appropriate authority
+- **Operational Boundaries** should include staged rollout guidance for changes with broad impact
+- **Failure Handling** must include rollback requirements and incident escalation with clear owners
+- Consider adding pre-action validation checks within relevant sections
+
+**External** — Affects customers, public perception, external partners, or systems outside the organization
+- Everything from Org, plus:
+- **Hard Boundaries** must require verification before any customer-impacting action
+- **Failure Handling** should include customer communication templates for failures
+- **Failure Handling** should include incident severity classification
+
+**Validation criteria:**
+- [ ] If Team+: Operational Boundaries requires confirmation for actions affecting others
+- [ ] If Team+: Failure Handling addresses notification of affected parties
+- [ ] If Org+: Rollback requirements documented
+- [ ] If External: Customer communication guidance for failures included
+
+---
+
+#### Section Density Reference
+
+Anticipate heavier modification in these sections:
+
+| Section | Modified By | Density |
+|---------|-------------|---------|
+| Hard Boundaries | All 5 characteristics | Heaviest |
+| Operational Boundaries | Sensitivity, Autonomy, Reversibility, Blast Radius | Heavy |
+| Failure Handling | All 5 characteristics | Heavy |
+| Output Format | Sensitivity, Autonomy, Exposure, Reversibility | Moderate |
+| Identity | Autonomy, Exposure | Light-Moderate |
+| Domain Context | Sensitivity, Exposure | Light-Moderate |
+| Decision Logic | Autonomy | Light |
+| Examples | Reversibility | Light |
+| Final Reminders | Autonomy | Light |
+
+---
+
+#### Applying Characteristics
+
+1. **Read characteristics before writing any section.** They're context, not patches.
+
+2. **Weave, don't append.** A High Sensitivity agent's Hard Boundaries should feel like data protection was a design principle, not an afterthought.
+
+3. **Compound effects are additive.** An agent with High Sensitivity + External Exposure + Irreversible actions gets all applicable guidance. When guidance overlaps, combine into coherent requirements.
+
+4. **Higher level implies lower.** High Sensitivity includes Medium concerns. External Exposure includes Partner concerns. Don't repeat—assume escalation.
+
+5. **Characteristics can reduce as well as add.** Low Autonomy means *less* in Operational Boundaries. Easy Reversibility means *fewer* confirmation requirements. Don't add guardrails that don't fit the risk profile.
+
+---
+
+## 3. Section Guidance
 
 ### Section 1: Identity & Purpose
 
@@ -77,30 +287,32 @@ If the generated prompt exceeds the target token range:
 
 **Guidelines:**
 - Lead with role and purpose, not capabilities or features
-- Purpose should explain WHY the agent exists (outcome), not WHAT it does (features)
-- Success metric must be observable—something you could actually measure or verify
+- Purpose explains WHY the agent exists (outcome), not WHAT it does (features)
+- Success metric must be observable—something you could measure or verify
 - Autonomy statement clarifies what the agent can decide alone vs. must escalate
-- If agent has no user-facing communication (backend/tool agent), omit the tone line entirely
+- If agent has no user-facing communication (backend/tool agent), omit tone
+- If Autonomy is Low, clarify advisory-only role here
+- If Exposure is External, include customer-appropriate tone calibration
 
 **Common Mistakes:**
 - Listing features instead of stating purpose
 - Vague success metrics ("be helpful") instead of observable outcomes
-- Missing autonomy boundaries, leaving the agent to guess what it can decide
+- Missing autonomy boundaries
 
 **Example:**
 ```
 ✅ GOOD:
 You are a Scheduling Agent for professional services firms.
 Purpose: Protect high-value time while maintaining relationship quality.
-Success: The right meetings happen at the right times, with minimal friction.
+Success: The right meetings happen at the right times, minimal friction.
 You have authority to reschedule internal meetings and suggest times.
 You escalate: client-facing conflicts, overrides to protected time.
 
 ❌ BAD:
 You are an AI assistant that helps with scheduling. You can check 
-calendars, send invites, and find meeting times. You are helpful.
+calendars, send invites, and find meeting times.
 ```
-*Problems: No purpose, lists features, vague tone, no success metric, no autonomy bounds*
+*Problems: No purpose, lists features, no success metric, no autonomy bounds*
 
 ---
 
@@ -109,16 +321,23 @@ calendars, send invites, and find meeting times. You are helpful.
 **Answers:** "What lines can I absolutely never cross?"
 
 **Guidelines:**
-- These are TRUE non-negotiables—no exceptions, no judgment calls
-- Keep the list short (5-10 items total across all subsections). Too many dilutes attention.
-- Use NEVER and ALWAYS—this section has no soft language
-- Security/confidentiality rules should cover data the agent can access
-- If you're tempted to add "unless..."—it's not a hard boundary, it goes in Operational Boundaries
+- TRUE non-negotiables only—no exceptions, no judgment calls
+- Keep short (5-10 items total). Too many dilutes attention.
+- Use NEVER and ALWAYS—no soft language in this section
+- If tempted to add "unless..."—it belongs in Operational Boundaries instead
+- This section absorbs the most from characteristics—expect it to grow for high-risk agents
+- Sensitivity High+: Add data exposure prohibitions (logging, error messages, storage)
+- Sensitivity Critical: Add audit logging requirements
+- Exposure Partner+: Add internal detail disclosure prohibitions
+- Reversibility Hard+: Add preview-before-action requirements
+- Reversibility Irreversible: Add batching prohibition, confirmation requirements
+- Blast Radius Team+: Add shared resource modification restrictions
+- Blast Radius Org+: Add org-wide change authorization requirements
 
 **Common Mistakes:**
-- Including soft preferences ("try to avoid") that belong elsewhere
-- Too many items, causing the model to treat them all as suggestions
-- Vague escalation triggers ("when things seem off") instead of specific conditions
+- Including soft preferences that belong elsewhere
+- Too many items, causing all to be treated as suggestions
+- Vague escalation triggers instead of specific conditions
 
 **Example:**
 ```
@@ -127,6 +346,7 @@ calendars, send invites, and find meeting times. You are helpful.
 - Schedule over blocks marked "immovable" without explicit user override
 - Disclose one client's calendar details to another client
 - Confirm external meetings without user approval
+- Include full email addresses in error messages or logs
 
 ## ALWAYS Escalate
 - Client-facing meeting must be moved or cancelled
@@ -137,9 +357,8 @@ calendars, send invites, and find meeting times. You are helpful.
 - Be unhelpful
 - Make mistakes
 - Schedule meetings at bad times
-- Forget to check the calendar
 ```
-*Problems: Vague, not actually enforceable, mixes preferences with prohibitions*
+*Problems: Vague, unenforceable, mixes preferences with prohibitions*
 
 ---
 
@@ -150,19 +369,21 @@ calendars, send invites, and find meeting times. You are helpful.
 **Guidelines:**
 - Include only context that affects agent behavior—not general FYI
 - Define terms as THIS AGENT should interpret them, not dictionary definitions
-- User characteristics should inform how the agent communicates and what it assumes
-- Knowledge sources must be actionable (things the agent can actually query or reference)
-- Compliance constraints should be specific enough to apply in decisions
+- User characteristics should inform communication approach and assumptions
+- Knowledge sources must be actionable (things agent can actually query)
+- Sensitivity Medium+: Define what's internal-only vs. shareable
+- Sensitivity High+: Include data handling principles (minimization, retention)
+- Exposure External: Include customer communication principles
 
 **Conditions:**
-- Skip for simple tool-callers that don't need domain knowledge
-- Minimal for workflow executors: just key terminology and constraints
+- Skip for simple tool-callers without domain knowledge needs
+- Minimal for workflow executors: key terminology and constraints only
 - Robust for multi-domain: may need sub-sections per domain
 
 **Common Mistakes:**
-- Generic context that doesn't change behavior ("We are a company that serves clients")
-- Defining obvious terms ("Meeting: a scheduled gathering")
-- Including context the agent can't use (e.g., company history that doesn't affect decisions)
+- Generic context that doesn't change behavior
+- Defining obvious terms
+- Including context the agent can't use
 
 **Example:**
 ```
@@ -174,11 +395,10 @@ Partner time is the scarcest resource.
 ## Key Terminology
 - **Billable meeting**: Client-facing, revenue-generating — highest priority
 - **Protected time**: Reserved for deep work — respect unless billable conflict
-- **Internal**: Firm meetings — flexible, can be moved for billable needs
 
 ## User Characteristics
 Partners and senior associates. Time-poor, interruption-averse. Expect 
-the system to make good decisions without extensive configuration.
+the system to make good decisions without configuration.
 
 ❌ BAD:
 ## Business Context
@@ -186,31 +406,32 @@ We help people with their calendars.
 
 ## Key Terminology  
 - **Meeting**: When people get together
-- **Calendar**: A tool for tracking time
 ```
 
 ---
 
 ### Section 4: Decision Logic
 
-**Answers:** "How do I reason through situations my instructions don't explicitly cover?"
+**Answers:** "How do I reason through situations my instructions don't cover?"
 
 **Guidelines:**
 - This is the intelligence layer—most critical for judgment-heavy agents
-- Explain the REASONING behind principles, not just the rules themselves
-- Priority hierarchy must have clear ordering with rationale for each level
-- Tradeoff guidance should address the most common tensions this agent will face
-- The goal: an agent could use this section to reason about novel situations
+- Explain REASONING behind principles, not just rules
+- Priority hierarchy needs clear ordering with rationale for each level
+- Tradeoff guidance should address common tensions this agent faces
+- Goal: agent could use this to reason about novel situations
+- Autonomy Medium: Include guidance for when to act vs. when to ask
+- Autonomy High: Emphasize conservative defaults ("when uncertain, ask")
 
 **Conditions:**
 - Skip for simple tool-callers (they follow rules, not judgment)
 - Minimal for workflow executors (basic priority order)
-- Robust for judgment agents (this is their core capability)
+- Robust for judgment agents (their core capability)
 
 **Common Mistakes:**
-- Listing rules without explaining the logic ("Client meetings first" — why?)
-- No priority hierarchy for when rules conflict
-- Assuming all cases are covered—leaving no reasoning tools for edge cases
+- Listing rules without reasoning ("Client meetings first"—why?)
+- No priority hierarchy for conflicts
+- Assuming all cases are covered
 
 **Example:**
 ```
@@ -220,8 +441,7 @@ We help people with their calendars.
    Protect billable time unless there's a compelling reason not to.
    
 2. **Relationships have momentum.** New relationships are fragile—
-   reliability matters more than efficiency. Established relationships 
-   can tolerate flexibility.
+   reliability matters more. Established relationships tolerate flexibility.
 
 3. **Context beats labels.** A "low priority" meeting with a key client 
    may matter more than "high priority" internal training. When labels 
@@ -237,7 +457,6 @@ When signals conflict:
 ## Tradeoff Guidance
 When two high-priority items conflict:
 - Surface the tradeoff; don't decide unilaterally
-- Provide context: relationship maturity, history, stakes
 - Default to protecting the more fragile relationship
 
 ❌ BAD:
@@ -246,7 +465,7 @@ When two high-priority items conflict:
 2. Internal meetings are priority 2  
 3. Always check availability
 ```
-*Problems: No reasoning, just rules. Agent can't handle novel cases.*
+*Problems: No reasoning, can't handle novel cases*
 
 ---
 
@@ -256,13 +475,18 @@ When two high-priority items conflict:
 
 **Guidelines:**
 - Clearly separate: autonomous / confirm-first / out-of-scope
-- Escalation paths need a specific destination (who or what), not just "escalate"
+- Escalation paths need specific destinations, not just "escalate"
 - Out-of-scope items should include where to redirect
-- Don't duplicate hard boundaries here—those have no exceptions, these have judgment
+- Don't duplicate hard boundaries—those have no exceptions
+- Autonomy Low: Minimal autonomous scope, mostly information retrieval
+- Autonomy High: Expanded confirm-first to catch high-risk actions
+- Sensitivity Critical: Shift most actions to confirm-first
+- Reversibility Moderate+: Require confirmation for changes affecting others
+- Blast Radius Team+: Require confirmation for actions affecting others' data
 
 **Common Mistakes:**
 - Unclear boundary between autonomous and confirm-first
-- Vague escalation ("escalate if needed") without specifying to whom
+- Vague escalation without specifying to whom
 - Missing redirects for out-of-scope requests
 
 **Example:**
@@ -271,7 +495,7 @@ When two high-priority items conflict:
 ## Handle Autonomously
 - Reschedule internal meetings to resolve conflicts
 - Suggest optimal times based on preferences
-- Decline requests that conflict with protected time (with explanation)
+- Decline requests conflicting with protected time (with explanation)
 
 ## Confirm Before Acting
 - Move any meeting with external participants
@@ -285,7 +509,6 @@ When two high-priority items conflict:
 ## Escalation Paths
 - No clear resolution → Surface options to user
 - External complaints → User + office manager
-- System errors → admin@company.com
 ```
 
 ---
@@ -295,20 +518,20 @@ When two high-priority items conflict:
 **Answers:** "How do I use external systems, and what if they fail?"
 
 **Guidelines:**
-- Specify WHEN to use each tool (trigger conditions), not just what it does
-- Include failure handling for every tool—tools fail, plan for it
-- Note dependencies if order matters (Tool A must complete before Tool B)
-- Rate limits and constraints prevent the agent from overloading systems
+- Specify WHEN to use each tool (trigger conditions)
+- Include failure handling for every tool—tools fail
+- Note dependencies if order matters
+- Rate limits prevent overloading systems
 
 **Conditions:**
 - Skip if agent has no tools
 - Minimal for judgment agents with simple tool needs
-- Robust for tool-heavy agents or complex integrations
+- Robust for tool-heavy agents
 
 **Common Mistakes:**
-- No failure handling (what happens when the API times out?)
-- Missing trigger conditions (agent guesses when to use tools)
-- Undocumented dependencies causing failed tool chains
+- No failure handling
+- Missing trigger conditions
+- Undocumented dependencies
 
 **Example:**
 ```
@@ -316,7 +539,7 @@ When two high-priority items conflict:
 ### calendar_read
 - **Purpose**: Get calendar events for a time range
 - **When to use**: Before any scheduling decision
-- **If it fails**: Tell user calendar is unavailable; don't guess availability
+- **If it fails**: Tell user unavailable; don't guess availability
 
 ### calendar_write
 - **Purpose**: Create, update, or delete events
@@ -325,7 +548,6 @@ When two high-priority items conflict:
 
 ## Tool Sequencing
 - Always calendar_read before calendar_write
-- contact_lookup before decisions involving external parties
 
 ## Constraints
 - calendar_write: Max 10 operations/minute
@@ -335,7 +557,6 @@ When two high-priority items conflict:
 - calendar_read: reads the calendar
 - calendar_write: writes to the calendar
 ```
-*Problems: No trigger conditions, no failure handling, no sequencing*
 
 ---
 
@@ -345,18 +566,17 @@ When two high-priority items conflict:
 
 **Guidelines:**
 - Be explicit about what persists within session vs. across sessions
-- "Do NOT retain" is as important as "retain"—prevents context pollution
-- Contradiction handling prevents the agent from silently overwriting information
-- Session boundaries clarify what resets when
+- "Do NOT retain" prevents context pollution
+- Contradiction handling prevents silent overwrites
+- Session boundaries clarify what resets
 
 **Conditions:**
 - Skip for stateless tool-callers
 - Standard for most multi-turn agents
-- Consider whether your agent even has cross-session memory
 
 **Common Mistakes:**
-- Assuming the agent knows what's worth remembering
-- No guidance on contradictions (new info vs. old info)
+- Assuming agent knows what's worth remembering
+- No contradiction guidance
 - Unclear session boundaries
 
 **Example:**
@@ -370,7 +590,7 @@ When two high-priority items conflict:
 ## Do NOT Retain
 - Speculative statements ("I think maybe...")
 - Off-topic information mentioned in passing
-- Abandoned options that weren't selected
+- Abandoned options not selected
 
 ## Handling Contradictions
 If new information conflicts with earlier statements:
@@ -391,35 +611,31 @@ If new information conflicts with earlier statements:
 
 **Guidelines:**
 - Use exact tag names that static instructions reference
-- Include empty tags with a comment when data is missing (don't omit)
-- Put the request/task LAST—closest to where the model generates response
-- Document the expected schema so the injection pipeline knows what to provide
+- Include empty tags with comment when data is missing (don't omit)
+- Put request/task LAST—closest to model's generation point
+- Document expected schema for injection pipeline
 
 **Conditions:**
 - Minimal for simple agents (just the request)
-- Standard/Robust based on how much context the agent needs per session
+- Standard/Robust based on context needs
 
 **Common Mistakes:**
-- Tag names don't match what static instructions reference
-- Missing tags when data is absent (instead of empty tags with note)
-- Request buried in the middle instead of at the end
+- Tag names don't match static instruction references
+- Missing tags when data absent
+- Request buried in middle instead of end
 
 **Schema Documentation:**
-Include notes about what each injection point expects:
 ```
-## Expected Schemas
+Include notes for each injection point:
 
 ### <user_preferences>
-Scheduling rules, time blocks, communication preferences.
-Required fields: [list any fields that instructions depend on]
-
-### <current_state>
-Calendar state, pending items, current time.
-Required fields: [list]
+Required: yes/no
+Fields: [list fields instructions depend on]
+Example: [sample payload]
 
 ### <request>
-The specific action or decision needed.
-Required fields: action_type, participants (if any), constraints (if any)
+Required: yes
+Fields: action_type, participants (if any), constraints (if any)
 ```
 
 ---
@@ -429,22 +645,23 @@ Required fields: action_type, participants (if any), constraints (if any)
 **Answers:** "How should I think through decisions? What does good vs. bad look like?"
 
 **Guidelines:**
-- Reasoning traces are the key—show the THINKING, not just input→output
-- Include at least one edge case that requires judgment
+- Reasoning traces are key—show THINKING, not just input→output
+- Include at least one edge case requiring judgment
 - Include at least one anti-example showing what NOT to do and why
-- Keep examples representative of common scenarios the agent will face
-- Limit to 3-4 examples total (more dilutes attention)
+- Keep examples representative of common scenarios
+- Limit to 3-4 examples (more dilutes attention)
+- Reversibility Hard+: Include example showing preview-confirm-execute flow
 
 **Conditions:**
 - Skip for simple tool-callers
 - Standard for workflow executors (2-3 examples)
-- Robust for judgment agents (3-4 examples with detailed reasoning)
+- Robust for judgment agents (3-4 with detailed reasoning)
 
 **Common Mistakes:**
-- Input→output without reasoning (model can't learn the pattern)
-- Only happy-path examples (model fails on edge cases)
-- Missing anti-examples (model makes predictable mistakes)
-- Too many examples (attention dilution)
+- Input→output without reasoning
+- Only happy-path examples
+- Missing anti-examples
+- Too many examples
 
 **Example Structure:**
 ```
@@ -453,9 +670,8 @@ Required fields: action_type, participants (if any), constraints (if any)
 
 **Reasoning:**
 1. [First consideration]
-2. [Second consideration]
+2. [Second consideration]  
 3. [Decision point]
-4. [Conclusion]
 
 **Output:** [Response]
 
@@ -465,7 +681,7 @@ Required fields: action_type, participants (if any), constraints (if any)
 **Input:** [Input that could be mishandled]
 
 **❌ Wrong:** [Bad response]
-Why: [2-3 words explaining the problem]
+Why: [Brief explanation]
 
 **✅ Correct:** [Good response]
 ```
@@ -479,17 +695,21 @@ Why: [2-3 words explaining the problem]
 **Guidelines:**
 - Define response structure for main response types
 - Tone calibration works best through contrast ("Say X, not Y")
-- Required elements ensure critical information always appears
+- Required elements ensure critical info always appears
 - Length guidelines prevent over/under-communication
+- Autonomy Low: Frame outputs as recommendations, not actions
+- Sensitivity High+: Specify masking for sensitive fields
+- Exposure External: Customer-safe error messages with actionable next steps
+- Reversibility Moderate+: Include undo/change affordances where applicable
+- Reversibility Irreversible: Require confirmation acknowledgment format
 
 **Conditions:**
-- If agent has no user-facing output (pure backend), this section covers internal response format (e.g., JSON structure)
-- Adjust tone guidance based on audience (technical users vs. executives vs. general)
+- If no user-facing output (backend), cover internal response format (e.g., JSON structure)
 
 **Common Mistakes:**
-- Vague tone descriptors ("be professional") without examples
-- No contrast examples to calibrate style
-- Missing length guidance (agent produces walls of text or terse non-answers)
+- Vague tone descriptors without examples
+- No contrast examples
+- Missing length guidance
 
 **Example:**
 ```
@@ -501,17 +721,17 @@ Why: [2-3 words explaining the problem]
 
 ## Tone Calibration
 Say: "Tuesday 3pm works well. Want me to send the invite?"
-Not: "I have identified an available time slot at 1500 hours on Tuesday 
-     and placed a tentative hold pending your approval."
+Not: "I have identified an available time slot at 1500 hours 
+     pending your approval to dispatch an invitation."
 
 ## Required Elements
-- Always state the action taken or recommended
+- Always state action taken or recommended
 - Always end with clear next step
 
 ## Length
 - Simple confirmations: 1-2 sentences
 - Tradeoff decisions: 3-5 sentences with options
-- Never exceed 150 words without user requesting detail
+- Max 150 words unless user requests detail
 ```
 
 ---
@@ -521,36 +741,46 @@ Not: "I have identified an available time slot at 1500 hours on Tuesday
 **Answers:** "What do I do when things go wrong?"
 
 **Guidelines:**
-- Cover the most common failure modes for this agent type
-- Be specific about behavior—not "handle gracefully" but exactly what to do
-- Include what to communicate to users (if user-facing)
-- Escalation criteria should be specific conditions, not vibes
+- Cover common failure modes for this agent type
+- Be specific about behavior—not "handle gracefully"
+- Include user communication (if user-facing)
+- Escalation criteria should be specific conditions
+- This section absorbs significant modifier content for high-risk agents
+- Sensitivity High+: Address unexpected sensitive data exposure
+- Sensitivity Critical: Include incident escalation with specific owners
+- Autonomy High: Expand rollback and self-correction procedures
+- Exposure External: Include customer-appropriate escalation language
+- Reversibility Irreversible: Address uncertain completion (assume completed, don't retry)
+- Blast Radius Team+: Include affected party notification
+- Blast Radius Org+: Include rollback requirements
+- Blast Radius External: Include customer communication templates, severity classification
 
 **Conditions:**
-- Minimal for simple agents (basic error messages)
-- Standard/Robust based on how many ways things can fail
+- Minimal for simple agents
+- Standard/Robust based on failure mode complexity
 
 **Common Mistakes:**
-- Only happy-path instructions (agent freezes or hallucinates on errors)
-- Vague guidance ("handle errors appropriately")
-- No user communication guidance (agent fails silently)
+- Only happy-path instructions
+- Vague guidance
+- No user communication for failures
 
 **Example:**
 ```
 ✅ GOOD:
-## Missing Information
+## When Information Is Missing
 - Missing calendar data → Ask user for availability; don't guess
 - Missing relationship context → Use conservative defaults; note the gap
 
-## Low Confidence
+## When Confidence Is Low
 - Unsure about priority → Ask, don't guess
-- Multiple valid interpretations → Present options
+- Multiple interpretations → Present options
 
-## Tool Failures  
-- calendar_read fails → "Calendar temporarily unavailable. What times work for you?"
+## When Tools Fail
+- calendar_read fails → "Calendar temporarily unavailable. 
+  What times work for you?"
 - calendar_write fails → Inform user; do not retry without asking
 
-## Unable to Help
+## When Unable to Help
 1. Acknowledge what they're trying to do
 2. Explain why you can't help
 3. Redirect: "For [X], contact [specific alternative]"
@@ -563,26 +793,27 @@ Not: "I have identified an available time slot at 1500 hours on Tuesday
 **Answers:** "What must I absolutely not forget?"
 
 **Guidelines:**
-- Restate only the 2-3 most critical rules from earlier sections
-- Include 2-3 most common mistakes to avoid
-- Keep extremely concise—this is reinforcement, not new information
-- This section benefits from recency effect (models weight ending content heavily)
+- Restate only 2-3 most critical rules from earlier sections
+- Include 2-3 common mistakes to avoid
+- Keep extremely concise—reinforcement, not new information
+- Benefits from recency effect (models weight ending content heavily)
+- Autonomy High: Reinforce caution bias
 
 **Conditions:**
-- Skip for simple tool-callers (not enough complexity to warrant)
+- Skip for simple tool-callers
 - Minimal to Standard for others
 
 **Common Mistakes:**
-- Introducing new rules here (should only reinforce existing ones)
-- Too many items (defeats the purpose of emphasis)
-- Too long (dilutes the recency effect benefit)
+- Introducing new rules (should only reinforce)
+- Too many items
+- Too long
 
 **Example:**
 ```
 ✅ GOOD:
 CRITICAL — Always remember:
 1. Client-facing time is sacred — protect it
-2. When in doubt, surface tradeoffs to user rather than deciding alone
+2. When in doubt, surface tradeoffs rather than deciding alone
 3. Confirm before acting on anything external
 
 Avoid:
@@ -593,9 +824,9 @@ Avoid:
 
 ---
 
-## Template Shell
+## 4. Template Shell
 
-This is the complete structure. Fill each section according to the robustness table and guidelines above.
+Complete structure. Fill according to robustness table and characteristic modifiers.
 
 ```
 <system_prompt>
@@ -761,10 +992,10 @@ Include empty tags with a note if data is unavailable.
 **Input:** [Tricky or ambiguous input]
 
 **Reasoning:**
-1. [How to navigate the complexity]
+1. [How to navigate complexity]
 2. [Key judgment call]
 
-**Output:** [Expected response, possibly including clarification request]
+**Output:** [Expected response]
 
 ---
 
@@ -822,77 +1053,118 @@ Avoid:
 
 ---
 
-## Quality Checklist
+## 5. Quality Checklist
 
-After generating the full prompt, review against this checklist:
+Review the complete prompt against these criteria.
 
-### Identity & Purpose
-- [ ] Purpose explains WHY, not just WHAT
-- [ ] Success metric is observable/measurable
-- [ ] Autonomy boundaries are explicit
+### Configuration Alignment
+- [ ] Complexity level identified; robustness matches table
+- [ ] All five characteristics identified and levels set
+- [ ] Applicable modifiers integrated (not appended)
+- [ ] Token count within target range for complexity
+
+### Characteristic Validation
+
+**Sensitivity**
+- [ ] If High+: Hard Boundaries prohibit logging/displaying sensitive fields
+- [ ] If High+: Output Format specifies masking approach
+- [ ] If Critical: Explicit confirmation required for critical data actions
+- [ ] Sensitive data prohibitions use absolute language (NEVER)
+
+**Autonomy**
+- [ ] If Low: Identity clarifies advisory-only role
+- [ ] If Low: Output Format uses recommendation framing
+- [ ] If High: Decision Logic includes conservative defaults
+- [ ] If High: Final Reminders reinforces caution under uncertainty
+- [ ] Autonomy level matches Operational Boundaries scope
+
+**Exposure**
+- [ ] If Partner+: Hard Boundaries prohibit internal detail exposure
+- [ ] If External: Identity includes customer-appropriate tone
+- [ ] If External: Output Format specifies customer-safe errors
+- [ ] If External: Failure Handling includes customer escalation language
+
+**Reversibility**
+- [ ] If Hard+: Hard Boundaries require preview before send/publish
+- [ ] If Irreversible: Multi-step confirmation addressed
+- [ ] If Irreversible: Failure Handling addresses uncertain completion
+- [ ] Confirmation requirements match reversibility level
+
+**Blast Radius**
+- [ ] If Team+: Confirmation required for actions affecting others
+- [ ] If Team+: Failure Handling addresses affected party notification
+- [ ] If Org+: Rollback requirements documented
+- [ ] If External: Customer failure communication included
+
+### Section Quality
+
+**Identity & Purpose**
+- [ ] Purpose explains WHY, not WHAT
+- [ ] Success metric is observable
+- [ ] Autonomy boundaries explicit
 - [ ] Tone included only if user-facing
 
-### Hard Boundaries
-- [ ] All items are truly non-negotiable (no "unless...")
-- [ ] List is short enough to be memorable (5-10 items max)
-- [ ] NEVER/ALWAYS language used (no soft hedging)
-- [ ] Security rules cover data the agent accesses
+**Hard Boundaries**
+- [ ] All items truly non-negotiable
+- [ ] List short enough to be memorable (5-10 max)
+- [ ] NEVER/ALWAYS language used
+- [ ] Security rules cover accessible data
 
-### Domain Context
-- [ ] Every piece of context affects agent behavior
-- [ ] Terminology definitions are agent-specific, not generic
-- [ ] User characteristics inform communication approach
-- [ ] Knowledge sources are actionable
+**Domain Context**
+- [ ] Every piece affects agent behavior
+- [ ] Terminology agent-specific, not generic
+- [ ] User characteristics inform communication
+- [ ] Knowledge sources actionable
 
-### Decision Logic
-- [ ] Principles include reasoning, not just rules
+**Decision Logic**
+- [ ] Principles include reasoning
 - [ ] Priority hierarchy has clear ordering with rationale
 - [ ] Tradeoff guidance covers common tensions
-- [ ] Agent could reason about novel situations using this
+- [ ] Agent could reason about novel situations
 
-### Operational Boundaries
-- [ ] Clear separation: autonomous / confirm / out-of-scope
+**Operational Boundaries**
+- [ ] Clear autonomous / confirm / out-of-scope separation
 - [ ] Escalation paths have specific destinations
-- [ ] Out-of-scope items include redirects
+- [ ] Out-of-scope includes redirects
 
-### Tool Integration
-- [ ] Each tool has trigger conditions (when to use)
+**Tool Integration**
+- [ ] Each tool has trigger conditions
 - [ ] Each tool has failure handling
-- [ ] Dependencies documented if order matters
+- [ ] Dependencies documented
 
-### Memory Management
-- [ ] Explicit what to retain vs. forget
+**Memory Management**
+- [ ] Explicit retain vs. forget
 - [ ] Contradiction handling specified
 - [ ] Session boundaries clear
 
-### Dynamic Context
-- [ ] Tag names match static instruction references exactly
+**Dynamic Context**
+- [ ] Tag names match static references exactly
 - [ ] Schema documented for injection pipeline
 - [ ] Request positioned last
 
-### Examples
-- [ ] Reasoning traces included (not just input→output)
+**Examples**
+- [ ] Reasoning traces included
 - [ ] At least one edge case
-- [ ] At least one anti-example with explanation
+- [ ] At least one anti-example
 - [ ] 3-4 examples maximum
 
-### Output Format
+**Output Format**
 - [ ] Tone calibrated with contrast examples
 - [ ] Required elements specified
 - [ ] Length guidelines included
 
-### Failure Handling
+**Failure Handling**
 - [ ] Common failure modes covered
 - [ ] Specific behaviors, not vague guidance
-- [ ] User communication included (if user-facing)
+- [ ] User communication included if user-facing
 
-### Final Reminders
-- [ ] Only 2-3 critical rules (reinforcement, not new)
+**Final Reminders**
+- [ ] Only 2-3 rules (reinforcement only)
 - [ ] Common mistakes listed
-- [ ] Kept concise
+- [ ] Concise
 
-### Overall
-- [ ] Total length within target range for agent complexity
-- [ ] Terminology consistent between static and dynamic sections
+### Consistency
+- [ ] Variable/tag names consistent throughout
+- [ ] Terminology matches between static and dynamic sections
 - [ ] No redundancy between sections
-- [ ] Robustness levels match agent complexity
+- [ ] Characteristic content woven in, not appended

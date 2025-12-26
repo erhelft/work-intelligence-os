@@ -150,21 +150,21 @@ This pattern ensures consistency and completeness at each stage.
 
 ---
 
-### Step 4: Agent Positioning
+### Step 4: Agent Characteristics
 
-**Template Section:** 9 (Agent Positioning)
+**Template Section:** 9 (Agent Characteristics)
 
 **Follow the 5-phase pattern above** to gather and document this section.
 
 **Key Topics to Cover:**
-* Position on each key consideration dimension
-* Reasoning for each positioning decision
+* Level for each characteristic dimension (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
+* Reasoning for each characteristic level
 * Implications for system prompt design
-* Any unusual positioning or tradeoffs
+* Any unusual combinations or tradeoffs
 
 **Completeness Check:**
-- [ ] Position on each consideration documented
-- [ ] Reasoning for positioning provided
+- [ ] Level on each characteristic documented (Low, Medium, High, or Critical)
+- [ ] Reasoning for characteristic level provided
 - [ ] Implications for implementation noted
 
 **Gate: User confirms section 9 is complete and accurate**
@@ -183,11 +183,11 @@ Review all approved sections together and check for contradictions or discrepanc
 * Does Agent Operating Model align with Behavior Requirements?
   * Example: If agent is "silent/background," does it have conversational behaviors defined?
 * Do Boundary Conditions match the autonomy level described in other sections?
-  * Example: If positioned as "high autonomy," is the autonomous zone robust?
+  * Example: If characterized as "high autonomy," is the autonomous zone robust?
 * Do Edge Cases reference the right boundaries and behaviors?
 * Does I/O specification match what behaviors and edge cases reference?
-* Does Agent Positioning reflect the actual characteristics in the spec?
-  * Example: If positioned as "high context complexity," does the spec show complex context handling?
+* Do Agent Characteristics reflect the actual characteristics in the spec?
+  * Example: If characterized as "Critical Sensitivity," does the spec show appropriate data handling boundaries?
 * Is tone/interaction style consistent across all sections that mention communication?
 
 **Identify and resolve:**
@@ -246,13 +246,89 @@ This agent specification serves as the primary input to the **System Prompt Crea
 
 ---
 
-## Key Considerations Reference
+## Agent Characteristics Reference
 
-*[This section will be populated with the key dimensions for positioning agents]*
+The following characteristics help define the agent's nature and inform system prompt design, guardrails, and operational requirements.
 
-The following considerations help categorize the agent and inform system prompt design:
+---
 
-* TBD: Key considerations will be defined here
+### 1. Sensitivity (What data does it touch?)
+
+**Definition:** The sensitivity level of data the agent accesses, processes, or stores.
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Low** | Public information, non-personal data | • Public API data<br>• Marketing content<br>• General knowledge queries<br>• Public documentation |
+| **Medium** | Business data, internal documents | • Internal wiki content<br>• Team documents<br>• Project plans<br>• Non-confidential business metrics |
+| **High** | PII, financial, health, legal data | • Customer names and emails<br>• Financial reports<br>• Health records<br>• Legal contracts<br>• Employee performance data |
+| **Critical** | Authentication credentials, payment data, highly regulated data | • Passwords or API keys<br>• Credit card numbers<br>• SSNs or national IDs<br>• Medical diagnoses<br>• Attorney-client privileged content |
+
+---
+
+### 2. Autonomy (How much can it do alone?)
+
+**Definition:** The degree to which the agent can take actions without human approval.
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Low** | Suggestions only, human executes all actions | • Research assistant that only presents findings<br>• Content advisor that reviews but doesn't edit<br>• Query builder that shows SQL but doesn't run it<br>• Design suggester that presents mockups |
+| **Medium** | Acts within well-defined scope, requires approval for significant actions | • Calendar assistant that moves internal meetings but asks about external<br>• Email drafter that sends routine replies but escalates complex ones<br>• Task manager that updates statuses but asks before reassigning |
+| **High** | Acts broadly with minimal oversight, only escalates exceptions | • Automated customer support that resolves 80% of issues<br>• Procurement agent that orders supplies within budget<br>• Content moderator that removes clear violations<br>• System monitor that restarts failed services |
+
+---
+
+### 3. Exposure (Who sees it?)
+
+**Definition:** The audience scope that interacts with or sees outputs from the agent.
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Internal** | Team tools, backend systems, internal automation | • Internal log analyzer<br>• Development environment assistant<br>• Data pipeline orchestrator<br>• Internal reporting tool |
+| **Internal + Partners** | Vendor/client integrations, trusted third parties | • Client portal agent<br>• Vendor API integration<br>• Partner data exchange<br>• Contractor-accessible tools |
+| **External/Public** | Customer-facing, public APIs, end-user products | • Customer support chatbot<br>• Public-facing search<br>• Consumer mobile app agent<br>• Public website assistant |
+
+---
+
+### 4. Reversibility (Can mistakes be undone?)
+
+**Definition:** The ease and completeness with which the agent's actions can be reversed.
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Easily Reversible** | Actions can be undone completely with no consequences | • Draft creation<br>• Suggestion lists<br>• Preview generation<br>• Local file edits with version control<br>• Adding items to cart |
+| **Reversible with Effort** | Actions can be undone but require work or coordination | • Calendar changes (need to renotify attendees)<br>• Sent internal messages<br>• Published internal documents<br>• Status updates that trigger notifications |
+| **Hard to Reverse** | Actions can technically be undone but with significant consequences | • Sent external emails<br>• Published public content<br>• Posted social media<br>• Submitted forms<br>• Triggered workflows affecting others |
+| **Irreversible** | Actions cannot be meaningfully undone | • Payments or transactions<br>• Permanent deletions<br>• Filed legal documents<br>• Sent SMS/texts to customers<br>• Executed trades |
+
+---
+
+### 5. Blast Radius (If it fails, how bad?)
+
+**Definition:** The scope of impact if the agent makes an error or fails.
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Single User** | Mistakes affect only the individual user | • Personal assistant<br>• Individual productivity tool<br>• Personal note-taker<br>• Single-user research tool |
+| **Team** | Mistakes affect a small group | • Team calendar manager<br>• Shared project assistant<br>• Team document organizer<br>• Squad-level automation |
+| **Organization** | Mistakes affect entire company | • Company-wide calendar system<br>• All-hands communication tool<br>• Enterprise security agent<br>• Organization-wide data processor |
+| **External** | Mistakes affect customers, partners, or public | • Customer-facing support<br>• Public API responses<br>• Client deliverables<br>• Payment processing<br>• Public communications |
+
+---
+
+## How to Use Agent Characteristics
+
+**During Agent Spec Creation (Section 9):**
+1. Assess the agent on each characteristic dimension
+2. Assign a level (Low, Medium, High, or Critical for Sensitivity; specific levels for others)
+3. Provide reasoning for each characteristic level
+4. Note implications for system prompt design
+5. Flag any unusual combinations or tensions
+
+**When Creating System Prompt:**
+* Use characteristic levels to determine section robustness beyond base archetype
+* High Sensitivity + High Autonomy = extra robust Hard Boundaries + audit requirements
+* High Blast Radius + Low Reversibility = maximum validation + confirmation requirements
+* External Exposure = careful tone guidance + customer-safe error messages
 
 ---
 
@@ -266,7 +342,7 @@ The agent specification workflow succeeds when:
 * **Narrative coherence:** The spec tells a clear, logical story about the agent
 * **Unambiguous requirements:** All specifications are concrete and actionable, not vague or abstract
 * **Template compliance:** Specification follows the agent-spec-template structure completely
-* **Proper positioning:** Agent positioning reflects actual characteristics in the spec
+* **Proper characteristics:** Agent characteristics reflect actual characteristics in the spec
 * **Handoff-ready:** Specification contains everything needed for system prompt creation
 * **User approved:** User explicitly confirms each section and the final specification
 
@@ -312,9 +388,9 @@ Use this checklist during the workflow to verify completeness at each step.
 - [ ] Graceful degradation behavior specified
 - [ ] Uncertainty handling defined
 
-### Step 4: Agent Positioning (Section 9)
-- [ ] Position on each key consideration documented
-- [ ] Reasoning for positioning provided
+### Step 4: Agent Characteristics (Section 9)
+- [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
+- [ ] Reasoning for characteristic level provided
 - [ ] Implications for implementation noted
 
 ### Step 5: Final Specification Quality

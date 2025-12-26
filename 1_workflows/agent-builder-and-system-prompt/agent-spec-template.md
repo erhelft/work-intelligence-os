@@ -292,33 +292,44 @@ This template provides a structured format for documenting AI agent requirements
 
 ---
 
-### 9. Agent Positioning
+### 9. Agent Characteristics
 
-**Purpose:** Categorize this agent across key considerations that inform system prompt design.
+**Purpose:** Assess this agent across key characteristics that inform system prompt design, guardrails, and operational requirements.
 
 **What to Include:**
-* **Position on Each Dimension:** Where this agent sits on key considerations
-* **Reasoning:** Why this agent is positioned this way
-* **Implications:** What this positioning means for implementation
+* **Level for Each Characteristic:** Assess each of the 5 core characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
+* **Level Assignment:** Low, Medium, High, or Critical (for Sensitivity); specific levels per characteristic
+* **Reasoning:** Why this agent has this characteristic level
+* **Implications:** What this characteristic level means for system prompt design and implementation
 
 **Guidelines:**
-* Reference the key considerations framework
-* Provide reasoning for each positioning decision
-* Note any unusual or non-standard positioning
-* Flag any tensions or tradeoffs in positioning
+* Reference the Agent Characteristics Reference framework
+* Assess each characteristic independently based on the agent's actual behavior
+* Provide clear reasoning for each characteristic level
+* Note any unusual combinations (e.g., High Autonomy + Critical Sensitivity)
+* Flag any tensions or tradeoffs between characteristics
 
 **Example:**
-> **Autonomy Level:** Medium-High
-> * Reasoning: Users want proactive help but not surprises on important meetings
-> * Implication: Strong autonomous zone for routine cases, but confirmation for external stakeholders
+
+> **Sensitivity:** High
+> * Reasoning: Agent accesses client meeting details, attendee information, and calendar patterns that may reveal confidential business relationships
+
 >
-> **Context Complexity:** High
-> * Reasoning: Agent must synthesize calendar, preferences, attendee relationships, meeting content, and historical patterns
-> * Implication: System prompt needs robust context hierarchy and prioritization logic
+> **Autonomy:** Medium
+> * Reasoning: Users want proactive help but not surprises on important meetings; can act autonomously for routine internal meetings but must confirm for external stakeholders
+
 >
-> **Decision Criticality:** Medium-High
-> * Reasoning: Mistakes are recoverable but embarrassing (missed meetings, upset stakeholders)
-> * Implication: Strong emphasis on boundary conditions and graceful degradation
+> **Exposure:** Internal + Partners
+> * Reasoning: Used by internal employees but may interface with external calendar systems (Google, Outlook) and meeting participants see agent actions (notifications, reschedules)
+
+>
+> **Reversibility:** Reversible with Effort
+> * Reasoning: Calendar changes can be undone but require renotifying attendees; sent meeting updates may cause confusion if reversed
+
+>
+> **Blast Radius:** Team to Organization
+> * Reasoning: Mistakes affect individual users primarily, but bad patterns could impact team coordination; calendar mishaps affect relationships
+
 
 ---
 
@@ -417,10 +428,11 @@ Use this checklist to verify your agent spec is complete before handing off to s
 - [ ] Uncertainty handling defined
 - [ ] Fallback behavior documented
 
-**Agent Positioning**
-- [ ] Position on each key consideration documented
-- [ ] Reasoning for positioning provided
-- [ ] Implications noted
+**Agent Characteristics**
+- [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
+- [ ] Reasoning provided for each characteristic level
+- [ ] Implications for system prompt and implementation noted
+- [ ] Any unusual combinations or tensions flagged
 
 **Quality Standards**
 - [ ] Specificity: No vague or abstract terms without definition
