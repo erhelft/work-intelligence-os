@@ -539,7 +539,7 @@ Run validation internally across three areas:
 **Objective:** Output the complete blueprint document.
 
 **LLM Actions:**
-1. Compile all approved sections into `[workflow-name]-blueprint.md`:
+1. Compile all approved sections into `blueprint-for-[workflow-name].md`:
    - Section 1: Why This Workflow Exists
    - Section 2: Audience & Usage
    - Section 3: Guiding Principles
@@ -550,7 +550,7 @@ Run validation internally across three areas:
    - Metadata (name, created by, date)
 2. **Output the complete blueprint document** — present the full content or write to file
 3. Note any TBD items or open questions
-4. Ask: "Here is your complete blueprint. Please save it to `[workflow-name]-blueprint.md`. Does it accurately capture the design?"
+4. Ask: "Here is your complete blueprint. Please save it to `blueprint-for-[workflow-name].md`. Does it accurately capture the design?"
 
 **Critical:** The primary deliverable is the blueprint document itself. Do NOT skip to "next steps" without first outputting the actual blueprint.
 
@@ -564,8 +564,8 @@ Run validation internally across three areas:
 ## Output Specification
 
 ### File Naming
-- Format: `[workflow-name]-blueprint.md`
-- Example: `competitor-analysis-blueprint.md`
+- Format: `blueprint-for-[workflow-name].md`
+
 
 ### Location
 User-specified directory: _______
