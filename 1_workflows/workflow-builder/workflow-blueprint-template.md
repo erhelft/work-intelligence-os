@@ -10,9 +10,16 @@ This template captures the design and reasoning behind a workflow before it's wr
 
 ## Writing Style
 
-- **Structured info** (Problem, When to Use, Phases) → Bullets with 1-2 sentence expansion
-- **Beliefs** (Principles, Pitfalls) → Short narrative paragraphs
-- **Decisions** → Tables with reasoning
+**General principles:**
+- Lead with the key point, then expand
+- Write for scanning — readers should grasp the essence in seconds
+- Avoid fragmented bullets that lack context; each point should stand alone
+
+**By section type:**
+- **Problem Statement** → 2-4 complete sentences. Lead with what goes wrong, then specific consequences. Not a bullet list of pain points.
+- **Structured info** (When to Use, Phases) → Bullets with 1-2 sentence expansion. Each bullet is a complete thought.
+- **Beliefs** (Principles, Pitfalls) → Short narrative paragraphs (2-3 lines). Format: what it is → why it matters → how it shows up.
+- **Decisions** → Tables with reasoning column. Every choice needs a "why."
 
 ---
 
@@ -81,7 +88,7 @@ Before creating this workflow, confirm:
 ## 3. Guiding Principles
 
 ### What to Include
-The principles this workflow must uphold — what we believe and how it shows up in execution.
+The real-world principles this process should uphold — values, collaboration dynamics, organizational considerations, and ripple effects. These are about how people work and what the process should emphasize, not how the LLM behaves.
 
 ### Guidelines
 - 2-3 lines maximum per principle

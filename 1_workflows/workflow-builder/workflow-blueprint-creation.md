@@ -85,6 +85,7 @@ Follow `ai-interview-guidelines.mdc` throughout this workflow:
 
 **Don't:**
 - Accept vague answers for high-importance topics
+- Frame answers in terms of process artifacts or pipeline context — stay focused on essence (the task itself, the user's actual situation, the real problem)
 - Skip the readiness check
 - Rush through principles and pitfalls — they're foundational
 - Design phases before outputs are clear
@@ -247,13 +248,14 @@ Before investing time in designing a workflow, challenge whether it's the right 
 "Now that we understand the problem and who this is for, let's capture the principles that should guide this workflow. These are the beliefs that will shape how we design everything else."
 
 **Guiding Principles:**
-- "What principles must this workflow uphold?"
-- "What beliefs should guide how someone executes this?"
-- "If someone new used this workflow, what do you want them to keep in mind?"
+- "Who else is affected by this process beyond the person executing it?"
+- "What values should this process emphasize? (e.g., thoroughness vs. speed, consistency vs. flexibility, autonomy vs. standardization)"
+- "Are there collaboration or handoff dynamics to consider?"
+- "What are the ripple effects if this is done poorly?"
 
-For each principle:
-- "Why does this principle matter?"
-- "How should it show up in the workflow execution?"
+For each principle identified:
+- "Why does this matter for the process?"
+- "How should it shape the way someone approaches this work?"
 
 **Pitfalls to Avoid:**
 - "What are the most common ways this could go wrong?"
@@ -513,29 +515,20 @@ For each phase identified in Step 7:
 
 **LLM Actions:**
 
-**Part A: Cross-Section Coherence Check**
-- Do the phases actually produce the defined output?
-- Do the pitfalls have corresponding safeguards in the design?
-- Do the success criteria align with the desired end state?
-- Do the principles show up in the phase design?
+Run validation internally across three areas:
+1. **Cross-Section Coherence** — Do phases produce the output? Do pitfalls have safeguards? Do success criteria align with end state?
+2. **Completeness** — All 7 sections filled? Guidelines followed?
+3. **Quality** — Problem specific? Principles actionable? Phases connected? Decisions reasoned?
 
-**Part B: Completeness Check**
-- All 7 blueprint sections filled
-- All guidelines followed (line limits, counts, format)
-- Workflow Readiness Check confirmed
-
-**Part C: Quality Validation**
-- [ ] Problem is specific and outcome-focused
-- [ ] Output is clearly defined (template need addressed)
-- [ ] Principles and pitfalls are actionable (2-3 lines each)
-- [ ] Phases connect logically to produce the output
-- [ ] Design decisions include rationale
-- [ ] Success criteria are verifiable (4-7 total)
+**Present to user:**
+- Brief summary: "QA complete. [X/3] areas passed."
+- Only detail issues that need attention (with reasoning)
+- If all passes: "No issues found. Ready to finalize."
 
 **Guidelines:**
-- Be thorough — this is the last check before finalizing
-- Flag any issues for user decision
-- Note any TBD items or open questions
+- Run validation internally — don't show all the checkboxes
+- Only surface issues that need user decision
+- Keep the summary scannable
 
 **No gate — proceed to Step 12**
 
@@ -543,7 +536,7 @@ For each phase identified in Step 7:
 
 ### Step 12: Review & Finalize
 
-**Objective:** Compile everything and get final approval.
+**Objective:** Output the complete blueprint document.
 
 **LLM Actions:**
 1. Compile all approved sections into `[workflow-name]-blueprint.md`:
@@ -554,12 +547,17 @@ For each phase identified in Step 7:
    - Section 5: Phase Architecture
    - Section 6: Design Decisions
    - Section 7: Success Criteria
-2. Add metadata (name, created by, date)
-3. Present complete blueprint summary to user
-4. Note any TBD items or open questions
-5. Ask: "This is the complete blueprint. Does it accurately capture the design for this workflow? Ready to proceed to workflow creation?"
+   - Metadata (name, created by, date)
+2. **Output the complete blueprint document** — present the full content or write to file
+3. Note any TBD items or open questions
+4. Ask: "Here is your complete blueprint. Please save it to `[workflow-name]-blueprint.md`. Does it accurately capture the design?"
 
-**Gate 3:** User approves final blueprint
+**Critical:** The primary deliverable is the blueprint document itself. Do NOT skip to "next steps" without first outputting the actual blueprint.
+
+**Gate 3:** User confirms blueprint is saved and accurate
+
+**After approval, mention:**
+"When you're ready to create the workflow from this blueprint, use the Workflow Creation workflow (`workflow-creation.md`)."
 
 ---
 
