@@ -2,14 +2,13 @@
 alwaysApply: false
 ---
 ## Purpose
-Reference guide for consistent markdown formatting across all documents in `rules/`, `workflows/`, and `docs/` directories.
+Reference guide for consistent markdown formatting across all documents in `rules/`, `workflows/` directories.
 
 ## File Naming Conventions
 
 ### File Extensions
 * **Rules** (`rules/`): Use `.mdc` extension (e.g., `product-copilot.mdc`, `writing-style.mdc`)
 * **Workflows** (`workflows/`): Use `.md` extension (e.g., `writing-workflow.md`, `thinking-workflow.md`)
-* **Docs** (`docs/`): Use `.md` extension (e.g., `prd.md`, `strategy.md`, `thesis-artifact.md`)
 
 ### File Names
 * Use kebab-case: lowercase letters and hyphens
@@ -44,7 +43,7 @@ Documents should follow this hierarchy when applicable:
 ### Format
 ```yaml
 ---
-alwaysApply: true
+alwaysApply: false
 ---
 ```
 
@@ -185,11 +184,6 @@ alwaysApply: true
 * Use numbered lists for sequential steps
 * Use bulleted lists for parallel options
 * Include gating/approval steps clearly
-
-### Docs (`.md` files)
-* Structure: Title → Content sections
-* May include templates or examples
-* Follow content-specific structure (e.g., PRD template)
 
 ## Cross-References
 

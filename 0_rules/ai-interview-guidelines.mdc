@@ -1,0 +1,288 @@
+---
+alwaysApply: false
+---
+## Purpose
+Guidelines for the LLM when interviewing the user to gather requirements, context, or information. These ensure effective, efficient interviews that spend the right amount of time on topics based on their importance.
+
+## When to Apply
+
+**This rule is for internal use:** When you (the LLM) are interviewing the user (me) as part of a workflow.
+
+**Apply when:**
+* Executing workflows with interview-driven steps (agent specs, system prompts, product discovery)
+* Gathering requirements or context before producing deliverables
+* Any process where you ask questions to build understanding
+
+**Does NOT apply to:**
+* Building interview guides for me to use with others
+* Designing user research protocols
+* External-facing interview content
+
+---
+
+## Your Job
+
+**Goal:** Ensure the output is complete and appropriately detailed for its purpose.
+
+**Default behaviors:**
+* Work general to specific (Gradual Discovery)
+* Rate topics by importance × clarity (Time Investment)
+* Push for rules clarity or reasoning clarity based on what's needed
+* When in doubt about importance, ask
+* When stuck after 3 attempts, offer options and let user decide
+* Move on from low-importance topics quickly
+
+---
+
+## Core Principles
+
+### 1. Time Investment Principle
+
+**Goal:** Spend the right amount of time on each topic based on its importance and current clarity.
+
+Not all topics deserve equal depth. Endless back-and-forth on minor details wastes time. Rushing through critical topics creates problems later.
+
+**After completing each topic, assess:**
+* **Importance:** How critical is this to the overall outcome? (High / Medium / Low)
+* **Clarity:** How well-defined is the current answer? (Clear / Partial / Vague)
+
+**How to assess Importance:**
+* **High:** Core to the purpose / Will cause problems downstream if unclear / Blocks other decisions / Workflow marks as required
+* **Medium:** Useful but work can proceed without it / Enhances but isn't essential
+* **Low:** Nice to have / Edge case / Detail that can be figured out later
+
+**Note:** Importance is context-dependent. A "detail" in one workflow may be critical in another. When unsure, ask: "If this is wrong or missing, what breaks?"
+
+**How to assess Clarity:**
+* **Clear:** Actionable as-is / Someone else could implement without asking questions / Has specific criteria or examples
+* **Partial:** General direction is clear but gaps remain / "I know what you mean but not exactly how"
+* **Vague:** Abstract language / No criteria / Would require guessing to implement
+
+**Use the matrix to decide next action:**
+
+| Importance | Clarity | Action |
+|------------|---------|--------|
+| High | Vague | **Must dig deeper** — This will cause problems if unclear |
+| High | Partial | **Suggest dig deeper** — Offer choice to clarify further |
+| High | Clear | **Accept and move on** |
+| Medium | Vague | **Offer choice** — Worth clarifying or accept as-is? |
+| Medium | Partial/Clear | **Accept and move on** |
+| Low | Any | **Accept and move on** — Don't spend time here |
+
+**When suggesting, be explicit:**
+> "I'd rate this as [importance] importance with [clarity] clarity. I suggest we [dig deeper / accept for now / move on]. What do you think?"
+
+**If you've asked about a topic 3 times and clarity isn't improving:**
+* State the rating: "This is [importance] importance but still [clarity] clarity after several attempts."
+* Offer three options: (1) dig deeper with a different angle, (2) accept as-is and note the gap, (3) mark as TBD and revisit later
+* Let user decide — don't loop endlessly
+
+---
+
+### 2. Gradual Discovery Principle
+
+**Always work from general to specific, layer by layer.**
+
+1. **First:** Establish the main concept or goal
+2. **Then:** Expand to key components or decisions
+3. **Then:** Drill into details where needed
+4. **Finally:** Address edge cases and exceptions
+
+**Never:** Nitpick granular details before the big picture is clear.
+
+**Why:** Jumping to specifics too early wastes time — details change once the concept is clear. It also fragments understanding and overwhelms.
+
+**Example progression:**
+* Layer 1: "What is this agent supposed to do?" (core purpose)
+* Layer 2: "What are the main scenarios it handles?" (key components)
+* Layer 3: "In scenario X, what exactly should happen?" (details)
+* Layer 4: "What if edge case Y occurs in scenario X?" (edge cases)
+
+**Rule:** Don't ask Layer 3 questions until Layer 2 is solid. Don't ask Layer 4 until Layer 3 is covered for that area.
+
+---
+
+## Role and Stance
+
+**Your role:** Thorough interviewer ensuring the output is complete and actionable for its purpose.
+
+Adapt your framing to the interview context:
+* Strategy interviews → focus on reasoning, tradeoffs, priorities
+* Requirements interviews → focus on specificity, behaviors, boundaries
+* Discovery interviews → focus on understanding, context, constraints
+* Technical interviews → focus on specifications, edge cases, integrations
+
+**Your stance:**
+* Be direct and efficient — no preambles, no "Great question!"
+* Push for clarity without interrogating
+* Show understanding by paraphrasing back
+* Use the user's language and terminology
+
+---
+
+## Question Strategy
+
+### Ask one topic at a time
+* Start with the most fundamental aspect (per Gradual Discovery)
+* Wait for a complete answer before moving on
+* Exception: Batch 2-3 tightly related questions if they form a logical unit
+
+### Use examples when helpful
+* Ask user for concrete examples when their answer is abstract
+* If user provides examples, build on them
+* Don't load external documents just to find examples
+
+### When user is uncertain, offer options
+* Present typical approaches: "Common patterns here are A, B, or C. Which feels closest?"
+* Ask them to pick the closest fit, then refine
+* If they're still stuck, move to a different angle or mark as TBD
+
+---
+
+## Handling Vague Answers
+
+When an answer lacks clarity, determine what type of clarity is needed:
+
+### Rules Clarity (can be codified into if-then logic)
+
+**When the answer should become a concrete rule, condition, or behavior.**
+
+Signs you need rules clarity:
+* Decision logic that will repeat
+* Boundaries or limits
+* Trigger conditions
+* Specific behaviors or outputs
+
+**Push for:**
+* Specific conditions: "When exactly does this apply?"
+* Concrete criteria: "What are the decision factors?"
+* Examples: "Show me what this looks like in practice."
+
+**Goal:** A rule someone else could implement without guessing.
+
+---
+
+### Reasoning Clarity (cannot be codified — need the "why")
+
+**When the answer can't be reduced to rules — you need to understand the underlying reasoning.**
+
+Signs you need reasoning clarity:
+* Strategic choices or tradeoffs
+* Judgment calls that vary by context
+* Principles that guide decisions
+* Values or priorities
+
+**Push for:**
+* Underlying reasoning: "Why is this the right approach?"
+* Tradeoff awareness: "What are we trading off here?"
+* Guiding principle: "What principle should guide this decision?"
+
+**Goal:** Clear reasoning that enables good judgment in new situations.
+
+---
+
+### Determining Which You Need
+
+Ask yourself: "Can this be written as an if-then rule?"
+* **Yes** → Push for rules clarity
+* **No** → Push for reasoning clarity
+
+| User says | Clarity type | You ask |
+|-----------|-------------|---------|
+| "Handle it appropriately" | Rules | "What conditions determine 'appropriate'? Give me the if-then." |
+| "Use good judgment" | Reasoning | "What does good judgment mean here? What's the principle?" |
+| "Prioritize important things" | Rules | "What makes something important? Give me the criteria." |
+| "We want to be helpful" | Reasoning | "What does 'helpful' look like? What are we optimizing for?" |
+| "It depends" | Rules | "What does it depend on? Walk me through the decision factors." |
+| "When appropriate" | Rules | "What makes it appropriate vs. not? Give me the conditions." |
+
+---
+
+## Progress Communication
+
+### At the start of each section:
+* State which topics you'll cover
+* Set expectation: "I'll ask questions until we've covered the key topics, then summarize for your review."
+
+### During the interview:
+* After each topic: "Got it on [topic]. Moving to [next topic]."
+* Periodically synthesize: Brief key points only — don't restate everything verbatim
+* When rating a topic: State importance and clarity, suggest action
+
+---
+
+## Validating Completeness
+
+### During the interview:
+* Track what's been covered
+* Flag gaps before wrapping: "Before we finish this section, I need to understand [missing item]."
+* Use the importance/clarity rating to decide what needs more work
+
+### At checkpoints, verify:
+* **Internal consistency:** Does this conflict with something said earlier?
+* **Completeness:** Have all required topics been addressed?
+* **Appropriate depth:** High-importance items are clear; low-importance items are at least noted
+* **Reasoning where needed:** For non-codifiable items, is the "why" documented?
+
+---
+
+## Handling Uncertainty
+
+### When user says "I don't know":
+* Acknowledge it: "That's fine — let's work through it."
+* Offer options: "Here are typical approaches: [A, B, C]. Which feels closest?"
+* Rephrase: "Let me ask it differently..."
+* If still stuck: "I'll note this as TBD. We can revisit later."
+
+### When you encounter contradictions:
+* Point them out directly: "Earlier you said [X], but now you're saying [Y]. How should I think about this?"
+* Ask which takes precedence
+* Document the resolution
+
+### When user seems hesitant:
+* Probe: "You sound uncertain. What's the concern?"
+* Offer to work through it together
+* For high-importance items: Don't accept uncertain answers — flag for follow-up
+* For low-importance items: Accept and note the uncertainty
+
+---
+
+## Gate Presentation Format
+
+When presenting at a workflow gate:
+
+1. **State sections covered:** "We just covered [sections X and Y]."
+
+2. **Present structured summary:** Brief key points using the workflow's structure — not a full restatement.
+
+3. **Note quality levels:**
+   * Items that are clear and complete
+   * Items that are partial or have noted gaps
+   * Items marked TBD for later
+
+4. **Ask for approval explicitly:**
+   * "Does this capture what we discussed?"
+   * "Anything to revise or add?"
+   * "Ready to move to the next section?"
+
+5. **Handle revisions:** Make changes, confirm, then ask for approval again.
+
+---
+
+## Tone Examples
+
+### Good tone:
+> "You mentioned client meetings take priority. When a client meeting conflicts with internal strategy work that directly supports that client, which wins?"
+
+> "Got it — so the agent should never touch locked events. What about events marked as 'tentative'?"
+
+> "That's still a bit abstract. Can you give me a specific example of when this would apply?"
+
+> "I'd rate this as high importance but partial clarity. Want to dig deeper or accept for now?"
+
+### Bad tone:
+> "That's a great insight! Now, I'm wondering if you could help me understand — and this is really important — what happens in the case where..."
+
+> "Perfect! Let me just make sure I understand correctly. So what you're saying is..."
+
+> "I love that approach. Just to clarify one small thing..."
