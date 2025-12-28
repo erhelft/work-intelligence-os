@@ -30,9 +30,11 @@ This is an **interview-driven workflow**. The AI will guide you through question
 ### What You'll Get
 A complete workflow blueprint document (`[workflow-name]-blueprint.md`) that captures:
 - Why the workflow exists and who it's for
+- Guiding principles and pitfalls to avoid (the foundation)
+- What the workflow produces (and whether a template is needed)
 - The phases and how they connect
-- Guiding principles and pitfalls to avoid
 - Design decisions with reasoning
+- Success criteria
 
 This blueprint becomes permanent documentation and the input for creating the actual workflow.
 
@@ -52,7 +54,7 @@ This blueprint becomes permanent documentation and the input for creating the ac
 >
 > This pattern ensures consistency and completeness at each stage.
 
-**Gating:** 3 gates total — after Steps 4, 8, and 11
+**Gating:** 3 gates total — after Steps 5, 9, and 12
 
 ---
 
@@ -65,7 +67,7 @@ Interviewer and guide — help the user design their workflow through structured
 Help the user produce a complete, well-reasoned workflow blueprint that they can use to create an effective workflow.
 
 ### Critical Principle
-**Start with the output, work backwards.** Before designing how the workflow works, be clear on what it produces. The phases of a workflow exist to create an output — not the other way around. Enforce this by defining the desired output before designing the phases.
+**Principles first, then structure.** After understanding the problem, capture the guiding principles early — they inform all downstream design decisions. Then define what the workflow produces, and finally design the phases to achieve it. Help the user understand if they need a template (for structured outputs) or just a workflow (for synthesis/analysis).
 
 ### References
 Follow `ai-interview-guidelines.mdc` throughout this workflow:
@@ -78,13 +80,15 @@ Follow `ai-interview-guidelines.mdc` throughout this workflow:
 - Challenge whether this should be a workflow at all (Step 2)
 - Push for specificity when answers are vague
 - Validate against template guidelines before presenting at gates
+- Capture principles early — they guide all downstream design
 - Guide user to think about outputs before phases
 
 **Don't:**
 - Accept vague answers for high-importance topics
 - Skip the readiness check
+- Rush through principles and pitfalls — they're foundational
 - Design phases before outputs are clear
-- Rush through principles and pitfalls
+- Ask the user to explain how the workflow works — you're the guide, propose and confirm
 
 ---
 
@@ -225,135 +229,22 @@ Before investing time in designing a workflow, challenge whether it's the right 
 - [ ] Audience is clearly defined
 - [ ] When to use / when not to use is clear
 
----
-
-### Step 4: Gate 1 — Problem & Goal Approval
-
-**Objective:** Get user approval on the foundation before proceeding.
-
-**LLM Actions:**
-1. Present structured summary:
-   - Problem statement
-   - Desired end state
-   - Philosophy (if included)
-   - Audience & usage
-   - Workflow readiness confirmation
-2. Note quality levels for each item
-3. Ask: "Does this capture why this workflow exists and who it's for? Anything to revise?"
-
-**Gate:** User confirms sections 1-2 are complete and accurate
+**No gate — continue to Step 4**
 
 ---
 
-### Step 5: Output Definition
-
-**Objective:** Define what this workflow produces BEFORE designing how it works.
-
-**LLM Actions:**
-
-This is the critical step. The phases of a workflow exist to create outputs. You must be clear on what those outputs are first.
-
-**Primary Output:**
-- "When this workflow is complete, what artifact or outcome exists that didn't exist before?"
-- "Is there a document, decision, deliverable, or state change?"
-- "Be specific — what exactly gets produced?"
-
-**Output Characteristics:**
-- "What format is this output? (document, decision, configured system, etc.)"
-- "What must this output contain to be useful?"
-- "Who uses this output and for what?"
-
-**Secondary Outputs (if any):**
-- "Does this workflow produce anything else along the way?"
-- "Are there intermediate artifacts that have standalone value?"
-
-**Output Template (if applicable):**
-- "Should we design a template for this output?"
-- "Does a template already exist that this workflow fills?"
-
-**Key Topics to Cover:**
-- Primary output (specific artifact or outcome)
-- Output format and contents
-- Who uses it and for what
-- Secondary outputs (if any)
-- Template needs
-
-**Guidelines:**
-- Capture output definition clearly — this drives phase architecture
-- Push for specificity: "A document" is not enough; "A competitive analysis document with sections X, Y, Z" is better
-
-**Quality Check:**
-- [ ] Primary output is specific and concrete
-- [ ] Output contents are defined
-- [ ] Clear who uses the output and for what
-
-**No gate — continue to Step 6**
-
----
-
-### Step 6: Phase Architecture
-
-**Template Section:** 5 (Phase Architecture)
-
-**Objective:** Design the phases that create the outputs defined in Step 5, working backwards from the end.
-
-**Follow the 5-phase pattern above.**
-
-**LLM Actions:**
-
-**Start from the end:**
-- "To produce [output from Step 5], what's the last thing that needs to happen?"
-- "What must be true right before the output is created?"
-
-**Work backwards:**
-- "Before that can happen, what needs to be in place?"
-- "What's the prerequisite for that step?"
-- Continue until you reach the starting point.
-
-**For each phase identified:**
-- "What is the ONE goal of this phase?" (If multiple goals emerge, discuss splitting)
-- "What does this phase need as input?"
-- "What does this phase produce as output?"
-- "Is this output intermediate (feeds next phase) or an artifact (standalone value)?"
-- "Any special considerations or common mistakes for this phase?"
-
-**Coherence Check:**
-- "Let's trace the flow: Phase 1 produces X, which feeds into Phase 2 as input..."
-- "Does anything get lost between phases?"
-- "Is there any context that needs to carry forward?"
-
-**Key Topics to Cover:**
-- Each phase with goal, input, output
-- Output type per phase (intermediate vs. artifact)
-- Coherence map (how phases connect)
-- Handoff requirements
-
-**Guidelines:**
-- Each phase must have exactly ONE goal
-- If a phase has multiple goals, split it
-- Aim for phases that are the smallest unit of meaningful progress
-- Document the coherence map explicitly
-
-**Quality Check:**
-- [ ] Each phase has single goal
-- [ ] Each phase has clear input and output
-- [ ] Output types identified (intermediate vs. artifact)
-- [ ] Coherence map shows how phases connect
-- [ ] No context lost between phases
-
-**No gate — continue to Step 7**
-
----
-
-### Step 7: Guiding Principles & Pitfalls
+### Step 4: Guiding Principles & Pitfalls
 
 **Template Sections:** 3 (Guiding Principles), 4 (Pitfalls to Avoid)
 
-**Objective:** Capture the principles this workflow must uphold and the failure modes it must guard against.
+**Objective:** Capture the foundational beliefs and failure modes BEFORE designing the workflow structure. Principles guide all downstream design decisions.
 
 **Follow the 5-phase pattern above.**
 
 **LLM Actions:**
+
+**Transition:**
+"Now that we understand the problem and who this is for, let's capture the principles that should guide this workflow. These are the beliefs that will shape how we design everything else."
 
 **Guiding Principles:**
 - "What principles must this workflow uphold?"
@@ -382,70 +273,184 @@ For each pitfall:
 - Keep to 2-3 lines per principle/pitfall
 - Up to 3 of each (focus on what truly matters)
 - Include reasoning ("because...")
+- These principles will inform output design and phase architecture
 
 **Quality Check:**
 - [ ] Up to 3 principles, each 2-3 lines
 - [ ] Up to 3 pitfalls, each 2-3 lines
 - [ ] Each includes reasoning
 
+---
+
+### Step 5: Gate 1 — Foundation Approval
+
+**Objective:** Get user approval on the foundation (problem, audience, principles, pitfalls) before designing the workflow structure.
+
+**LLM Actions:**
+1. Present structured summary:
+   - Problem statement
+   - Desired end state
+   - Philosophy (if included)
+   - Audience & usage
+   - Workflow readiness confirmation
+   - Guiding principles (up to 3)
+   - Pitfalls to avoid (up to 3)
+2. Note quality levels for each item
+3. Ask: "Does this capture the foundation — why this workflow exists, who it's for, and the principles that will guide it? Anything to revise?"
+
+**Gate:** User confirms Sections 1-4 are complete and accurate
+
+---
+
+### Step 6: Output Definition
+
+**Objective:** Define what this workflow produces BEFORE designing how it works.
+
+**LLM Actions:**
+
+**Identify the output:**
+- "What artifact exists when this workflow is complete?"
+- "Be specific — what kind of document/deliverable is it?"
+- "Who uses this output and for what?"
+
+**Guide toward understanding the full picture:**
+
+Many workflows actually produce TWO outputs:
+1. **A template** — the structure of the output (what sections, what format)
+2. **A workflow** — the process to fill that structure
+
+Help the user recognize if their workflow needs both:
+- "Does this output have a consistent structure that should be templated?"
+- "Or is this more like synthesis/analysis where the output varies each time?"
+
+**If template applies:**
+- "So we'll be creating both a template and a workflow. The template defines the structure; the workflow guides filling it."
+
+**If no template needed:**
+- "This sounds like pure synthesis/analysis — no fixed structure. We'll focus on the workflow phases."
+
+**Key Topics to Cover:**
+- Output explicitly named and described
+- Whether template is needed (or just workflow)
+- Who uses the output
+
+**Guidelines:**
+- Let the user explain what they want — guide them toward the template/workflow distinction if needed
+- Don't force a template where it doesn't fit (analysis, synthesis, decisions often don't need one)
+- Reference the principles from Step 4 — how should the output embody them?
+
+**Quality Check:**
+- [ ] Output explicitly named
+- [ ] Template need determined (yes/no)
+- [ ] Clear who uses the output
+
+**No gate — continue to Step 7**
+
+---
+
+### Step 7: Phase Architecture
+
+**Template Section:** 5 (Phase Architecture)
+
+**Objective:** Design the phases that create the output defined in Step 6.
+
+**Follow the 5-phase pattern above.**
+
+**LLM Actions:**
+
+**Identify phases:**
+- "What phases does this workflow need to produce [the output]?"
+- "Think about it step by step — what happens first? Then what?"
+
+**For each phase identified:**
+- "What is the ONE goal of this phase?" (If multiple goals emerge, discuss splitting)
+- "What does this phase need as input?"
+- "What does this phase produce as output?"
+- "Is this output intermediate (feeds next phase) or an artifact (standalone value)?"
+- "Any special considerations or common mistakes for this phase?"
+
+**Coherence check:**
+- "Let's trace the flow: Phase 1 produces X, which feeds into Phase 2..."
+- "Does anything get lost between phases?"
+- "Does this fully produce the output we defined?"
+
+**Handoff verification:**
+- "What should be checked to ensure nothing is lost between phases?"
+- "What context must carry forward?"
+
+**Key Topics to Cover:**
+- Each phase with goal, input, output
+- Output type per phase (intermediate vs. artifact)
+- Coherence map (how phases connect)
+- Handoff verification
+
+**Guidelines:**
+- Each phase must have exactly ONE goal
+- If a phase has multiple goals, split it
+- Phases should be the smallest unit of meaningful progress
+- Reference principles from Step 4 — do the phases embody them?
+
+**Quality Check:**
+- [ ] Each phase has single goal
+- [ ] Each phase has clear input and output
+- [ ] Output types identified (intermediate vs. artifact)
+- [ ] Phases connect logically to produce the final output
+- [ ] Handoff verification defined
+
 **No gate — continue to Step 8**
 
 ---
 
-### Step 8: Design Decisions & Success Criteria
+### Step 8: Design Decisions
 
-**Template Sections:** 6 (Design Decisions), 7 (Success Criteria)
+**Template Section:** 6 (Design Decisions)
 
-**Objective:** Make implementation choices and define success.
+**Objective:** Capture high-level implementation choices for the workflow.
 
 **Follow the 5-phase pattern above.**
 
 **LLM Actions:**
 
 **Workflow Structure:**
-- "Based on these [N] phases, should this be a single file or multiple files?"
-- "Are any phases complex enough to warrant their own file?"
+- "Should this be a single workflow file, or split across multiple files?"
+- "What's your reasoning?" (Complexity, phase independence, reusability)
 
-If multi-file:
-- "Which phases belong in which file?"
-- "Where's the cutoff between files and why?"
+**File Structure (if multi-file):**
+- "Which phases belong together in each file?"
+- "Where should the split happen and why?"
 
 **Phase Configuration:**
-For each phase:
-- "Should Phase [N] be interview-based or input-based?"
-- "Should there be a gate after Phase [N]?"
-- "Why this choice?"
+For each phase identified in Step 7:
+- "Should this phase use interview (LLM asks questions) or input-based (user provides structured input)?"
+- "Should this phase have a gate (user approval checkpoint) after it?"
+- "Why?"
 
 **Gating Strategy:**
-- "Where are the critical decision points?"
-- "Where would a user want to review before proceeding?"
-- Guide: Aim for 3-5 gates total.
+- "Looking at your gates, do you have 3-5 total?" (Guide if too few or too many)
+- "What's the overall reasoning for where you placed gates?"
 
-**Tools (if applicable):**
-- "Does any phase require external tools, APIs, or MCPs?"
-
-**Success Criteria:**
-- "How will you know this workflow succeeded?"
-- "What must be true when it's complete?"
-- Push for measurables: "Can you verify that with a yes/no check?"
+**Tools Required:**
+- "Does any phase require external tools or APIs?"
+- If yes: "Which phase, what tool, what purpose?"
 
 **Key Topics to Cover:**
-- Single vs. multi-file decision
-- Phase configuration table (input method, gated, rationale)
-- Gating summary
-- Tools (if applicable)
-- 4-7 success criteria
+- Single vs. multi-file decision with reasoning
+- File structure if multi-file
+- Input method per phase (interview/input-based)
+- Gate placement per phase
+- Tools if applicable
 
 **Guidelines:**
-- Every decision needs rationale
-- Aim for 3-5 gates total
-- Success criteria must be verifiable (yes/no)
+- Every decision must include reasoning
+- Gating should be at decision points, not after every action (aim for 3-5 gates total)
 
 **Quality Check:**
-- [ ] Workflow structure decision with rationale
-- [ ] Phase configuration complete for all phases
-- [ ] 3-5 gates with reasoning
-- [ ] 4-7 success criteria, all verifiable
+- [ ] Workflow structure decided with reasoning
+- [ ] Each phase has input method specified
+- [ ] Gates placed at decision points (3-5 total)
+- [ ] Tools documented if needed
+
+**No gate — continue to Step 9**
 
 ---
 
@@ -455,65 +460,106 @@ For each phase:
 
 **LLM Actions:**
 1. Present structured summary:
-   - Output definition
-   - Phase architecture overview with coherence map
-   - Guiding principles (up to 3)
-   - Pitfalls to avoid (up to 3)
-   - Design decisions summary table
-   - Success criteria list
+   - Output definition (what the workflow produces, template needed or not)
+   - Phase architecture (phases with goals, inputs, outputs, coherence map)
+   - Design decisions (structure, phase config, gating)
 2. Note quality levels for each item
-3. Ask: "Does this capture the structure and design of the workflow? Anything to revise?"
+3. Ask: "Does this capture the architecture and design of the workflow? Anything to revise?"
 
-**Gate:** User confirms sections 3-7 are complete and accurate
+**Gate:** User confirms Sections 5-6 are complete and accurate
 
 ---
 
-### Step 10: Quality Assurance
+### Step 10: Success Criteria
+
+**Template Section:** 7 (Success Criteria)
+
+**Objective:** Define how to know the workflow succeeded.
+
+**Follow the 5-phase pattern above.**
+
+**LLM Actions:**
+
+- "How will you know this workflow worked?"
+- "What must be true when it's complete?"
+- Push for verifiables: "Can you check that with a yes/no?"
+
+**Validation:**
+- "Does at least one criterion address the original problem from Step 3?"
+- "Does at least one criterion address usability of the output?"
+
+**Key Topics to Cover:**
+- 4-7 verifiable success criteria
+- At least one tied to problem statement
+- At least one tied to output usability
+
+**Guidelines:**
+- Each criterion should be verifiable (you can check yes/no)
+- Include both completion checks (did it finish?) and quality checks (did it work well?)
+
+**Quality Check:**
+- [ ] 4-7 criteria defined
+- [ ] Each is verifiable (yes/no checkable)
+- [ ] Problem statement addressed
+- [ ] Output usability addressed
+
+**No gate — continue to Step 11**
+
+---
+
+### Step 11: Quality Assurance
 
 **Objective:** Validate the complete blueprint before finalizing.
 
 **LLM Actions:**
 
 **Part A: Cross-Section Coherence Check**
-- Does the phase architecture actually solve the problem statement?
-- Do the design decisions make sense given the phases?
-- Do the pitfalls have corresponding safeguards in the phases?
+- Do the phases actually produce the defined output?
+- Do the pitfalls have corresponding safeguards in the design?
 - Do the success criteria align with the desired end state?
+- Do the principles show up in the phase design?
 
 **Part B: Completeness Check**
-- All 7 template sections filled
+- All 7 blueprint sections filled
 - All guidelines followed (line limits, counts, format)
 - Workflow Readiness Check confirmed
 
 **Part C: Quality Validation**
 - [ ] Problem is specific and outcome-focused
-- [ ] Output is clearly defined
-- [ ] Phases connect logically (coherence map verified)
-- [ ] Principles and pitfalls are actionable
+- [ ] Output is clearly defined (template need addressed)
+- [ ] Principles and pitfalls are actionable (2-3 lines each)
+- [ ] Phases connect logically to produce the output
 - [ ] Design decisions include rationale
-- [ ] Success criteria are verifiable
+- [ ] Success criteria are verifiable (4-7 total)
 
 **Guidelines:**
 - Be thorough — this is the last check before finalizing
 - Flag any issues for user decision
 - Note any TBD items or open questions
 
-**No gate — proceed to Step 11**
+**No gate — proceed to Step 12**
 
 ---
 
-### Step 11: Review & Finalize
+### Step 12: Review & Finalize
 
 **Objective:** Compile everything and get final approval.
 
 **LLM Actions:**
-1. Compile all approved sections into `[workflow-name]-blueprint.md`
+1. Compile all approved sections into `[workflow-name]-blueprint.md`:
+   - Section 1: Why This Workflow Exists
+   - Section 2: Audience & Usage
+   - Section 3: Guiding Principles
+   - Section 4: Pitfalls to Avoid
+   - Section 5: Phase Architecture
+   - Section 6: Design Decisions
+   - Section 7: Success Criteria
 2. Add metadata (name, created by, date)
 3. Present complete blueprint summary to user
 4. Note any TBD items or open questions
 5. Ask: "This is the complete blueprint. Does it accurately capture the design for this workflow? Ready to proceed to workflow creation?"
 
-**Gate:** User approves final blueprint
+**Gate 3:** User approves final blueprint
 
 ---
 
@@ -541,12 +587,12 @@ This blueprint serves as the primary input to **Workflow Creation** (`workflow-c
 This workflow succeeds when:
 - [ ] **Readiness verified:** Workflow Readiness Check passed before proceeding
 - [ ] **Problem clarity:** Problem and desired end state are specific and outcome-focused
-- [ ] **Output-first design:** Phases were designed working backwards from the defined output
-- [ ] **Coherent architecture:** Phases connect logically (verified via Coherence Map)
+- [ ] **Output defined:** Clear what the workflow produces (and whether template needed)
+- [ ] **Phases designed:** Each phase has single goal, clear input/output
+- [ ] **Coherent architecture:** Phases connect logically to produce the output
 - [ ] **Principles captured:** Up to 3 guiding principles, each 2-3 lines
 - [ ] **Pitfalls captured:** Up to 3 pitfalls with prevention strategies, each 2-3 lines
 - [ ] **Design decisions reasoned:** All choices include rationale
-- [ ] **Complete documentation:** All 7 template sections filled per guidelines
 - [ ] **User approved:** All 3 gates passed with explicit approval
 
 ---

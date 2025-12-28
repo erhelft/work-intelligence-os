@@ -2,70 +2,131 @@
 alwaysApply: false
 ---
 ## Purpose
-Reference guide for creating operationally complete workflows that ensure consistency, proper gating, and decision-ready outputs from the start.
+
+Formatting and style conventions for workflows. This document covers **how** to format content; for workflow **structure** (what sections, in what order), see `workflow-template.md`.
 
 ## Core Principle
+
 Every workflow is a contract between user and AI: what goes in, what happens, what comes out, and how to know it worked.
 
-## Required Workflow Structure
+---
 
-### 1. Header Section (Establish the Contract)
+## Formatting Conventions
 
-#### Purpose
-* **Format:** Single sentence describing what this workflow does
-* **Rule:** Start with "Operational workflow to [action verb] and produce [specific output]"
-* **Example:** "Operational workflow to conduct deep competitive analysis on selected competitors and produce individual research files using Perplexity MCP."
+### Gates
 
-#### Prerequisites & Inputs
-* **Required inputs:** What must exist before starting (with checkboxes and path blanks)
-* **Optional inputs:** What enhances the workflow but isn't required
-* **User-specified inputs:** What user decides during workflow
-* **Output specification:** What this workflow will produce (files, format, location)
-* **Rule:** Use checkboxes `- [ ]` with fill-in-the-blank fields for tracking
+Gates are user approval points. Format them consistently:
 
-**Format example:**
+```markdown
+**Gate:** User confirms [specific decision or approval]
+```
+
+**Rules:**
+- Be specific about what user is approving
+- Place at natural decision points (phase transitions, before proceeding)
+- Aim for 3-5 gates per workflow (enough control, not too slow)
+
+**Good examples:**
+- `**Gate:** User confirms context is captured`
+- `**Gate:** User approves configuration and outline before generation`
+- `**Gate:** User approves final specification for handoff`
+
+**Bad examples:**
+- `**Gate:** User confirms` (too vague)
+- `**Gate:** Done` (not a decision)
+
+### Checkboxes & Fill-in-the-Blank
+
+Use checkboxes for tracking prerequisites and outputs:
+
 ```markdown
 **Required:**
 - [ ] Context document: _______
 - [ ] File path: _______
 
-**Optional:**
-- [ ] Strategic goals: _______
-
 **This Workflow Will Produce:**
 - [ ] File: `output-[name].md`
 - [ ] Location: _______
-- [ ] Contains: [what's in it]
 ```
 
-#### Tools (if applicable)
-* List external tools or services required
-* Specify exact function names if using APIs/MCPs
-* Note when tools are optional vs. required
+**Rules:**
+- Use `- [ ]` for items that need tracking
+- Use `_______` for fill-in-the-blank fields
+- Group related items under clear headings
 
-#### Goal
-* **Format:** 1–2 sentences describing the end state
-* **Rule:** Focus on outcome, not process
-* **Components:** What gets created + what it enables + who benefits
-* **Example:** "Deep competitive intelligence on selected competitors, with each competitor documented in a dedicated markdown file for easy reference and comparison."
-* **Anti-pattern:** "To research competitors" (too vague, process-focused)
+### Step Format
 
-#### Chat Management (if applicable)
-* **When to include:** Workflows that load large external data (API responses, web scraping) or produce token-heavy outputs
-* **When to skip:** Lightweight workflows, thinking/dialogue workflows, or workflows that benefit from accumulated context
+Steps should follow this format:
+
+```markdown
+### Step N: [Step Name]
+
+**Objective:** [Single sentence — what this step achieves]
+
+**LLM Actions:**
+[What to do — questions to ask, information to gather, how to approach]
+
+**Key Topics to Cover:**
+- [Topic 1]
+- [Topic 2]
+
+**Quality Check:**
+- [ ] [Criterion 1]
+- [ ] [Criterion 2]
+
+**Gate:** [What user approves — or "No gate, continue"]
+```
+
+**Rules:**
+- Each step has a single objective
+- Use "LLM Actions" (not "Activities") for consistency
+- Include Quality Check for validation criteria
+- End with explicit Gate or "No gate — proceed to Step N"
+
+### File Naming
+
+Use consistent naming patterns:
+
+**Workflows:**
+- Format: `workflow-name-descriptor.md`
+- Example: `agent-spec-workflow.md`
+
+**Workflow outputs:**
+- Format: `output-type-[identifier].md`
+- Example: `agent-spec-scheduling-assistant.md`
+
+**Date-specific outputs:**
+- Include date: `summary-2025-01-15.md`
+
+**Rules:**
+- Use kebab-case (hyphens, not underscores)
+- Include identifier when multiple instances exist
+- Include date when output is point-in-time
+
+---
+
+## Additional Sections (Not in Template)
+
+These sections appear in some workflows but aren't part of the standard template. Include when applicable.
+
+### Chat Management
+
+**When to include:** Workflows that load large external data (API responses, web scraping) or produce token-heavy outputs.
+
+**When to skip:** Lightweight workflows, thinking/dialogue workflows, or workflows that benefit from accumulated context.
 
 **Decision criteria:**
-* Include if: External data per execution > 10,000 tokens OR workflow generates files > 5,000 tokens each
-* Include if: Multiple independent units of work that don't need cross-context
-* Skip if: Iterative thinking requiring conversation history OR comparative analysis needing multiple items in context
+- Include if: External data per execution > 10,000 tokens OR workflow generates files > 5,000 tokens each
+- Include if: Multiple independent units of work that don't need cross-context
+- Skip if: Iterative thinking requiring conversation history OR comparative analysis needing multiple items in context
 
-**Format example for data-heavy workflows:**
+**Format for data-heavy workflows:**
 ```markdown
 ## Chat Management
 
 **Start a fresh conversation for each [unit of work].**
 
-**Why:** [Brief explanation of token impact - e.g., "Perplexity research generates 40,000+ tokens per competitor"]
+**Why:** [Brief explanation of token impact]
 
 **Before starting:**
 * Verify clean chat (no previous [work] in context)
@@ -73,205 +134,93 @@ Every workflow is a contract between user and AI: what goes in, what happens, wh
 * Exception: [Any cases where batching makes sense]
 ```
 
-**Format example for batchable workflows:**
+### Tools
+
+**When to include:** Workflows that require external tools or services.
+
 ```markdown
-## Chat Management
+## Tools
 
-**This workflow can process multiple [items] in one conversation.**
+**Required:**
+- [Tool name] — [what it's used for]
 
-Batch processing is more efficient - workflow context loads once and applies to all items.
+**Optional:**
+- [Tool name] — [what it enhances]
 ```
 
-### 2. Workflow Body (Define the Process)
-
-#### Workflow Steps (Gated)
-* **Rule:** Always state upfront: "Workflow (gated — user approves at each step)"
-* **Step format:**
-  * **Step N: [Action]**
-  * **Objective:** What this step achieves
-  * Bullet list of activities
-  * **Gate:** User confirms/approves [specific decision]
-* **Deliverable format:** If step produces artifact, use "**Deliverable: [Name]**" subsection
-* **Rule:** Keep gates to 3–5 per workflow (enough for control, not so many it's slow)
-
-#### Special Case: Round-Based Workflows
-For iterative thinking/dialogue workflows structured as rounds rather than linear steps:
-* Still use explicit gate format: **"Gate: User confirms [decision]"**
-* Place gates at natural approval points (end of frame, after stress test, after essence)
-* Maintain 3–5 gates even in iterative format
-* Each round should still have clear activities and outcomes listed
-
-#### Optional Sections or Rounds
-* Clearly label advanced/optional sections
-* State when to use them ("When to Use Round 2")
-* Keep them separate from core workflow
-
-### 3. Output Section (Specify Deliverables)
-
-#### Output Specification
-* **File naming convention:** Exact format with examples
-* **File contents:** List all required sections or elements
-* **File location:** Where it gets saved (user-specified)
-
-#### Output Specification (Handoff to Next Workflow)
-* **Include if:** This workflow feeds into another workflow
-* **Contents:** What the next workflow requires from this output
-* **Format:** Explicit list of required fields or sections
-* **Note:** Any special instructions for next workflow (e.g., "don't re-research X")
-
-#### Next Steps (if applicable)
-* List which workflows come next
-* Brief description of what they do
-
-### 4. Quality Section (Define Standards)
-
-#### Success Criteria
-* **Format:** "The [workflow name] succeeds when:"
-* **Rule:** Bullet list of 4–7 measurable outcomes
-* **Include:**
-  * Completeness check (all required elements present)
-  * Quality check (meets standards)
-  * Usability check (ready for intended use)
-  * Decision-readiness check (enables next action)
-
-#### Quality Guidelines / Style Guidelines
-* Rename based on workflow type:
-  * "Research Quality Guidelines" for research workflows
-  * "Response Style" for thinking/dialogue workflows
-  * "Quality Gates" for writing/production workflows
-* **Contents:** Specific standards for execution
-* **Subsections:** Break into logical categories
-* **Rule:** Be specific about what good looks like
+---
 
 ## Workflow Design Principles
 
 ### 1. Single Responsibility
-* Each workflow should do one thing well
-* If workflow has multiple distinct outcomes, consider splitting
+- Each workflow should do one thing well
+- If workflow has multiple distinct outcomes, consider splitting
 
 ### 2. Clear Handoffs
-* Workflows that connect must specify handoff format
-* Downstream workflows should reference (not duplicate) upstream work
-* Use "From [Previous Workflow]" sections to carry context forward
+- Workflows that connect must specify handoff format
+- Downstream workflows should reference (not duplicate) upstream work
+- Use "From [Previous Workflow]" sections to carry context forward
 
 ### 3. User Control Points
-* Gate at decisions, not every action
-* Gate when switching phases (intake → execution → review)
-* Gate when user input is needed to proceed
-* Default to 3–5 gates per workflow
+- Gate at decisions, not every action
+- Gate when switching phases (intake → execution → review)
+- Gate when user input is needed to proceed
+- Default to 3-5 gates per workflow
 
 ### 4. State Tracking
-* Use checkboxes for prerequisite tracking
-* Use fill-in-the-blank fields for paths and parameters
-* Make it easy to see what's been completed
+- Use checkboxes for prerequisite tracking
+- Use fill-in-the-blank fields for paths and parameters
+- Make it easy to see what's been completed
 
-### 5. Standardized File Naming
-* Use kebab-case: `workflow-name-descriptor.md`
-* Include date when output is point-in-time: `summary-2025-11-01.md`
-* Include identifier when multiple instances: `deepdive-company-name.md`
-
-## Optional Sections (Include When Needed)
-
-### When Workflow Has Specific Methodology
-* Add section explaining approach or framework (e.g., "Competitor Definition" in landscape workflow)
-
-### When Workflow Has Complex Decision Logic
-* Add section explaining how to choose options (e.g., "Choosing Type" in writing workflow)
-
-### When Workflow Updates Over Time
-* Maintain a `README.md` or changelog in the workflow folder
+---
 
 ## Validation Checklist
 
-Before finalizing a new workflow, verify:
+Before finalizing a workflow, verify against `workflow-template.md` structure:
 
-* [ ] **Purpose** is single sentence and action-focused
-* [ ] **Prerequisites** have checkboxes and fill-in-the-blank fields
-* [ ] **Goal** describes outcome, not process
-* [ ] **Workflow steps** are gated with explicit user approval points
-* [ ] **Gates** number between 3–5 (not too few, not too many)
-* [ ] **Output specification** includes file naming, contents, and location
-* [ ] **Handoff specification** exists if workflow feeds into another
-* [ ] **Success criteria** has 4–7 measurable outcomes
-* [ ] **Quality guidelines** are specific and actionable
-* [ ] All sections use consistent formatting (headers, bullets, subsections)
+**Structure (from template):**
+- [ ] Has all required sections: Purpose, Goal, For Humans, Workflow Process, LLM Instructions, Prerequisites & Setup, Workflow Steps, Success Criteria
+- [ ] Conditional sections included where applicable: Reference Material, Output Specification, Next Steps
+- [ ] Section order matches template
 
-## When to Break These Rules
+**Formatting (from this document):**
+- [ ] Purpose is single sentence, action-focused
+- [ ] Prerequisites use checkboxes and fill-in-the-blank fields
+- [ ] Goal describes outcome, not process
+- [ ] Steps use consistent format (Objective, LLM Actions, Quality Check, Gate)
+- [ ] Gates are explicit with "**Gate:**" format
+- [ ] Gates number between 3-5 (not too few, not too many)
+- [ ] Output specification includes file naming, contents, and location
+- [ ] Success criteria has 4-7 measurable outcomes
+- [ ] File naming follows kebab-case convention
+
+---
+
+## When to Deviate from Template
 
 ### Thinking/Dialogue Workflows
-**May skip:**
-* Prerequisites section if no inputs required
-* Output section if no artifacts produced
+**May simplify:**
+- Prerequisites section if no inputs required
+- Output section if no artifacts produced
 
 **Must keep:**
-* Explicit gating with "Gate:" statements for user confirmation points
-* Success Criteria section
-* Goal section (even if brief)
-
-### Final Workflows in a Chain
-**May skip:**
-* "Output Specification (Handoff to Next Workflow)" section
-* "Next Steps" section
-
-**Must keep:**
-* All other required sections
+- Explicit gating with "**Gate:**" statements
+- Success Criteria section
+- Goal section
 
 ### Simple Workflows
-* May combine sections if workflow is straightforward
-* Must maintain core structure (Purpose, Goal, Steps with Gates, Success Criteria)
+- May combine sections if workflow is straightforward
+- Must maintain core structure (Purpose, Goal, Steps with Gates, Success Criteria)
 
 ### Experimental Workflows
-* May use "Draft" label at top of file
-* Iterate structure based on usage
-* Document deviations from standard format
+- May use "Draft" label at top of file
+- Document deviations from standard format
 
-**Rule:** If breaking structure, state why at the top of the workflow file.
+**Rule:** If deviating from template, state why at the top of the workflow file.
 
-## Examples
-
-### Good Workflow Header
-```markdown
-# Competitive Landscape Workflow
-
-## Purpose
-Operational workflow to conduct broad competitive discovery and produce an initial landscape map using Perplexity MCP.
-
-## Prerequisites & Inputs
-**Required:**
-- [ ] Context document or product description
-- [ ] Path: _______
-
-**This Workflow Will Produce:**
-- [ ] File: `landscape-[product-name].md`
-- [ ] Location: _______
-- [ ] Contains: Search map, scored competitor list, source citations
-```
-
-### Good Step Format
-```markdown
-### Step 1: Context Intake
-* User provides context document or product description
-* You read and process the provided context
-* Extract initial understanding of:
-  * Core value proposition
-  * Target audience
-  * Primary use cases
-
-**Gate: User confirms context is captured**
-```
-
-### Good Success Criteria
-```markdown
-## Success Criteria
-
-The competitive research succeeds when:
-
-* **Comprehensive coverage:** All relevant competitors identified across three definition types
-* **Proper scoring:** Each competitor has a defensible competitive score
-* **Source transparency:** Clear citations for where competitors were found
-* **Decision-ready:** User has enough information to select which competitors warrant deep analysis
-```
+---
 
 ## Cross-Reference
 
-For general markdown formatting rules, see **document-formatting.mdc**.
+- **workflow-template.md** — Workflow structure and sections
+- **document-formatting.mdc** — General markdown formatting rules

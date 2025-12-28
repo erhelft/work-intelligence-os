@@ -8,6 +8,14 @@ This template captures the design and reasoning behind a workflow before it's wr
 
 ---
 
+## Writing Style
+
+- **Structured info** (Problem, When to Use, Phases) → Bullets with 1-2 sentence expansion
+- **Beliefs** (Principles, Pitfalls) → Short narrative paragraphs
+- **Decisions** → Tables with reasoning
+
+---
+
 ## Template Usage
 
 Each section below contains:
@@ -48,7 +56,7 @@ The core reasoning behind this workflow — the problem it solves, the outcome i
 Who should use this workflow, when it's appropriate, and whether it should even be a workflow right now.
 
 ### Guidelines
-- Be specific about roles/functions, not generic ("product managers" not "anyone who needs it")
+- Be specific about the essential user — who fundamentally needs this, not procedural prerequisites (e.g., "anyone automating repeated processes" not "anyone who completed a blueprint")
 - "When to use" should describe triggers or situations, not just restate the problem
 - "When NOT to use" is equally important — prevents misapplication
 - Workflow Readiness Check must be honestly assessed before proceeding
@@ -132,6 +140,7 @@ The logical structure of the workflow — how many phases, what each accomplishe
 
 ### Guidelines
 - Start by defining the final output, then work backwards to determine phases
+- If the workflow produces multiple artifacts (e.g., template + document), define each explicitly
 - Each phase must have exactly ONE goal — if you have multiple goals, split into separate phases
 - Consider carefully when splitting is required: a phase should be the smallest unit that produces meaningful progress
 - Outputs should be specific and concrete, not vague ("draft document" not "progress")

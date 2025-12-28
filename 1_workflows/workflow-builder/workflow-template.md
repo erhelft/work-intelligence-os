@@ -6,6 +6,8 @@ This template defines the structure for all workflows. Workflows are "system pro
 
 **Key Principle:** When triggered, the LLM takes control and guides the user step-by-step toward the output.
 
+**Related:** For formatting conventions (gates, checkboxes, file naming), see `workflow-formatting.mdc`.
+
 ---
 
 # [Workflow Name]
