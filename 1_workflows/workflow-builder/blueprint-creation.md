@@ -46,7 +46,7 @@ This blueprint becomes permanent documentation and the input for creating the ac
 
 **Pattern per step:**
 > Each interview step follows the same **5-phase pattern**:
-> 1. **Read Template Section** — Review relevant section guidelines from `workflow-blueprint-template.md`
+> 1. **Read Template Section** - Review relevant section guidelines from `blueprint-template.md`
 > 2. **Interview User** — Ask questions following `ai-interview-guidelines.mdc` until complete
 > 3. **Validate Against Guidelines** — Check information against section guidelines
 > 4. **Draft Section Content** — Document findings in template format
@@ -97,12 +97,12 @@ Follow `ai-interview-guidelines.mdc` throughout this workflow:
 
 ### Read Upfront
 Before Step 1, read and understand:
-- `workflow-blueprint-template.md` — Complete template structure and all section guidelines
+- `blueprint-template.md` — Complete template structure and all section guidelines
 - `ai-interview-guidelines.mdc` — Interview approach and Time Investment Principle
 
 ### Read On Demand
 During specific steps, read as needed:
-- Individual template sections when filling them (read section guidelines before interviewing)
+- `blueprint-template.md` sections — read each section's guidelines when filling it
 
 ---
 
@@ -113,7 +113,7 @@ During specific steps, read as needed:
 **Objective:** Understand the template structure and interview approach before beginning.
 
 **LLM Actions:**
-- Read complete `workflow-blueprint-template.md`
+- Read complete `blueprint-template.md`
 - Review all 7 template sections and their guidelines
 - Read `ai-interview-guidelines.mdc`
 - Understand the Time Investment Principle and Gradual Discovery approach
@@ -431,6 +431,11 @@ For each phase identified in Step 7:
 - "Looking at your gates, do you have 3-5 total?" (Guide if too few or too many)
 - "What's the overall reasoning for where you placed gates?"
 
+**Prerequisites:**
+- "What does someone need before they can start this workflow?"
+- "Any documents, data, or prior work required as input?"
+- "What context or preparation must already exist?"
+
 **Tools Required:**
 - "Does any phase require external tools or APIs?"
 - If yes: "Which phase, what tool, what purpose?"
@@ -440,6 +445,7 @@ For each phase identified in Step 7:
 - File structure if multi-file
 - Input method per phase (interview/input-based)
 - Gate placement per phase
+- Prerequisites (what users need before starting)
 - Tools if applicable
 
 **Guidelines:**
@@ -450,6 +456,7 @@ For each phase identified in Step 7:
 - [ ] Workflow structure decided with reasoning
 - [ ] Each phase has input method specified
 - [ ] Gates placed at decision points (3-5 total)
+- [ ] Prerequisites identified (or confirmed none needed)
 - [ ] Tools documented if needed
 
 **No gate — continue to Step 9**
@@ -571,7 +578,7 @@ Run validation internally across three areas:
 User-specified directory: _______
 
 ### Contents
-- Complete blueprint following `workflow-blueprint-template.md`
+- Complete blueprint following `blueprint-template.md`
 - All 7 sections filled with appropriate content
 - Metadata (name, created by, date)
 

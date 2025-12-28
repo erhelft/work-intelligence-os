@@ -238,6 +238,7 @@ Implementation choices for the workflow — structure, input methods, gating, an
 - If multi-file: clearly define which phases live in each file and where the cutoff is
 - Input method (interview vs. input-based) depends on what each phase needs
 - Gating should be at decision points, not after every action (aim for 3-5 gates total)
+- Prerequisites: What must exist before someone can start this workflow?
 - Tools section only needed if workflow requires external tools/APIs
 
 ### Content
@@ -264,7 +265,13 @@ Implementation choices for the workflow — structure, input methods, gating, an
 - Total gates: [X] (aim for 3-5)
 - Overall reasoning: [Why this gating strategy?]
 
-**Tools Required:** *(if applicable)*
+**Prerequisites:** *(what users need before starting)*
+
+| Prerequisite | Why Needed |
+|--------------|------------|
+| [Document/data/prior work] | [What it's used for] |
+
+**Tools Required:** *(if applicable — external tools/APIs needed during execution)*
 
 | Phase | Tool | Purpose |
 |-------|------|---------|
@@ -298,7 +305,7 @@ How to know the workflow worked — measurable outcomes that indicate success.
 
 ## Blueprint Metadata
 
-**Blueprint Name:** [workflow-name]-blueprint.md
+**Blueprint Name:** blueprint-for-[workflow-name].md
 
 **Workflow Name:** [workflow-name]-workflow.md *(to be created)*
 

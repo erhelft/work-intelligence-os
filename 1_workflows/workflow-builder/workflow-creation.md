@@ -23,7 +23,7 @@ This is an **input-based workflow**. You provide a completed blueprint, and the 
 - Use when: The design decisions are already made
 
 ### When NOT to Use
-- Don't use when: You haven't completed a blueprint yet (run `workflow-blueprint-creation.md` first)
+- Don't use when: You haven't completed a blueprint yet (run `blueprint-creation.md` first)
 - Don't use when: The task is a one-off
 - Don't use when: You haven't figured out the design yet
 
@@ -178,27 +178,30 @@ During specific steps, read as needed:
 
 **Objective:** Identify required inputs, documents, and setup.
 
-**Blueprint Sections:** §5 (Phase Architecture — inputs)
+**Blueprint Sections:** §6 (Design Decisions — Prerequisites)
 
 **LLM Actions:**
 
 **Draft Prerequisites & Setup section:**
 
 1. **Read Upfront**
-   - What must be read before starting?
-   - Extract from blueprint phase inputs
+   - Extract from blueprint's Prerequisites table
+   - What must exist before someone can start this workflow?
+   - Include any documents, data, or prior work required
 
 2. **Read On Demand**
    - What's referenced during specific steps?
    - Templates, guidelines, reference materials
+   - Infer from phase inputs if not explicitly listed
 
 **Guidelines:**
 - Be specific about what each input is for
 - Separate "before starting" from "during execution"
+- The blueprint itself is always an implicit prerequisite for input-based workflows
 
 **Quality Check:**
-- [ ] All blueprint-referenced inputs captured
-- [ ] Clear what each input is used for
+- [ ] All blueprint-listed prerequisites captured
+- [ ] Clear what each prerequisite is used for
 
 **No gate — continue to Step 4**
 

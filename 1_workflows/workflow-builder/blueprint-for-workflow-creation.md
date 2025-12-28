@@ -77,7 +77,7 @@ Anyone in the company who works on a repeatable task and wants to standardize it
 
 **Goal:** Identify required docs, templates, support materials
 
-**Input:** Blueprint §5 (Phase Architecture)
+**Input:** Blueprint §6 (Design Decisions — Prerequisites)
 
 **Output:** Prerequisites & Setup section
 
@@ -179,6 +179,13 @@ Blueprint → Phase 1 → Phase 2 → Phase 3 → Phase 4 → Phase 5 → Phase 
 - Gate 3: After Phase 5 (Step Structure)
 - Gate 4: After Phase 7 (Final)
 
+**Prerequisites:**
+
+| Prerequisite | Why Needed |
+|--------------|------------|
+| Completed blueprint | Contains all design decisions to translate |
+| `workflow-template.md` | Structure for the output |
+
 **Tools Required:** None
 
 ---
@@ -195,7 +202,7 @@ This workflow succeeds when:
 
 ## Blueprint Metadata
 
-**Blueprint Name:** workflow-creation-blueprint.md
+**Blueprint Name:** blueprint-for-workflow-creation.md
 
 **Workflow Name:** workflow-creation.md *(to be created)*
 
