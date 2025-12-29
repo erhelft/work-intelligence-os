@@ -28,15 +28,17 @@ This is an **interview-driven workflow**. The AI will guide you through question
 - Don't use when: You don't yet understand the process well (do it manually 2-3 more times first)
 
 ### What You'll Get
-A complete workflow blueprint document (`[workflow-name]-blueprint.md`) that captures:
+A complete workflow blueprint document (`blueprint-for-[workflow-name].md`) that captures:
 - Why the workflow exists and who it's for
 - Guiding principles and pitfalls to avoid (the foundation)
 - What the workflow produces (and whether a template is needed)
-- The phases and how they connect
+- The phases, how they connect, and what to get right in each
 - Design decisions with reasoning
 - Success criteria
 
 This blueprint becomes permanent documentation and the input for creating the actual workflow.
+
+Your feedback on the process will also be logged to help improve how we capture essence in future blueprints.
 
 ---
 
@@ -54,7 +56,7 @@ This blueprint becomes permanent documentation and the input for creating the ac
 >
 > This pattern ensures consistency and completeness at each stage.
 
-**Gating:** 3 gates total — after Steps 5, 9, and 12
+**Gating:** 3 gates total — after Steps 5, 10, and 13
 
 ---
 
@@ -350,60 +352,104 @@ Help the user recognize if their workflow needs both:
 
 ---
 
-### Step 7: Phase Architecture
+### Step 7: Phase Structure
 
-**Template Section:** 5 (Phase Architecture)
+**Template Section:** 5 (Phase Architecture) — first pass
 
-**Objective:** Design the phases that create the output defined in Step 6.
+**Objective:** Identify the phases and their goals — the skeleton of the workflow.
 
 **Follow the 5-phase pattern above.**
 
 **LLM Actions:**
 
-**Identify phases:**
+**Identify phases and goals:**
 - "What phases does this workflow need to produce [the output]?"
 - "Think about it step by step — what happens first? Then what?"
+- For each phase: "What is the ONE goal of this phase?"
 
-**For each phase identified:**
-- "What is the ONE goal of this phase?" (If multiple goals emerge, discuss splitting)
-- "What does this phase need as input?"
-- "What does this phase produce as output?"
-- "Is this output intermediate (feeds next phase) or an artifact (standalone value)?"
-- "Any special considerations or common mistakes for this phase?"
+**Validate the skeleton:**
+- If a phase has multiple goals → discuss splitting
+- If phases seem too granular → discuss combining
+- Confirm: "So we have [N] phases: [Phase 1] to [goal], [Phase 2] to [goal]..."
+
+**Key Topics to Cover:**
+- Number of phases
+- Each phase named with its single goal
+
+**Guidelines:**
+- Focus only on phases and goals in this step — details come next
+- Each phase must have exactly ONE goal
+- If multiple goals emerge, split into separate phases
+- Reference principles from Step 4 — do the phases embody them?
+
+**Quality Check:**
+- [ ] All phases identified
+- [ ] Each phase has a single, clear goal
+- [ ] Phase sequence makes logical sense
+
+**No gate — continue to Step 8**
+
+---
+
+### Step 8: Phase Details
+
+**Template Section:** 5 (Phase Architecture) — second pass
+
+**Objective:** For each phase identified in Step 7, capture the inputs, outputs, and execution guidance.
+
+**Follow the 5-phase pattern above.**
+
+**LLM Actions:**
+
+**For each phase, ask these questions one phase at a time:**
+
+1. **Input:** "What does [Phase N] need to start? What information or artifacts must exist?"
+
+2. **Output:** "What does [Phase N] produce when complete? Be specific about the artifact."
+
+3. **Output Type:** "Is this output intermediate (feeds the next phase) or an artifact (has standalone value, could be used independently)?"
+
+4. **Execution Guidance:** "For this specific phase, what's important to get right? Consider:
+   - What's easy to rush or underestimate in this phase?
+   - What mistakes have you seen when doing this part?
+   - What would make the difference between a mediocre and excellent result here?
+   - Any dependencies on earlier phases that are easy to overlook?"
+
+**After all phases are detailed:**
 
 **Coherence check:**
 - "Let's trace the flow: Phase 1 produces X, which feeds into Phase 2..."
 - "Does anything get lost between phases?"
-- "Does this fully produce the output we defined?"
+- "Does this fully produce the output we defined in Step 6?"
 
 **Handoff verification:**
 - "What should be checked to ensure nothing is lost between phases?"
 - "What context must carry forward?"
 
 **Key Topics to Cover:**
-- Each phase with goal, input, output
-- Output type per phase (intermediate vs. artifact)
+- Each phase with input, output, output type
+- Execution guidance per phase (specific, not generic)
 - Coherence map (how phases connect)
 - Handoff verification
 
 **Guidelines:**
-- Each phase must have exactly ONE goal
-- If a phase has multiple goals, split it
+- Ask about each phase individually — don't batch all questions at once
+- Execution guidance should be specific to each phase, not generic advice
+- If user says "nothing special" for a phase, probe once: "Even experienced people sometimes rush X or forget Y in this kind of phase. Anything like that here?"
 - Phases should be the smallest unit of meaningful progress
-- Reference principles from Step 4 — do the phases embody them?
 
 **Quality Check:**
-- [ ] Each phase has single goal
 - [ ] Each phase has clear input and output
 - [ ] Output types identified (intermediate vs. artifact)
+- [ ] Execution guidance captured for phases where it matters
 - [ ] Phases connect logically to produce the final output
 - [ ] Handoff verification defined
 
-**No gate — continue to Step 8**
+**No gate — continue to Step 9**
 
 ---
 
-### Step 8: Design Decisions
+### Step 9: Design Decisions
 
 **Template Section:** 6 (Design Decisions)
 
@@ -422,7 +468,7 @@ Help the user recognize if their workflow needs both:
 - "Where should the split happen and why?"
 
 **Phase Configuration:**
-For each phase identified in Step 7:
+For each phase identified in Steps 7-8:
 - "Should this phase use interview (LLM asks questions) or input-based (user provides structured input)?"
 - "Should this phase have a gate (user approval checkpoint) after it?"
 - "Why?"
@@ -459,18 +505,18 @@ For each phase identified in Step 7:
 - [ ] Prerequisites identified (or confirmed none needed)
 - [ ] Tools documented if needed
 
-**No gate — continue to Step 9**
+**No gate — continue to Step 10**
 
 ---
 
-### Step 9: Gate 2 — Architecture & Design Approval
+### Step 10: Gate 2 — Architecture & Design Approval
 
 **Objective:** Get user approval on the architecture and design before finalizing.
 
 **LLM Actions:**
 1. Present structured summary:
    - Output definition (what the workflow produces, template needed or not)
-   - Phase architecture (phases with goals, inputs, outputs, coherence map)
+   - Phase architecture (phases with goals, inputs, outputs, execution guidance, coherence map)
    - Design decisions (structure, phase config, gating)
 2. Note quality levels for each item
 3. Ask: "Does this capture the architecture and design of the workflow? Anything to revise?"
@@ -479,7 +525,7 @@ For each phase identified in Step 7:
 
 ---
 
-### Step 10: Success Criteria
+### Step 11: Success Criteria
 
 **Template Section:** 7 (Success Criteria)
 
@@ -512,11 +558,11 @@ For each phase identified in Step 7:
 - [ ] Problem statement addressed
 - [ ] Output usability addressed
 
-**No gate — continue to Step 11**
+**No gate — continue to Step 12**
 
 ---
 
-### Step 11: Quality Assurance
+### Step 12: Quality Assurance
 
 **Objective:** Validate the complete blueprint before finalizing.
 
@@ -537,34 +583,87 @@ Run validation internally across three areas:
 - Only surface issues that need user decision
 - Keep the summary scannable
 
-**No gate — proceed to Step 12**
+**No gate — proceed to Step 13**
 
 ---
 
-### Step 12: Review & Finalize
+### Step 13: Review & Finalize
 
-**Objective:** Output the complete blueprint document.
+**Objective:** Create the blueprint file and get final approval.
 
 **LLM Actions:**
-1. Compile all approved sections into `blueprint-for-[workflow-name].md`:
-   - Section 1: Why This Workflow Exists
-   - Section 2: Audience & Usage
-   - Section 3: Guiding Principles
-   - Section 4: Pitfalls to Avoid
-   - Section 5: Phase Architecture
-   - Section 6: Design Decisions
-   - Section 7: Success Criteria
-   - Metadata (name, created by, date)
-2. **Output the complete blueprint document** — present the full content or write to file
-3. Note any TBD items or open questions
-4. Ask: "Here is your complete blueprint. Please save it to `blueprint-for-[workflow-name].md`. Does it accurately capture the design?"
 
-**Critical:** The primary deliverable is the blueprint document itself. Do NOT skip to "next steps" without first outputting the actual blueprint.
+1. **Ask for save location:**
+   - "Where should I save the blueprint file? Please provide the folder path."
 
-**Gate 3:** User confirms blueprint is saved and accurate
+2. **Create the file** at the specified location:
+   - Filename: `blueprint-for-[workflow-name].md`
+   - Compile all approved sections:
+     - Section 1: Why This Workflow Exists
+     - Section 2: Audience & Usage
+     - Section 3: Guiding Principles
+     - Section 4: Pitfalls to Avoid
+     - Section 5: Phase Architecture
+     - Section 6: Design Decisions
+     - Section 7: Success Criteria
+     - Metadata (name, created by, date)
 
-**After approval, mention:**
-"When you're ready to create the workflow from this blueprint, use the Workflow Creation workflow (`workflow-creation.md`)."
+3. **Confirm creation:**
+   - "I've created `blueprint-for-[workflow-name].md` in [folder path]."
+   - Note any TBD items or open questions
+   - Ask: "Please review the file. Does it accurately capture the design?"
+
+**Critical:** You must CREATE the .md file — do not just output the content in chat. The user should be able to open and review the actual file.
+
+**Gate 3:** User confirms blueprint file is created and accurate
+
+**After approval, proceed to Step 14.**
+
+---
+
+### Step 14: Feedback Capture
+
+**Objective:** Capture feedback on whether the blueprint accurately reflects the user's intent, to enable iteration on this workflow.
+
+**LLM Actions:**
+
+**Transition:**
+"Before we wrap up, I'd like to capture quick feedback on this process. This helps us improve how we create blueprints."
+
+**Ask these five questions:**
+
+1. **Completeness:** "Does this blueprint capture the full essence of what you wanted to formalize? Is anything missing that should be here?"
+
+2. **Accuracy:** "Is there anything in this blueprint that doesn't quite match your intent — anything that feels 'off' or got lost in translation?"
+
+3. **Phases:** "The phase architecture is the heart of the workflow. Did we capture the right phases with the right goals and flow? Anything that should be split, combined, or reordered?"
+
+4. **Process friction:** "Were there any moments where the questions didn't fit your situation, or where you struggled to express something important?"
+
+5. **Open feedback:** "Any other observations or suggestions about the blueprint creation process?"
+
+**Log the feedback:**
+- Append to `workflow-builder/blueprint-feedback-log.md`
+- Format:
+  ```
+  ## [Workflow Name] — [Date]
+  
+  **Completeness:** [response or "Nothing missing"]
+  **Accuracy:** [response or "Accurate"]
+  **Phases:** [response or "Phases captured well"]
+  **Process friction:** [response or "None"]
+  **Open feedback:** [response or "None"]
+  ```
+
+**Guidelines:**
+- Keep this lightweight — don't turn it into another interview
+- If user says "all good" to everything, that's valid feedback too
+- The goal is to surface patterns over time, not perfect every entry
+
+**No gate — this completes the workflow**
+
+**After logging, mention:**
+"Feedback logged. When you're ready to create the workflow from this blueprint, use the Workflow Creation workflow (`workflow-creation.md`)."
 
 ---
 
@@ -593,12 +692,13 @@ This workflow succeeds when:
 - [ ] **Readiness verified:** Workflow Readiness Check passed before proceeding
 - [ ] **Problem clarity:** Problem and desired end state are specific and outcome-focused
 - [ ] **Output defined:** Clear what the workflow produces (and whether template needed)
-- [ ] **Phases designed:** Each phase has single goal, clear input/output
+- [ ] **Phases designed:** Each phase has single goal, clear input/output, and specific execution guidance
 - [ ] **Coherent architecture:** Phases connect logically to produce the output
 - [ ] **Principles captured:** Up to 3 guiding principles, each 2-3 lines
 - [ ] **Pitfalls captured:** Up to 3 pitfalls with prevention strategies, each 2-3 lines
 - [ ] **Design decisions reasoned:** All choices include rationale
 - [ ] **User approved:** All 3 gates passed with explicit approval
+- [ ] **Feedback captured:** User feedback on essence capture logged for process improvement
 
 ---
 

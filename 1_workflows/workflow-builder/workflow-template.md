@@ -206,7 +206,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ### Step N+1: Quality Assurance
 
-*Note: Quality Assurance should always be your second-to-last step. Adjust step numbering based on your workflow's total number of steps.*
+*Note: Quality Assurance comes before Review & Finalize and Feedback Capture. Adjust step numbering based on your workflow's total number of steps.*
 
 **Objective:** Validate the complete output before finalizing.
 
@@ -239,18 +239,63 @@ Run through quality criteria:
 
 ### Step N+2: Review & Finalize
 
-*Note: This is always the final step. Adjust step numbering based on your workflow's total number of steps.*
+*Note: This step comes before Feedback Capture. Adjust step numbering based on your workflow's total number of steps.*
 
-**Objective:** Present final output for approval.
+**Objective:** Create the output file and get final approval.
 
 **LLM Actions:**
-1. Compile all sections into final output
-2. Add metadata (if applicable)
-3. Present complete output summary to user
-4. Note any TBD items or open questions
-5. Ask for final approval
+1. Ask for save location (if workflow produces files)
+2. Create the file at the specified location
+3. Compile all sections into final output
+4. Add metadata (if applicable)
+5. Note any TBD items or open questions
+6. Ask: "Please review the file. Does it accurately capture what we discussed?"
+
+**Critical:** If workflow produces files, CREATE the actual file — do not just output content in chat.
 
 **Gate:** User approves final output
+
+---
+
+### Step N+3: Feedback Capture
+
+*Note: This is always the final step. Every workflow should include this step to enable iteration.*
+
+**Objective:** Capture feedback to enable workflow improvement.
+
+**LLM Actions:**
+
+**Transition:**
+"Before we wrap up, I'd like to capture quick feedback. This helps us improve this workflow."
+
+**Ask these four questions:**
+
+1. **Completeness:** "Did this workflow help you produce what you needed? Anything missing?"
+
+2. **Accuracy:** "Did any step feel 'off' or not quite fit your situation?"
+
+3. **Process friction:** "Were there moments where the questions or instructions didn't work well?"
+
+4. **Open feedback:** "Any other observations or suggestions?"
+
+**Log the feedback:**
+- Append to `[workflow-folder]/[workflow-name]-feedback-log.md`
+- Format:
+  ```
+  ## [Output Name] — [Date]
+  
+  **Completeness:** [response or "Nothing missing"]
+  **Accuracy:** [response or "Accurate"]
+  **Process friction:** [response or "None"]
+  **Open feedback:** [response or "None"]
+  ```
+
+**Guidelines:**
+- Keep lightweight — don't turn into another interview
+- "All good" is valid feedback
+- Goal is to surface patterns over time, not perfect every entry
+
+**No gate — this completes the workflow**
 
 ---
 

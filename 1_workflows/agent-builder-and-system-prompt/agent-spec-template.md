@@ -11,6 +11,8 @@ This template provides a structured format for documenting AI agent requirements
 * **System Prompt:** Same requirements translated into AI instructions. For the AI model to execute. Organized for AI comprehension using our 8 guidelines (positive framing, examples with reasoning traces, etc.).
 * **Both should be detailed and complete.** The difference is format and audience, not level of detail. If a behavior matters, it must be specified in the agent spec.
 
+**Template Structure:** 10 sections covering context, definition, operating model, tools, behavior, I/O, boundaries, edge cases, and risk characteristics.
+
 ---
 
 ## Template Structure
@@ -154,7 +156,45 @@ This template provides a structured format for documenting AI agent requirements
 
 ---
 
-### 5. Behavior Requirements
+### 5. Available Tools
+
+**Purpose:** Document the external tools, APIs, and integrations the agent has access to.
+
+**What to Include:**
+* **Tool Name:** Clear identifier for each tool
+* **Purpose:** What capability this tool provides to the agent
+* **When to Use:** Trigger conditions or scenarios that warrant using this tool
+* **Expected Inputs:** What data the tool needs to function
+* **Expected Outputs:** What the tool returns
+* **Known Constraints:** Rate limits, availability requirements, permissions needed
+* **Criticality:** Is this tool essential (agent can't function without it) or supplementary?
+
+**Guidelines:**
+* List all tools the agent needs access to, even if implementation details are TBD
+* Focus on what the tool enables, not how it works internally
+* Note dependencies between tools if relevant (e.g., must authenticate before querying)
+* If the agent has no tools (pure conversational), note "N/A — this agent operates without external tools"
+
+**Example:**
+> **Tool: calendar_read**
+> * Purpose: Retrieve calendar events for a specified time range
+> * When to Use: Before any scheduling decision; when user asks about availability
+> * Expected Inputs: User ID, date range
+> * Expected Outputs: List of events with title, time, attendees, priority
+> * Constraints: Max 90-day lookback; rate limited to 100 calls/minute
+> * Criticality: Essential — agent cannot make scheduling decisions without calendar data
+>
+> **Tool: calendar_write**
+> * Purpose: Create, update, or delete calendar events
+> * When to Use: After user confirms a scheduling action (or within autonomous scope)
+> * Expected Inputs: Event details (title, time, attendees, etc.)
+> * Expected Outputs: Confirmation with event ID, or error message
+> * Constraints: Cannot modify events owned by other users; rate limited to 10 writes/minute
+> * Criticality: Essential — agent cannot execute scheduling actions without this
+
+---
+
+### 6. Behavior Requirements
 
 **Purpose:** Define how the agent should behave and make decisions.
 
@@ -185,7 +225,7 @@ This template provides a structured format for documenting AI agent requirements
 
 ---
 
-### 6. Input/Output Specification
+### 7. Input/Output Specification
 
 **Purpose:** Define what data the agent receives and what it produces.
 
@@ -226,7 +266,7 @@ This template provides a structured format for documenting AI agent requirements
 
 ---
 
-### 7. Boundary Conditions
+### 8. Boundary Conditions
 
 **Purpose:** Define the agent's scope and autonomy levels.
 
@@ -262,16 +302,16 @@ This template provides a structured format for documenting AI agent requirements
 
 ---
 
-### 8. Edge Cases & Failure Modes
+### 9. Edge Cases & Failure Modes
 
 **Purpose:** Document known challenges, edge cases, and how the agent should handle them.
 
 **What to Include:**
 * **Known Edge Cases:** Scenarios that are tricky or unusual
 * **Expected Failure Modes:** How/when the agent might struggle
-* **Graceful Degradation:** What to do when things are unclear
+* **Graceful Degradation:** What to do when things are unclear, including default fallback actions when normal logic doesn't apply
 * **Uncertainty Handling:** How to express low confidence
-* **Fallback Behavior:** Default actions when logic doesn't apply
+* **Contradiction Handling:** How to behave when new information conflicts with earlier statements
 
 **Guidelines:**
 * Include real examples from user testing or anticipated scenarios
@@ -289,10 +329,14 @@ This template provides a structured format for documenting AI agent requirements
 > * If priority unclear: "I'm not sure how to prioritize [meeting name]—is this a client matter or internal?"
 > * If two high-priority events conflict: "You have a conflict: both [A] and [B] are high-priority. Here's the tradeoff: [reasoning]. Which should take precedence?"
 > * If request is out of scope: "That's outside what I can help with. You might want to contact [resource] for this."
+>
+> **Contradiction Handling:**
+> * If user provides conflicting preferences: Surface the discrepancy explicitly ("Earlier you said X, but now you're saying Y—which should I go with?")
+> * Do not silently override earlier context; always confirm before updating
 
 ---
 
-### 9. Agent Characteristics
+### 10. Agent Characteristics
 
 **Purpose:** Assess this agent across key characteristics that inform system prompt design, guardrails, and operational requirements.
 
@@ -373,12 +417,12 @@ This template provides a structured format for documenting AI agent requirements
 
 Use this checklist to verify your agent spec is complete before handing off to system prompt creation:
 
-**Agent Overview**
+**Section 1: Agent Overview**
 - [ ] All metadata fields filled in
 - [ ] Version and date current
 - [ ] Owner identified
 
-**Product Context**
+**Section 2: Product Context**
 - [ ] User journey clearly described
 - [ ] User's starting state documented
 - [ ] User's goal specified
@@ -386,49 +430,56 @@ Use this checklist to verify your agent spec is complete before handing off to s
 - [ ] Success defined from user perspective
 - [ ] Constraints listed
 
-**Agent Definition**
+**Section 3: Agent Definition**
 - [ ] Purpose statement clear and outcome-focused
 - [ ] Core task defined
 - [ ] North star articulated
 - [ ] Success criteria measurable
 - [ ] Key assumptions documented
 
-**Agent Operating Model**
+**Section 4: Agent Operating Model**
 - [ ] Trigger & invocation method specified
 - [ ] Interaction pattern defined
 - [ ] User visibility level clarified
 - [ ] State & lifecycle documented
 - [ ] Timing & latency expectations specified
 
-**Behavior Requirements**
+**Section 5: Available Tools**
+- [ ] All required tools listed (or marked N/A if agent has no tools)
+- [ ] Each tool has: name, purpose, when to use
+- [ ] Expected inputs and outputs documented
+- [ ] Known constraints noted (rate limits, permissions)
+- [ ] Criticality assessed (essential vs. supplementary)
+
+**Section 6: Behavior Requirements**
 - [ ] Decision logic explained with reasoning
 - [ ] Key behaviors listed
 - [ ] Interaction style specified
 - [ ] Tone & voice defined with examples
 - [ ] Quality standards measurable
 
-**Input/Output Specification**
+**Section 7: Input/Output Specification**
 - [ ] Input format documented (with schema if applicable)
 - [ ] Input sources identified
 - [ ] Required vs. optional inputs clarified
 - [ ] Output format documented
 - [ ] Output delivery method specified
 
-**Boundary Conditions**
+**Section 8: Boundary Conditions**
 - [ ] Autonomous zone defined with examples
 - [ ] Confirmation zone defined with examples
 - [ ] Escalate/refuse zone defined with examples
 - [ ] Scope limits specified
 - [ ] Disclosure guardrails included
 
-**Edge Cases & Failure Modes**
+**Section 9: Edge Cases & Failure Modes**
 - [ ] Known edge cases documented with handling
 - [ ] Expected failure modes identified
-- [ ] Graceful degradation behavior specified
+- [ ] Graceful degradation behavior specified (including fallback defaults)
 - [ ] Uncertainty handling defined
-- [ ] Fallback behavior documented
+- [ ] Contradiction handling specified
 
-**Agent Characteristics**
+**Section 10: Agent Characteristics**
 - [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
 - [ ] Reasoning provided for each characteristic level
 - [ ] Implications for system prompt and implementation noted

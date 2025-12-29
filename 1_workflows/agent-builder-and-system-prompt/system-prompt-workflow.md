@@ -53,14 +53,14 @@ Two documents:
 
 **Pattern per step:**
 > The workflow follows a **configure → generate → validate** pattern:
-> 1. Steps 1-2: Analyze spec and configure prompt structure (user approves configuration)
-> 2. Step 3: Generate the complete system prompt
-> 3. Step 4: Validate against quality criteria (user approves final prompt)
-> 4. Step 5: Extract context contract documentation
+> 1. Steps 2-3: Analyze spec and configure prompt structure (user approves configuration)
+> 2. Step 4: Generate the complete system prompt
+> 3. Step 5: Validate against quality criteria (user approves final prompt)
+> 4. Step 6: Extract context contract documentation
 >
 > This ensures the prompt is appropriately configured before generation begins.
 
-**Gating:** 2 gates total — after Step 2 (configuration approval) and Step 4 (final prompt approval)
+**Gating:** 2 gates total — after Step 3 (configuration approval) and Step 5 (final prompt approval)
 
 ---
 
@@ -118,9 +118,9 @@ Before Step 1, read and understand:
 ### Read On Demand
 
 During specific steps, read as needed:
-- Section-specific guidance in template when writing each section (Step 3)
-- Quality Checklist (below) when validating (Step 4)
-- Context Contract Template (below) when extracting contract (Step 5)
+- Section-specific guidance in template when writing each section (Step 4)
+- Quality Checklist (below) when validating (Step 5)
+- Context Contract Template (below) when extracting contract (Step 6)
 
 ---
 
@@ -144,7 +144,25 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ---
 
-### Step 1: Discovery & Configuration
+### Step 1: Introduction
+
+**Objective:** Orient the user and set expectations for the system prompt creation process.
+
+**LLM Actions:**
+1. Explain what this workflow will accomplish: "We're going to create a production-ready system prompt from your agent specification."
+2. Explain how it will work: "I'll first analyze your spec to determine the right configuration — complexity level and characteristics. Then I'll generate the prompt and validate it against our quality checklist. You'll approve the configuration before I generate."
+3. Set expectations: "This typically takes 30-45 minutes. You'll have 2 approval points: the configuration/outline, and the final prompt."
+4. Ask: "Ready to begin?"
+
+**Guidelines:**
+- Keep this brief — the user has already completed the agent spec
+- Confirm the agent spec is available before proceeding
+
+**No gate — continue when user confirms**
+
+---
+
+### Step 2: Discovery & Configuration
 
 **Objective:** Analyze the agent specification and determine prompt configuration.
 
@@ -205,11 +223,11 @@ Characteristics (from spec):
 | Blast Radius   | [X]   | [relevant context from spec] |
 ```
 
-**No gate — proceed to Step 2**
+**No gate — proceed to Step 3**
 
 ---
 
-### Step 2: Create System Prompt Outline
+### Step 3: Create System Prompt Outline
 
 **Objective:** Apply configuration to template and propose prompt structure for approval.
 
@@ -321,7 +339,7 @@ Produce comprehensive outline covering all aspects below.
 
 ---
 
-### Step 3: Write System Prompt
+### Step 4: Write System Prompt
 
 **Objective:** Create the complete system prompt implementing the agent specification.
 
@@ -329,7 +347,7 @@ Produce comprehensive outline covering all aspects below.
 
 Using:
 - Agent specification as source of truth
-- Approved configuration and outline from Steps 1-2
+- Approved configuration and outline from Steps 2-3
 - Section guidance in `system-prompt-template.md`
 - Writing principles in `system-prompt-guidelines.md`
 
@@ -351,11 +369,11 @@ Write the full system prompt:
 - Dynamic context structure defined
 - Output format specified
 
-**No gate — proceed to Step 4 for quality check**
+**No gate — proceed to Step 5 for quality check**
 
 ---
 
-### Step 4: Quality Check & Validation
+### Step 5: Quality Check & Validation
 
 **Objective:** Validate the system prompt against quality criteria and ensure consistency.
 
@@ -417,7 +435,7 @@ Verify adherence to `system-prompt-guidelines.md` principles:
 
 ---
 
-### Step 5: Extract Context Contract & Output Schema
+### Step 6: Extract Context Contract & Output Schema
 
 **Objective:** Document the integration contract between the system prompt and the context injection pipeline.
 
@@ -463,7 +481,53 @@ Verify adherence to `system-prompt-guidelines.md` principles:
 - Output schema fully specified
 - Integration guidelines included
 
-**No gate — post-approval documentation**
+**No gate — proceed to Step 7**
+
+---
+
+### Step 7: Feedback Capture
+
+**Objective:** Capture feedback on the workflow process to enable iteration and improvement.
+
+**LLM Actions:**
+
+**Transition:**
+"Before we wrap up, I'd like to capture quick feedback on this process. This helps us improve how we create system prompts."
+
+**Ask these five questions:**
+
+1. **Completeness:** "Does this system prompt capture everything from your agent spec? Is anything missing that should be here?"
+
+2. **Accuracy:** "Is there anything in this prompt that doesn't quite match your intent — anything that feels 'off' or got lost in translation from the spec?"
+
+3. **Configuration:** "Did the complexity classification and characteristic analysis feel accurate? Did the resulting section depths make sense?"
+
+4. **Quality process:** "Was the quality checklist helpful? Were there validation steps that felt redundant, or checks you wish we had done?"
+
+5. **Open feedback:** "Any other observations or suggestions about the system prompt creation process?"
+
+**Log the feedback:**
+- Append to `agent-builder-and-system-prompt/system-prompt-feedback-log.md`
+- Format:
+  ```
+  ## [Agent Name] — [Date]
+  
+  **Completeness:** [response or "Nothing missing"]
+  **Accuracy:** [response or "Accurate"]
+  **Configuration:** [response or "Classification was accurate"]
+  **Quality process:** [response or "Process worked well"]
+  **Open feedback:** [response or "None"]
+  ```
+
+**Guidelines:**
+- Keep this lightweight — don't turn it into another interview
+- If user says "all good" to everything, that's valid feedback too
+- The goal is to surface patterns over time, not perfect every entry
+
+**No gate — this completes the workflow**
+
+**After logging, mention:**
+"Feedback logged. Your system prompt and context contract are ready for production. Remember to version both documents alongside the agent spec."
 
 ---
 

@@ -40,7 +40,7 @@ The AI will ask clarifying questions until each section is complete. Expect 45-6
 
 A complete `agent-spec-[agent-name].md` file containing:
 - Full agent specification following the agent-spec-template
-- All 9 sections filled in with appropriate detail
+- All 10 sections filled in with appropriate detail
 - Validated against completeness checklist
 - Internal consistency verified
 - Ready for handoff to system prompt creation
@@ -52,7 +52,7 @@ A complete `agent-spec-[agent-name].md` file containing:
 **Type:** Interview-based
 
 **Pattern per step:**
-> Each interview step (Steps 1-4) follows the same **5-phase pattern**:
+> Each interview step (Steps 2-7) follows the same **5-phase pattern**:
 > 1. **Read Template** — AI reviews the relevant template sections to understand what information is required
 > 2. **Interview User** — AI asks targeted questions and continues until all required information is gathered
 > 3. **Validate Completeness** — AI checks gathered information against template checklist for those sections
@@ -61,7 +61,7 @@ A complete `agent-spec-[agent-name].md` file containing:
 >
 > This pattern ensures consistency and completeness at each stage.
 
-**Gating:** 5 gates total — after Steps 1, 2, 3, 4, and 5 (final approval)
+**Gating:** 7 gates total — after Steps 2, 3, 4, 5, 6, 7, and 8 (final approval)
 
 ---
 
@@ -105,7 +105,7 @@ Extract complete, unambiguous requirements for an AI agent through targeted ques
 ### Read Upfront
 
 Before Step 1, read and understand:
-- `agent-spec-template.md` — Complete template structure and all 9 sections
+- `agent-spec-template.md` — Complete template structure and all 10 sections
 - "Guidelines for Writing Agent Specs" section in the template
 - "Completeness Checklist" at the end of the template
 
@@ -113,7 +113,7 @@ Before Step 1, read and understand:
 
 During specific steps, read as needed:
 - Each template section's guidance when interviewing for that section
-- Agent Characteristics Reference (below) when completing Step 4
+- Agent Characteristics Reference (below) when completing Step 7
 
 ---
 
@@ -129,7 +129,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 **LLM Actions:**
 - Read complete `agent-spec-template.md`
-- Review all 9 template sections and their purposes
+- Review all 10 template sections and their purposes
 - Study "Guidelines for Writing Agent Specs"
 - Review "Completeness Checklist"
 - Understand quality standards and principles
@@ -138,7 +138,25 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ---
 
-### Step 1: Product Context & Agent Definition
+### Step 1: Introduction
+
+**Objective:** Orient the user and set expectations for the interview process.
+
+**LLM Actions:**
+1. Explain what this workflow will accomplish: "We're going to create a complete agent specification through a structured interview."
+2. Explain how it will work: "I'll guide you through 6 topic areas, asking targeted questions until each is complete. At the end of each area, I'll summarize what we covered and you'll approve before we continue."
+3. Set expectations: "This typically takes 45-60 minutes. You don't need everything prepared upfront — I'll ask clarifying questions as we go."
+4. Ask: "Ready to begin?"
+
+**Guidelines:**
+- Keep this brief — the user wants to get started
+- Confirm they understand it's an interview format with checkpoints
+
+**No gate — continue when user confirms**
+
+---
+
+### Step 2: Product Context & Agent Definition
 
 **Objective:** Establish where the agent lives and what it's meant to accomplish.
 
@@ -167,7 +185,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ---
 
-### Step 2: Agent Operating Model
+### Step 3: Agent Operating Model
 
 **Objective:** Define how the agent operates — its trigger, interaction pattern, visibility, state, and timing.
 
@@ -193,11 +211,39 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ---
 
-### Step 3: Behavior, I/O, Boundaries & Edge Cases
+### Step 4: Available Tools
 
-**Objective:** Define how the agent behaves, what it consumes and produces, where its limits are, and how it handles edge cases.
+**Objective:** Document the tools, APIs, and integrations the agent has access to.
 
-**Template Sections:** 5 (Behavior Requirements), 6 (Input/Output Specification), 7 (Boundary Conditions), 8 (Edge Cases & Failure Modes)
+**Template Section:** 5 (Available Tools)
+
+**Follow the 5-phase pattern above.**
+
+**Key Topics to Cover:**
+- What tools does the agent need access to?
+- For each tool: name, purpose, when to use it
+- Expected inputs and outputs for each tool
+- Known constraints (rate limits, permissions, availability)
+- Criticality: which tools are essential vs. supplementary?
+- Dependencies between tools (if any)
+
+**Note:** If the agent operates without external tools (pure conversational), document this explicitly as "N/A."
+
+**Quality Check:**
+- [ ] All required tools listed (or N/A documented)
+- [ ] Each tool has name, purpose, and trigger conditions
+- [ ] Expected inputs and outputs documented
+- [ ] Constraints and criticality noted
+
+**Gate:** User confirms section 5 is complete and accurate
+
+---
+
+### Step 5: Behavior Requirements & Input/Output
+
+**Objective:** Define how the agent behaves, makes decisions, and what data it consumes and produces.
+
+**Template Sections:** 6 (Behavior Requirements), 7 (Input/Output Specification)
 
 **Follow the 5-phase pattern above.**
 
@@ -214,6 +260,25 @@ This section contains the step-by-step instructions the LLM will follow to execu
 - Output format and delivery method
 - Required vs. optional inputs
 
+**Quality Check:**
+- [ ] Decision logic explained with reasoning
+- [ ] Key behaviors and tone defined
+- [ ] Input/output specifications documented
+
+**Gate:** User confirms sections 6-7 are complete and accurate
+
+---
+
+### Step 6: Boundaries & Edge Cases
+
+**Objective:** Define where the agent's limits are and how it handles edge cases.
+
+**Template Sections:** 8 (Boundary Conditions), 9 (Edge Cases & Failure Modes)
+
+**Follow the 5-phase pattern above.**
+
+**Key Topics to Cover:**
+
 **Boundary Conditions:**
 - Autonomous zone (what agent does without asking)
 - Confirmation zone (what requires approval)
@@ -223,25 +288,25 @@ This section contains the step-by-step instructions the LLM will follow to execu
 **Edge Cases & Failure Modes:**
 - Known tricky scenarios
 - Expected failure modes
-- Graceful degradation behavior
+- Graceful degradation behavior (including fallback defaults)
 - Uncertainty handling approach
+- Contradiction handling (when new info conflicts with earlier statements)
 
 **Quality Check:**
-- [ ] Decision logic explained with reasoning
-- [ ] Key behaviors and tone defined
-- [ ] Input/output specifications documented
 - [ ] All three boundary zones clearly defined
+- [ ] Scope limits documented
 - [ ] Edge cases and failure handling specified
+- [ ] Graceful degradation behavior defined
 
-**Gate:** User confirms sections 5-8 are complete and accurate
+**Gate:** User confirms sections 8-9 are complete and accurate
 
 ---
 
-### Step 4: Agent Characteristics
+### Step 7: Agent Characteristics
 
 **Objective:** Assess the agent on each of the 5 characteristic dimensions to inform system prompt design.
 
-**Template Section:** 9 (Agent Characteristics)
+**Template Section:** 10 (Agent Characteristics)
 
 **Follow the 5-phase pattern above.**
 
@@ -261,11 +326,11 @@ This section contains the step-by-step instructions the LLM will follow to execu
 - [ ] Reasoning for characteristic level provided
 - [ ] Implications for implementation noted
 
-**Gate:** User confirms section 9 is complete and accurate
+**Gate:** User confirms section 10 is complete and accurate
 
 ---
 
-### Step 5: Cross-Section Validation & Generate Final Spec
+### Step 8: Cross-Section Validation & Generate Final Spec
 
 **Objective:** Ensure internal consistency across all sections and produce the final specification document.
 
@@ -276,9 +341,12 @@ This section contains the step-by-step instructions the LLM will follow to execu
 Review all approved sections together and check for contradictions or discrepancies:
 - Does Agent Operating Model align with Behavior Requirements?
   - Example: If agent is "silent/background," does it have conversational behaviors defined?
+- Do Available Tools align with Input/Output specification?
+  - Example: If I/O references calendar data, is there a calendar_read tool documented?
 - Do Boundary Conditions match the autonomy level described in other sections?
   - Example: If characterized as "high autonomy," is the autonomous zone robust?
-- Do Edge Cases reference the right boundaries and behaviors?
+- Do Edge Cases reference the right boundaries, behaviors, and tools?
+  - Example: If edge case mentions "calendar unavailable," is tool failure handling consistent?
 - Does I/O specification match what behaviors and edge cases reference?
 - Do Agent Characteristics reflect the actual characteristics in the spec?
   - Example: If characterized as "Critical Sensitivity," does the spec show appropriate data handling boundaries?
@@ -314,6 +382,52 @@ Ensure the spec tells a coherent story:
 - Confirmation that all consistency checks passed
 
 **Gate:** User approves final specification for handoff to system prompt creation
+
+---
+
+### Step 9: Feedback Capture
+
+**Objective:** Capture feedback on the workflow process to enable iteration and improvement.
+
+**LLM Actions:**
+
+**Transition:**
+"Before we wrap up, I'd like to capture quick feedback on this process. This helps us improve how we create agent specifications."
+
+**Ask these five questions:**
+
+1. **Completeness:** "Does this spec capture the full essence of your agent? Is anything missing that should be here?"
+
+2. **Accuracy:** "Is there anything in this spec that doesn't quite match your intent — anything that feels 'off' or got lost in translation?"
+
+3. **Interview flow:** "Did the section-by-section approach work well? Were there moments where questions didn't fit your situation, or where you struggled to express something important?"
+
+4. **Characteristics:** "Did the 5 characteristic dimensions (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius) help clarify your agent's nature? Were they easy to assess?"
+
+5. **Open feedback:** "Any other observations or suggestions about the agent spec creation process?"
+
+**Log the feedback:**
+- Append to `agent-builder-and-system-prompt/agent-spec-feedback-log.md`
+- Format:
+  ```
+  ## [Agent Name] — [Date]
+  
+  **Completeness:** [response or "Nothing missing"]
+  **Accuracy:** [response or "Accurate"]
+  **Interview flow:** [response or "Flow worked well"]
+  **Characteristics:** [response or "Helpful and clear"]
+  **Open feedback:** [response or "None"]
+  ```
+
+**Guidelines:**
+- Keep this lightweight — don't turn it into another interview
+- If user says "all good" to everything, that's valid feedback too
+- The goal is to surface patterns over time, not perfect every entry
+
+**No gate — this completes the workflow**
+
+**After logging, mention:**
+"Feedback logged. When you're ready to create the system prompt from this spec, use the System Prompt Creation Workflow (`system-prompt-workflow.md`)."
 
 ---
 
@@ -390,7 +504,7 @@ The following characteristics help define the agent's nature and inform system p
 
 ### How to Use Agent Characteristics
 
-**During Agent Spec Creation (Section 9):**
+**During Agent Spec Creation (Section 10):**
 1. Assess the agent on each characteristic dimension
 2. Assign a level (Low, Medium, High, or Critical for Sensitivity; specific levels for others)
 3. Provide reasoning for each characteristic level
@@ -409,7 +523,7 @@ The following characteristics help define the agent's nature and inform system p
 
 Use this checklist during the workflow to verify completeness at each step.
 
-#### Step 1: Product Context & Agent Definition (Sections 2-3)
+#### Step 2: Product Context & Agent Definition (Sections 2-3)
 - [ ] Clear description of where the agent lives in the product flow
 - [ ] User's starting state and journey documented
 - [ ] User's goal and desired outcome specified
@@ -420,14 +534,21 @@ Use this checklist during the workflow to verify completeness at each step.
 - [ ] Success criteria for the agent specified
 - [ ] Key assumptions documented
 
-#### Step 2: Agent Operating Model (Section 4)
+#### Step 3: Agent Operating Model (Section 4)
 - [ ] Trigger & invocation method specified
 - [ ] Interaction pattern defined (conversational, one-shot, silent, etc.)
 - [ ] User visibility level clarified
 - [ ] State & lifecycle documented
 - [ ] Timing & latency expectations specified
 
-#### Step 3: Behavior, I/O, Boundaries & Edge Cases (Sections 5-8)
+#### Step 4: Available Tools (Section 5)
+- [ ] All required tools listed (or N/A if agent has no tools)
+- [ ] Each tool has: name, purpose, when to use
+- [ ] Expected inputs and outputs documented
+- [ ] Known constraints noted (rate limits, permissions)
+- [ ] Criticality assessed (essential vs. supplementary)
+
+#### Step 5: Behavior Requirements & Input/Output (Sections 6-7)
 - [ ] Decision logic and priorities explained
 - [ ] Key behaviors listed with reasoning
 - [ ] Tone and interaction style specified
@@ -436,21 +557,24 @@ Use this checklist during the workflow to verify completeness at each step.
 - [ ] Input sources identified
 - [ ] Output format and structure documented
 - [ ] Output delivery method specified
+
+#### Step 6: Boundaries & Edge Cases (Sections 8-9)
 - [ ] Autonomous zone clearly defined
 - [ ] Confirmation zone clearly defined
 - [ ] Escalate/refuse zone clearly defined
 - [ ] Scope limits documented
 - [ ] Known edge cases listed
 - [ ] Expected failure modes documented
-- [ ] Graceful degradation behavior specified
+- [ ] Graceful degradation behavior specified (including fallback defaults)
 - [ ] Uncertainty handling defined
+- [ ] Contradiction handling specified
 
-#### Step 4: Agent Characteristics (Section 9)
+#### Step 7: Agent Characteristics (Section 10)
 - [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
 - [ ] Reasoning for characteristic level provided
 - [ ] Implications for implementation noted
 
-#### Step 5: Final Specification Quality
+#### Step 8: Final Specification Quality
 - [ ] All sections are specific, not abstract
 - [ ] No vague terms without definition
 - [ ] Reasoning provided for key decisions
@@ -473,7 +597,7 @@ User-specified directory: _______
 
 ### Contents
 - Complete agent specification following `agent-spec-template.md` structure
-- All 9 sections filled in with appropriate detail
+- All 10 sections filled in with appropriate detail
 - Section 1 (Agent Overview) metadata included
 - Clear, unambiguous requirements
 - Validated against completeness checklist
@@ -487,7 +611,7 @@ This agent specification serves as the primary input to the **System Prompt Crea
 ## Success Criteria
 
 This workflow succeeds when:
-- [ ] **Complete coverage:** All 9 template sections are filled in with sufficient detail
+- [ ] **Complete coverage:** All 10 template sections are filled in with sufficient detail
 - [ ] **Section-level quality:** Each section passed its completeness check before approval
 - [ ] **Cross-section consistency:** No contradictions or discrepancies between sections
 - [ ] **Narrative coherence:** The spec tells a clear, logical story about the agent

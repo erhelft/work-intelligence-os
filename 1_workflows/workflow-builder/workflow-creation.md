@@ -301,8 +301,9 @@ Include standard steps:
 - Step 0: Preparation
 - Step 1: Introduction
 - [Content steps from blueprint phases]
-- Step N-1: Quality Assurance
-- Step N: Review & Finalize
+- Step N-2: Quality Assurance
+- Step N-1: Review & Finalize
+- Step N: Feedback Capture (standard — follow template pattern)
 
 **Present step outline to user:**
 ```
@@ -311,8 +312,9 @@ Step 1: Introduction — Orient user, set expectations
 Step 2: [Phase 1 name] — [objective] [GATE]
 Step 3: [Phase 2 name] — [objective]
 ...
-Step N-1: Quality Assurance — Validate complete output
-Step N: Review & Finalize — Present and get final approval [GATE]
+Step N-2: Quality Assurance — Validate complete output
+Step N-1: Review & Finalize — Create file, get final approval [GATE]
+Step N: Feedback Capture — Log feedback for workflow improvement
 ```
 
 **Guidelines:**
@@ -350,24 +352,34 @@ Step N: Review & Finalize — Present and get final approval [GATE]
 4. **Key Topics to Cover** (if applicable)
 
 5. **Guidelines** — Step-specific guidance:
-   - What to emphasize
+   - What to emphasize in this specific step
    - Common mistakes to avoid
-   - Extract from blueprint phase "Emphasis / Notes"
+   - Extract from blueprint phase "Execution Guidance" — this becomes the step's Guidelines section
 
 6. **Quality Check** — Inline validation criteria
 
 7. **Gate** — What user approves (or "No gate — continue")
 
+**Check for conditional sections:**
+- **Reference Material:** Does any step need domain-specific reference material during execution? Check blueprint phases for external references.
+- **Next Steps:** Is this workflow part of a sequence? Add Next Steps section if it feeds another workflow.
+
+**Standard steps (use template pattern, no customization needed):**
+- **Feedback Capture:** Include the standard Feedback Capture step as the final step. Follow the template pattern exactly — no customization needed unless the workflow has unique feedback needs.
+
 **Guidelines:**
 - Follow template structure exactly
-- Extract emphasis/notes from blueprint phases
+- Blueprint's "Execution Guidance" per phase → becomes each step's "Guidelines" section
 - Ensure each step's output feeds the next
+- Create a feedback log file: `[workflow-folder]/[workflow-name]-feedback-log.md`
 
 **Quality Check:**
 - [ ] All steps fully detailed
 - [ ] LLM Actions are specific and actionable
 - [ ] Quality checks are verifiable
 - [ ] Gates match approved structure
+- [ ] Feedback Capture step included (standard pattern)
+- [ ] Feedback log file created
 
 **No gate — continue to Step 8**
 
@@ -389,6 +401,8 @@ Step N: Review & Finalize — Present and get final approval [GATE]
 - All required template sections filled?
 - Formatting matches `workflow-template.md`?
 - Gates properly marked?
+- Feedback Capture step included?
+- Feedback log file created?
 
 **Part C: Coherence Check**
 - Do steps flow logically?
@@ -414,19 +428,29 @@ Step N: Review & Finalize — Present and get final approval [GATE]
 
 ### Step 9: Review & Finalize
 
-**Objective:** Present complete workflow for final approval.
+**Objective:** Create the workflow file and get final approval.
 
 **LLM Actions:**
-1. Compile all sections into `[workflow-name].md`
-2. Present complete workflow to user
-3. Summarize:
-   - Total steps: [X]
-   - Total gates: [X]
-   - Workflow type: [type]
-4. Note any items that needed interpretation or remain TBD
-5. Ask: "This is the complete workflow. Ready to save?"
 
-**Gate 4:** User approves final workflow
+1. **Ask for save location:**
+   - "Where should I save the workflow file? Please provide the folder path."
+
+2. **Create the file** at the specified location:
+   - Filename: `[workflow-name].md`
+   - Compile all sections following `workflow-template.md` structure
+
+3. **Confirm creation:**
+   - "I've created `[workflow-name].md` in [folder path]."
+   - Summarize:
+     - Total steps: [X]
+     - Total gates: [X]
+     - Workflow type: [type]
+   - Note any items that needed interpretation or remain TBD
+   - Ask: "Please review the file. Does it accurately reflect your blueprint?"
+
+**Critical:** You must CREATE the .md file — do not just output the content in chat. The user should be able to open and review the actual file.
+
+**Gate 4:** User approves final workflow file
 
 ---
 
