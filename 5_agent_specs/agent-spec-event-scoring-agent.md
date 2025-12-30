@@ -30,7 +30,7 @@
 **Product Flow:**
 1. User configures meeting parameters (attendees, duration, time range)
 2. User clicks "Find Best Times" or adds an attendee (triggering optimization)
-3. **[Agent operates here]** System scores each conflicting event for each attendee
+3. **[Agent operates here]** System scores all events in the timerange for each attendee
 4. System aggregates individual event scores into slot-level "likelihood to schedule" scores
 5. System displays color-coded heatmap with time slots and conflict explanations
 6. User reviews options and selects best time
@@ -51,7 +51,7 @@
 
 **Purpose Statement:** Evaluate calendar events to determine how likely each person could move or miss their existing commitment, enabling intelligent scheduling decisions that respect priorities and context.
 
-**Core Task:** Analyze individual calendar events and assign conflict scores (available/minor/medium/major) based on event characteristics, scheduling context, attendee relationships, and the person's role in that event.
+**Core Task:** Analyze individual calendar events and assign conflict scores (available/minor/medium/major).
 
 **North Star:** Accurate conflict assessments that users trust — where the score matches their intuition and the explanation makes the reasoning transparent.
 
@@ -80,12 +80,11 @@
 
 **Interaction Pattern:**
 - **Silent/Background** — Agent operates invisibly without direct user interaction
-- **Transparent Results** — Users see outputs (color-coded heatmap, conflict scores, explanations)
-- No conversational interface or back-and-forth dialogue
+- **Output Only** — Agent returns JSON with conflict scores and explanations; no conversational interface or back-and-forth dialogue
 
 **User Visibility:**
 - Agent itself is invisible to users
-- Users see results: conflict levels displayed as colors, explanations shown on hover/click
+- Agent outputs (conflict scores and reasons) are consumed by downstream system and eventually displayed to users
 - Users don't know (or need to know) an AI agent performed the analysis
 
 **State & Lifecycle:**

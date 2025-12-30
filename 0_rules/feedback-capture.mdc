@@ -1,0 +1,100 @@
+---
+alwaysApply: false
+---
+## Purpose
+
+Capture workflow insights and learnings in a structured format to enable workflow iteration and improvement over time.
+
+## When to Use
+
+Call this rule when:
+- User explicitly asks to log an insight or learning
+- A significant clarification changes understanding of the workflow
+- An edge case reveals a gap in workflow guidance
+- User challenges a decision and the discussion surfaces a pattern
+- Any "aha moment" that would improve future workflow executions
+
+## Target Files
+
+Feedback logs follow naming pattern: `[workflow-name]-feedback-log.md`
+
+## Format
+
+```markdown
+## [Subject/Agent Name] — [Date: Month DD, YYYY]
+
+**[Insight Category: e.g., Classification Challenge, Process Gap, Edge Case]**
+
+[Brief description of the initial state/assumption]
+
+**User correction → [What changed]**
+
+Key factors that drove the correction:
+1. **[Factor 1]**: [Explanation]
+2. **[Factor 2]**: [Explanation]
+3. **[Factor 3]**: [Explanation]
+
+**Insight**: [The core learning — what was missed, what should be considered differently]
+
+**Potential workflow improvement**: [Specific suggestions for updating workflow, or "Hold until pattern emerges"]
+
+**Decision**: [What action to take now — update workflow, wait for more data, etc.]
+```
+
+## Instructions for AI
+
+When user triggers feedback capture:
+
+1. **Identify the feedback log**
+   - Determine which workflow is active
+   - Locate the corresponding `*-feedback-log.md` file
+   - If unclear, ask: "Which feedback log should I update?"
+
+2. **Write the entry**
+   - Use current date (Month DD, YYYY format)
+   - Include subject/agent name if applicable
+   - Follow the format above
+   - Be specific and actionable
+
+3. **Append to file**
+   - Add entry at the end of the feedback log
+   - Maintain chronological order
+   - Preserve existing entries
+
+4. **Confirm to user**
+   - "Feedback logged to [filename]"
+   - Briefly summarize what was captured
+   - Ask if ready to continue workflow
+
+## Guidelines
+
+**Be specific:**
+- Don't write "There was a classification issue" — write "Classification over-weighted reasoning depth vs. operational characteristics"
+- Include concrete factors, not generalizations
+
+**Be actionable:**
+- "Potential workflow improvement" should suggest specific changes
+- Flag whether to act now or wait for pattern
+
+**Be honest about uncertainty:**
+- If one data point, say "Hold until pattern emerges"
+- If this is a recurring issue, say "Pattern confirmed, recommend workflow update"
+
+**Maintain format consistency:**
+- Always include date in same format
+- Always use bold for key headings
+- Always structure numbered lists for factors
+
+## Example Usage
+
+**User says:**
+> "This is an important insight. Log it to the feedback file."
+
+**AI does:**
+1. Determines active workflow and locates feedback log
+2. Analyzes the conversation to extract the insight
+3. Formats according to the template
+4. Appends to feedback log
+5. Confirms: "Logged to system-prompt-feedback-log.md. Ready to continue?"
+
+
