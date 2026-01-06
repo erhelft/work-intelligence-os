@@ -140,3 +140,30 @@ Everything else—line references, internal prompt behavior, proof-of-consistenc
 - Default to leaner "Schema Alignment" unless user explicitly needs comprehensive integration docs
 
 **Decision**: Pattern confirmed. Context contracts should be purpose-driven (schema alignment for technical handoff) rather than comprehensively documenting all relationships. Add audience/purpose clarification to Step 6.
+
+---
+
+## Scheduling Intelligence Agent — January 6, 2026 (Workflow Mode Detection)
+
+**Issue: Continuing in Ask Mode When Write Operations Required**
+
+During Step 3 outline approval, the workflow was about to proceed to Step 4 (writing the system prompt file). Instead of detecting that write operations would be needed and prompting the user to switch to agent mode, the AI began attempting to output the prompt in chat.
+
+**User correction → Request to switch modes proactively**
+
+Key insight: When a workflow step will require file creation/modification, the AI should:
+1. Detect the upcoming write operation requirement
+2. Explicitly ask user to switch to agent mode before proceeding
+3. Wait for mode switch confirmation before continuing with generation
+
+**Why this matters:**
+- Avoids generating long content in chat that then needs to be copied/pasted
+- Maintains clean workflow progression
+- Respects the tool access boundaries
+
+**Potential workflow improvement:**
+- Add explicit check at end of Step 3: "We're about to generate files. Please switch to agent mode if you haven't already."
+- System prompt workflow Step 4 should start with mode check
+- Consider adding mode check guidance to all file-generating workflow steps
+
+**Decision**: Log pattern. If this recurs across multiple workflows, add explicit mode-checking guidance to workflow templates.
