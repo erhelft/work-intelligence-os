@@ -108,11 +108,12 @@ Make intelligent coordination decisions that lead to efficient, respectful meeti
 
 Process attendee responses during coordination and produce structured output specifying:
 1. **Attendee score + reason** (reasoning-based assessment with guidelines)
-2. **Attendee next action** (strategic decision from defined menu)
-3. **Event score + reason** (reasoning-based assessment with guidelines)
-4. **Event next action** (strategic decision from defined menu)
-5. **Follow-up date** (timing decision for re-engagement)
-6. **Suggested alternative times** (extraction and maintenance of attendee-proposed times)
+2. **Attendee engagement level** (structured assessment: High/Medium/Low)
+3. **Attendee next action** (strategic decision from defined menu)
+4. **Event score + reason** (reasoning-based assessment with guidelines)
+5. **Event next action** (strategic decision from defined menu)
+6. **Follow-up date** (timing decision for re-engagement)
+7. **Suggested alternative times** (extraction and maintenance of attendee-proposed times)
 
 ### North Star
 
@@ -212,7 +213,7 @@ All necessary context is provided via prompt injection (scheduling operation + c
 
 ### Decision Logic
 
-The agent makes 6 core decisions/tasks:
+The agent makes 7 core decisions/tasks:
 
 ---
 
@@ -292,7 +293,49 @@ Good examples:
 
 ---
 
-#### Decision 3: Attendee Next Action
+#### Decision 3: Attendee Engagement Level
+
+**Question answered:** "How engaged is this attendee with the coordination process?"
+
+**Output:** One of three levels: `High` | `Medium` | `Low`
+
+**Purpose:** Provide structured engagement signal for event scoring logic. When processing one attendee, event scoring needs to know engagement level of all other required attendees. This data must be available beyond the current attendee's message history.
+
+**Level Definitions:**
+
+**High Engagement:**
+- Quick responses (responds within hours to 1 day)
+- Asking clarifying questions about meeting details
+- Proposing specific alternative times
+- Active problem-solving ("That's tough but I could make it work if we...")
+- Showing commitment and interest in making meeting happen
+
+**Medium Engagement:**
+- Responding but not elaborating
+- Acknowledging without strong commitment
+- Passive responses ("OK" / "Noted" / "Thanks")
+- Takes 2-3 days to respond
+- Not proactive but cooperative when contacted
+
+**Low Engagement:**
+- Slow responses (4+ days to respond)
+- Vague deflections without follow-through
+- Declining engagement over time (enthusiastic → passive)
+- Minimal interaction, terse responses
+- Says they'll respond but doesn't follow up
+- Pattern of ignoring follow-ups
+
+**Assessment basis:**
+- Response timing (how quickly they respond)
+- Response quality (detail, questions, alternatives)
+- Trajectory (engagement increasing, stable, or declining)
+- Initiative (proactive vs. reactive)
+
+**Critical note:** Engagement reflects coordination interaction quality, not likelihood to attend. High engagement + declined slot = engaged person who can't make this time. Low engagement + tentative yes = concerning commitment level.
+
+---
+
+#### Decision 4: Attendee Next Action
 
 **Purpose:** Strategic decision about what the Communication Agent should do next with this attendee.
 
@@ -347,7 +390,7 @@ Agent calculates follow_up_date based on context:
 
 ---
 
-#### Decision 4: Attendee Suggested Alternative Times
+#### Decision 5: Attendee Suggested Alternative Times
 
 **Purpose:** Extract and maintain cumulative list of alternative times attendee has proposed.
 
@@ -374,7 +417,7 @@ Agent calculates follow_up_date based on context:
 
 ---
 
-#### Decision 5: Event Score
+#### Decision 6: Event Score
 
 **Question answered:** "What's the likelihood this meeting will actually happen at the proposed time?"
 
@@ -421,15 +464,18 @@ Agent calculates follow_up_date based on context:
 
 **Core question:** How are required attendees interacting, which direction is this trending?
 
-**Positive signals:** Quick responses, asking questions, proposing alternatives, tentative → firm confirmation, active problem-solving
+**Data available:** Each attendee's engagement level (High/Medium/Low) from their attendee_analysis, plus their score and reason.
 
-**Negative signals:** Slow/no responses, declining engagement, vague deflections, silence after "let me check", enthusiasm fading
+**Positive signals:** High engagement levels, trending positive trajectory, multiple required attendees engaged
+
+**Negative signals:** Low engagement levels, declining engagement, silence after initial contact, enthusiasm fading
 
 **Principles:**
-- Engagement signals intent
-- Momentum matters as much as current state
-- Silence is ambiguous early, becomes signal over time
-- When multiple required, overall momentum shaped by least-engaged required attendee
+- Engagement signals intent (High engagement = wants meeting to happen, even if schedule difficult)
+- Momentum matters as much as current state (Medium engagement trending to High is positive)
+- When multiple required attendees, overall momentum shaped by least-engaged required attendee
+- Low engagement + high score = concerning (says yes but shows little commitment)
+- High engagement + low score = promising (can't make this time but actively trying to find solution)
 
 **Dimension 4: Time Remaining (Relative)**
 
@@ -478,7 +524,7 @@ Agent calculates follow_up_date based on context:
 
 ---
 
-#### Decision 6: Event Reason
+#### Decision 7: Event Reason
 
 **Purpose:** Provide enough context to allow the user to understand what's going on with this coordination.
 
@@ -518,7 +564,7 @@ The reason gives the EA/lawyer exactly the information they need to understand e
 
 ---
 
-#### Decision 7: Event Next Action
+#### Decision 8: Event Next Action
 
 **Purpose:** Strategic decision about what should happen at event level.
 
@@ -592,7 +638,7 @@ The reason gives the EA/lawyer exactly the information they need to understand e
 
 ---
 
-#### Decision 8: Follow-up Date
+#### Decision 9: Follow-up Date
 
 **Purpose:** When should the agent re-engage if attendee doesn't respond?
 
@@ -667,6 +713,7 @@ followup_date: ISO date (when next follow-up scheduled)
 attendee_analysis: object
   - score: int (0-100)
   - reason: string
+  - engagement: enum (High | Medium | Low)
   - next_action: object
     - type: enum (string)
     - subtype: enum (string)
@@ -716,6 +763,7 @@ The agent outputs a single JSON object:
   "attendee_analysis": {
     "score": 0-100,
     "reason": "string",
+    "engagement": "High | Medium | Low",
     "next_action": {
       "type": "enum",
       "subtype": "enum",

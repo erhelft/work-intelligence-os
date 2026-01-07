@@ -1,5 +1,12 @@
 # Agent Specification Workflow
 
+## Last Updated
+
+- **Date:** —
+- **Iteration:** 0
+
+---
+
 ## Purpose
 
 Define and document AI agent requirements through structured interview and produce a complete agent specification document.

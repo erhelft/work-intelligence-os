@@ -25,6 +25,8 @@ Key factors that drove the correction:
 
 **Decision**: Hold on workflow changes until we have more data points. Continue monitoring for pattern.
 
+[Processed: January 7, 2026, Iteration #1]
+
 ---
 
 ## Event Scoring Agent — December 30, 2025 (Outline Configuration)
@@ -61,6 +63,8 @@ Key insights from outline review:
 
 **Decision**: Strong pattern emerging. After this prompt is complete, consider adding "Section Depth Optimization" guidance to the workflow with these learnings.
 
+[Processed: January 7, 2026, Iteration #1]
+
 ---
 
 ## Event Scoring Agent — December 30, 2025 (Quality Check Revisions)
@@ -95,6 +99,8 @@ Key issues identified:
 - Consider adding "functional validation" questions in Step 5 that force review of actual usage scenarios
 
 **Decision**: Corrections applied. Pattern suggests quality check should include explicit data structure validation and edge case prominence review.
+
+[Processed: January 7, 2026, Iteration #1]
 
 ---
 
@@ -141,6 +147,8 @@ Everything else—line references, internal prompt behavior, proof-of-consistenc
 
 **Decision**: Pattern confirmed. Context contracts should be purpose-driven (schema alignment for technical handoff) rather than comprehensively documenting all relationships. Add audience/purpose clarification to Step 6.
 
+[Processed: January 7, 2026, Iteration #1]
+
 ---
 
 ## Scheduling Intelligence Agent — January 6, 2026 (Workflow Mode Detection)
@@ -167,3 +175,63 @@ Key insight: When a workflow step will require file creation/modification, the A
 - Consider adding mode check guidance to all file-generating workflow steps
 
 **Decision**: Log pattern. If this recurs across multiple workflows, add explicit mode-checking guidance to workflow templates.
+
+[Processed: January 7, 2026, Iteration #1]
+
+---
+
+## Scheduling Intelligence Agent — January 7, 2026 (Quality Review Refinements)
+
+**Multiple Clarifications from User Review**
+
+Initial draft generated following template structure and characteristic modifiers. User review surfaced several conceptual misalignments and opportunities for clarity improvements.
+
+**User corrections → Six key refinements**
+
+Key insights from user feedback:
+
+1. **Escalation level confusion**: Initial Identity section said agent "escalates when attendees propose alternatives" but this conflated attendee-level actions (which output Escalate.* next_action) with event-level escalations (which change event.next_action to Waiting.*). Attendee can escalate without event escalating if it doesn't affect event state.
+   - **Fix**: Changed to "escalates when event-level coordination requires user decision"
+   - **Learning**: Distinguish between agent's output types (attendee vs. event) and what "escalation" means at each level
+
+2. **Sensitive data protection target**: Hard Boundaries prohibited "logging email addresses, names in error outputs" targeting system logging concerns. User clarified the real risk is **cross-attendee data leakage** — showing participant A's details when EA is viewing participant B's coordination.
+   - **Fix**: Changed to prohibit including one attendee's score/reason/messages when analyzing another attendee
+   - **Learning**: In multi-participant systems, data isolation between participants is more critical than general logging restrictions for internal-facing agents
+
+3. **Input schema documentation approach**: Initial Dynamic Context had minimal field listings. User questioned if agent knew what it was receiving. Rather than field-by-field schema (Event Scoring Agent approach), user preferred **conceptual purpose explanation**: "scheduling_operation contains event-level data... use this to understand full event context"
+   - **Fix**: Rewrote with conceptual explanations and "use this to understand" guidance
+   - **Learning**: For self-explanatory field names, conceptual purpose > exhaustive schema. Agent needs to know WHAT to look WHERE, not every field name.
+
+4. **Event reasoning in examples creates confusion**: Example 2 showed event_analysis with score 65 when David (only attendee shown) had score 85. Without full context about other attendees, this was confusing and potentially misleading.
+   - **Fix**: Removed event_analysis from Examples 2-4, kept only in Example 1 to establish pattern
+   - **Learning**: Examples need complete context to be instructive. Partial examples can teach wrong patterns.
+
+5. **Granularity scaling with attendee count**: Event reason principle was missing critical guidance on text length management. With 1 attendee, event reason should mirror attendee reason. With 5+ attendees, can't list all names without bloating.
+   - **Fix**: Added principle: "1 attendee: mirror exactly; 2-3: use names; 4+: summarize without names"
+   - **Learning**: Output format guidance needs to address scalability explicitly when dealing with variable-count entities
+
+6. **Follow-up timing logic contradictions**: Initial guidance said "high urgency = 1-2 days when meeting within 3 days" but if meeting is in 3 days and you follow up in 2 days, that's only 1 day before meeting. "Final attempt" timing had no room in the sequence.
+   - **Fix**: Changed to spacing based on days-until-meeting: >7 days = 3-4 day spacing, 4-7 days = 2-3, <4 days = 1-2
+   - **Learning**: Timing logic needs mathematical coherence. Test edge cases: "If I apply this rule, does the sequence make sense?"
+
+7. **Attendee criticality inference vs. checking field**: Event Score Dimension 1 described inferring whether attendee is required/optional from signals (external = required, etc.). User pointed out `is_optional` is provided in input schema.
+   - **Fix**: Changed to "Check `is_optional` field" with inference signals as backup
+   - **Learning**: When data is provided, don't make agent infer. Check field first, use heuristics only as fallback.
+
+**Insight**: Quality review by domain expert catches conceptual misalignments that template-based generation misses. Key patterns:
+- Distinguish between output layers (attendee vs. event level) 
+- Understand risk models specific to domain (cross-participant leakage vs. general logging)
+- Balance schema detail with conceptual clarity based on field self-documentation
+- Ensure examples have enough context to be instructive
+- Test timing/sequence logic for mathematical coherence
+- Check data before inferring
+
+**Potential workflow improvement**:
+- Add Step 5 checklist: "Validate timing/sequence logic for mathematical coherence"
+- Add Step 5 checklist: "If agent handles multiple entities of same type (attendees, events, etc.), verify granularity scaling guidance"
+- Add Step 5 checklist: "Verify agent checks provided fields before inferring from signals"
+- Consider adding "examples completeness" check: do examples have enough context to be instructive without misleading?
+
+**Decision**: Strong patterns emerging across Event Scoring and Scheduling Intelligence agents. After this workflow completes, review Step 5 quality checklist for enhancements addressing: timing logic coherence, scalability guidance, check-before-infer principle, example completeness.
+
+[Processed: January 7, 2026, Iteration #1]

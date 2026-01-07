@@ -1,5 +1,12 @@
 # Agent Specification Template
 
+## Last Updated
+
+- **Date:** —
+- **Iteration:** 0
+
+---
+
 ## Overview
 
 This template provides a structured format for documenting AI agent requirements. A complete agent specification serves as the requirements document for system prompt creation—it defines **what** the agent should do without prescribing **how** the implementation should work.

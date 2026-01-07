@@ -1,5 +1,12 @@
 # System Prompt Creation Workflow
 
+## Last Updated
+
+- **Date:** January 7, 2026
+- **Iteration:** 1
+
+---
+
 ## Purpose
 
 Transform a complete agent specification into a production-ready system prompt using our guidelines and template, with context contract documentation.
@@ -238,6 +245,12 @@ Using the Robustness Table in `system-prompt-template.md`:
 - Map complexity classification to section depths (Skip/Minimal/Standard/Robust)
 - Note the target token range for this complexity level
 
+**Strategic Depth Adjustment:**
+- The Robustness Table provides starting defaults, not rigid requirements
+- Ask: "Where does this agent's complexity actually live?"
+- Consider: Can characteristic requirements be contained at specific boundaries vs. woven throughout?
+- Allocate tokens to high-value sections; save from low-complexity sections
+
 **2. Identify Characteristic Requirements**
 Using the Characteristic Modifiers in `system-prompt-template.md`:
 - For each characteristic level, identify content requirements
@@ -328,7 +341,18 @@ Produce comprehensive outline covering all aspects below.
 
 ---
 
-## H. Token Budget Estimate
+## H. Section Depth Rationale
+
+[For each section where you deviated from Robustness Table defaults, explain:]
+- **[Section name]**: [Default depth] → [Actual depth]
+  - **Why**: [Where does this agent's complexity actually live? Token allocation reasoning]
+
+[Address characteristic containment strategy:]
+- **Characteristic containment**: [Which characteristic requirements are contained at specific boundaries vs. woven throughout? E.g., "High Sensitivity risk contained in Hard Boundaries private event handling; doesn't require expansion of all sections"]
+
+---
+
+## I. Token Budget Estimate
 
 **Target Range:** [X-Y tokens] (based on [Complexity Type])
 **Estimated Actual:** [estimate, e.g., "Upper end (~2300 tokens)"]
@@ -336,6 +360,11 @@ Produce comprehensive outline covering all aspects below.
 ```
 
 **Gate:** User confirms configuration and outline before generation
+
+**Mode Check:**
+"We're about to generate the system prompt and context contract files. Please switch to agent mode if you haven't already, as file write operations will be needed."
+
+Wait for user confirmation before proceeding.
 
 ---
 
@@ -393,7 +422,22 @@ Run through characteristic validation criteria (see Quality Checklist):
 - Blast Radius requirements met?
 
 **Part C: Section Quality Check**
+
+**C1: Input/Output Structure Validation**
+Before section-by-section review:
+- [ ] Input format matches spec exactly (single object vs. array, field structure)
+- [ ] Output format matches spec exactly (response structure, field names)
+- [ ] Any processing assumptions (e.g., "receives single event") verified against actual usage
+
+**C2: Section-Specific Quality**
 For each included section, verify against section-specific criteria in Quality Checklist.
+
+**C3: Functional Quality Checks**
+- [ ] **Critical edge cases prominent**: Domain-critical edge cases (identified in spec) are prominently addressed in primary sections, not buried in Failure Handling
+- [ ] **Timing/sequence logic coherent**: Any timing rules, sequences, or countdown logic tested for mathematical coherence (test edge cases: does the sequence work?)
+- [ ] **Scalability guidance present**: If agent handles variable-count entities (attendees, events, items), output format includes granularity scaling guidance (e.g., 1 item vs. 10+ items)
+- [ ] **Check-before-infer principle**: Agent checks provided data fields before inferring from heuristics/signals
+- [ ] **Example completeness**: Examples include enough context to be instructive without being misleading; partial examples that could teach wrong patterns removed
 
 **Part D: Writing Quality Check**
 Verify adherence to `system-prompt-guidelines.md` principles:
@@ -441,45 +485,45 @@ Verify adherence to `system-prompt-guidelines.md` principles:
 
 **LLM Actions:**
 
-**Part A: Extract Dynamic Context Sections**
-- Identify all dynamic context sections used in the prompt (XML-style tags)
-- For each context section, document:
-  - Tag name (exact as used in prompt)
-  - Injection placeholder
-  - Type (object, array, string, etc.)
-  - Required vs. optional
-  - Format specification (structure, fields, schema)
-  - Example value
-  - Where static instructions reference this section
-  - Validation rules
+**Purpose Check:**
+"The context contract is for schema alignment verification. Should it be:
+- **Schema Alignment Only** (default) — Minimal: input/output schemas, transformation requirements
+- **Full Integration Documentation** — Comprehensive with mapping tables, validation rules, etc."
 
-**Part B: Create Context Mapping Table**
-- List all static instruction references to dynamic context
-- Map each reference to its corresponding tag and placeholder
-- Verify 1:1 mapping
-- Flag any inconsistencies
+Default to Schema Alignment Only.
 
-**Part C: Document Output Schema**
-- Extract expected output format from the prompt
-- Specify:
-  - Response type (JSON, text, structured)
-  - Required fields
-  - Optional fields
-  - Data types
-  - Validation rules
-  - Example outputs
-  - Conditional requirements
+---
 
-**Part D: Add Integration Notes**
-- Guidelines for backend engineers building injection pipeline
-- QA testing recommendations
-- Notes for future prompt editors about dependencies
+**Part A: Document Input Context Schema**
+For each dynamic context section:
+- Tag name and placeholder
+- Type (object/array/string)
+- Required vs. optional
+- Field structure with types
+- Example (if structure isn't self-evident)
+
+**Exclude:** Line references to prompt, exhaustive validation rules, mapping tables
+
+**Part B: Document Output Schema**
+- Response type and structure
+- Required/optional fields with types
+- Example
+
+**Part C: Document Data Transformations**
+Only include pre-processing requirements that affect schema (e.g., "Filter out meeting room attendees before injection")
+
+**Skip Context Mapping Table** — redundant if schemas are clear
+
+**Part D: Add Integration Notes** (optional)
+- Brief guidelines for backend engineers if needed
+- Keep minimal
 
 **Deliverable: Context Contract Document**
-- Complete `context-contract-[agent-name].md` file
-- All dynamic context sections documented
-- Output schema fully specified
-- Integration guidelines included
+- Lightweight `context-contract-[agent-name].md` file
+- Input schemas (tag names, field structures, types)
+- Output schema (structure, types)
+- Data transformation requirements only
+- Target: ~150-200 lines for typical agent (not 400+)
 
 **No gate — proceed to Step 7**
 

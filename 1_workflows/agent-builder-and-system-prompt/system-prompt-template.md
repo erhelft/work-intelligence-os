@@ -1,5 +1,12 @@
 # System Prompt Template V3
 
+## Last Updated
+
+- **Date:** —
+- **Iteration:** 0
+
+---
+
 A comprehensive template for creating high-quality system prompts for AI agents. Use alongside agent requirements gathered during discovery.
 
 ---
