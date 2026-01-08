@@ -34,7 +34,7 @@
 
 ## Communication Agent — January 7, 2026
 
-**Completeness:** Complete with 7 issues identified and corrected post-interview:
+**Completeness:** Complete with 8 issues identified and corrected post-interview:
 
 1. **Success metrics were vague, not measurable** - Changed from "Messages are clear" to specific rates: "≥80% response rate within 48 hours," "<5% confusion rate," "0 complaints," etc.
 
@@ -50,6 +50,8 @@
 
 7. **Input schema too elaborate, risk of leaking data** - Removed attendee_analysis object and attendees array; simplified to only: next_action, attendee info, conv_history, meeting details. Prevents accidental leakage of other participants' status.
 
+8. **Autonomy level incorrect** - Originally classified as High but should be Medium. Agent operates within very well-defined, narrow scope (email content generation). It's purely executory - Intelligence Agent makes strategic decisions, Communication Agent executes. More "autonomous executor within constrained domain" than "broadly autonomous agent."
+
 **Accuracy:** Accurate throughout interview - no translation issues or misunderstandings
 
 **Interview flow:** Pre-filling approach worked very well:
@@ -61,7 +63,7 @@
 
 Only issue: LLM should have been more critical during pre-filling. Several issues (vague metrics, timing, tone variation) were included in initial draft and caught by user post-interview rather than during section review.
 
-**Characteristics:** Helpful and clear - correctly identified High Sensitivity, High Autonomy, External Exposure, Hard to Reverse, External Blast Radius with appropriate reasoning
+**Characteristics:** Helpful and clear - correctly identified High Sensitivity, External Exposure, Hard to Reverse, External Blast Radius. Initially misclassified Autonomy as High (corrected to Medium post-interview)
 
 **Open feedback:** Pre-filling approach is excellent for agents where significant context exists. Consider:
 - Being more critical when pre-filling (apply quality standards proactively)

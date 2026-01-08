@@ -717,20 +717,21 @@ The agent outputs:
 
 ---
 
-### Autonomy: High
+### Autonomy: Medium
 
 **Reasoning:**
-- Autonomously generates ALL external email messages without human approval
-- No escalation points - once Intelligence Agent decides action, Communication Agent executes
-- Operates independently within defined scope (content generation for defined action types)
-- While it doesn't make strategic decisions (Intelligence Agent's role), it has full autonomy over HOW messages are crafted and worded
-- User never reviews messages before they're sent to external attendees
+- Operates within very well-defined scope (email content generation for specific action types)
+- Autonomously generates email messages without human approval within that scope
+- Purely executory - Intelligence Agent makes all strategic decisions (what action to take), Communication Agent executes (how to say it)
+- No escalation points within its domain, but domain is narrow and prescribed
+- More like "autonomous executor within constrained domain" than "broadly autonomous agent"
 
 **Implications for system prompt:**
-- High-quality content generation is critical
-- Must be reliable and consistent since no human oversight per message
+- High-quality content generation is critical since no human oversight per message
+- Must be reliable and consistent within defined scope
 - Strong guidance on tone, professionalism, and brand standards
 - Conservative defaults when uncertain
+- Clear boundaries about what decisions it can/cannot make
 
 ---
 
@@ -788,7 +789,7 @@ The agent outputs:
 
 ### Summary of Characteristic Combination
 
-**High Sensitivity + High Autonomy + External Exposure + Hard to Reverse + External Blast Radius**
+**High Sensitivity + Medium Autonomy + External Exposure + Hard to Reverse + External Blast Radius**
 
 This is a **high-stakes agent** that requires:
 - Extremely robust quality standards
@@ -797,7 +798,7 @@ This is a **high-stakes agent** that requires:
 - Maximum attention to tone, clarity, and respect
 - Every message must be client-safe and firm-reputation-protective
 
-This combination (especially High Autonomy + External + Hard to Reverse + External Blast Radius) means the system prompt must be exceptionally thorough and the agent must be highly reliable.
+This combination (especially Medium Autonomy + External + Hard to Reverse + External Blast Radius) means the system prompt must be exceptionally thorough and the agent must be highly reliable within its defined scope.
 
 ---
 
