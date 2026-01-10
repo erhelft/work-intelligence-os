@@ -2,8 +2,8 @@
 
 ## Last Updated
 
-- **Date:** —
-- **Iteration:** 0
+- **Date:** January 9, 2026
+- **Iteration:** 1
 
 ---
 
@@ -150,6 +150,11 @@ This template provides a structured format for documenting AI agent requirements
 * **Asynchronous:** Agent processes in background, notifies when done
 * **Batch:** Runs on schedule (hourly, daily, etc.)
 
+**Autonomy Level:**
+* **Fully Autonomous:** Agent executes actions without user confirmation or preview
+* **Preview-then-Confirm:** Agent shows what it will do and waits for user approval before executing
+* **Suggestion-Only:** Agent provides recommendations but user must execute all actions manually
+
 **Example:**
 > **Trigger:** System-initiated when a new meeting is added to calendar
 >
@@ -160,6 +165,8 @@ This template provides a structured format for documenting AI agent requirements
 > **State:** Session-based—remembers context of current scheduling decision, but doesn't maintain conversation history across different scheduling events
 >
 > **Timing:** Near real-time—processes within 5 seconds of meeting creation, sends notification with recommendation
+>
+> **Autonomy Level:** Preview-then-Confirm for external meetings, Fully Autonomous for internal meetings
 
 ---
 
@@ -289,6 +296,7 @@ This template provides a structured format for documenting AI agent requirements
 * Use specific examples to clarify boundaries
 * Document why certain things are in each zone
 * Consider both capability limits and policy limits
+* These boundary zones elaborate on the Autonomy Level set in Section 4 (Operating Model)
 
 **Example:**
 > **Autonomous:**
@@ -345,41 +353,92 @@ This template provides a structured format for documenting AI agent requirements
 
 ### 10. Agent Characteristics
 
-**Purpose:** Assess this agent across key characteristics that inform system prompt design, guardrails, and operational requirements.
+**Purpose:** Assess this agent across 7 key dimensions that inform system prompt design, guardrails, and operational requirements.
 
 **What to Include:**
-* **Level for Each Characteristic:** Assess each of the 5 core characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
-* **Level Assignment:** Low, Medium, High, or Critical (for Sensitivity); specific levels per characteristic
-* **Reasoning:** Why this agent has this characteristic level
-* **Implications:** What this characteristic level means for system prompt design and implementation
+* **Core Characteristics (5 level-based dimensions):** Reasoning Depth, Action Scope, Consequence Severity, Recovery Difficulty, Data Sensitivity
+* **Profiles (2 selection-based dimensions):** Risk Profile (select 1-2), Excellence Profile (select 1-2)
+* **Level Assignment:** Use the specific levels defined for each dimension
+* **Reasoning:** Why this agent has this level/selection for each dimension
 
 **Guidelines:**
-* Reference the Agent Characteristics Reference framework
-* Assess each characteristic independently based on the agent's actual behavior
-* Provide clear reasoning for each characteristic level
-* Note any unusual combinations (e.g., High Autonomy + Critical Sensitivity)
-* Flag any tensions or tradeoffs between characteristics
+* Reference the Agent Characteristics Reference framework in the workflow
+* Assess each dimension independently based on the agent's actual behavior
+* For Risk Profile: Select 1-2 risk types that would cause the worst consequences (tie to Consequence Severity)
+* For Excellence Profile: Select 1-2 key quality dimensions where this agent must excel
+* Provide clear reasoning for each assessment
+* Note any unusual combinations or tensions between dimensions
 
-**Example:**
+**Examples Across Different Agent Types:**
 
-> **Sensitivity:** High
-> * Reasoning: Agent accesses client meeting details, attendee information, and calendar patterns that may reveal confidential business relationships
+**Example 1: Data Analysis Agent**
 
+> **Reasoning Depth:** Significant
+> * Reasoning: Makes judgment calls about which analytical approach to use, interprets ambiguous data patterns, weighs tradeoffs between different analytical methods based on context
 >
-> **Autonomy:** Medium
-> * Reasoning: Users want proactive help but not surprises on important meetings; can act autonomously for routine internal meetings but must confirm for external stakeholders
-
+> **Action Scope:** Narrow
+> * Reasoning: Single domain (data analysis), one primary action type (generate insights from datasets), operates within well-defined analytical boundaries
 >
-> **Exposure:** Internal + Partners
-> * Reasoning: Used by internal employees but may interface with external calendar systems (Google, Outlook) and meeting participants see agent actions (notifications, reschedules)
-
+> **Consequence Severity:** Minor
+> * Reasoning: Incorrect analysis is caught during review; causes delay and rework but no customer impact or business harm
 >
-> **Reversibility:** Reversible with Effort
-> * Reasoning: Calendar changes can be undone but require renotifying attendees; sent meeting updates may cause confusion if reversed
-
+> **Recovery Difficulty:** Easy
+> * Reasoning: Analysis is reviewed before use; can simply re-run with corrections; no external visibility of mistakes
 >
-> **Blast Radius:** Team to Organization
-> * Reasoning: Mistakes affect individual users primarily, but bad patterns could impact team coordination; calendar mishaps affect relationships
+> **Data Sensitivity:** Confidential
+> * Reasoning: Analyzes business metrics, revenue data, and strategic information that would harm company if leaked to competitors
+>
+> **Risk Profile:** Decision
+> * Reasoning: Primary failure mode is choosing wrong analytical approach or misinterpreting patterns, leading to incorrect insights
+>
+> **Excellence Profile:** Accuracy + Clarity
+> * Reasoning: Analysis must be correct (accuracy) and insights must be immediately understandable to non-technical stakeholders (clarity)
+
+**Example 2: Customer Support Bot**
+
+> **Reasoning Depth:** Moderate
+> * Reasoning: Applies learned support patterns to customer situations; adapts responses based on issue type and customer sentiment; escalates novel cases
+>
+> **Action Scope:** Moderate
+> * Reasoning: Multiple action types (answer questions, create tickets, send links, escalate) within customer support domain
+>
+> **Consequence Severity:** Moderate
+> * Reasoning: Poor support damages customer relationships; requires follow-up and apology; pattern of failures could cause churn
+>
+> **Recovery Difficulty:** Moderate
+> * Reasoning: Can send follow-up messages to correct mistakes, but customer already had negative experience
+>
+> **Data Sensitivity:** Personal
+> * Reasoning: Accesses customer names, emails, account information, and support history
+>
+> **Risk Profile:** Communication
+> * Reasoning: Primary failure is saying wrong thing, using inappropriate tone, or failing to understand customer emotion
+>
+> **Excellence Profile:** Empathy + Speed
+> * Reasoning: Must read customer emotional state appropriately (empathy) and respond quickly to avoid frustration (speed)
+
+**Example 3: Code Review Assistant**
+
+> **Reasoning Depth:** Significant
+> * Reasoning: Makes judgment calls about code quality, security implications, and architectural patterns; weighs tradeoffs between different approaches
+>
+> **Action Scope:** Narrow
+> * Reasoning: One action type (provide code review feedback), single domain, no execution capability
+>
+> **Consequence Severity:** Minor
+> * Reasoning: Feedback is reviewed by developers; bad suggestions are ignored; delays review cycle but doesn't ship to production
+>
+> **Recovery Difficulty:** Easy
+> * Reasoning: Suggestions only; developer makes final decision; no automated actions taken
+>
+> **Data Sensitivity:** Confidential
+> * Reasoning: Reviews proprietary source code, business logic, and architectural patterns
+>
+> **Risk Profile:** Decision
+> * Reasoning: Primary risk is giving bad technical advice or missing critical security issues in code
+>
+> **Excellence Profile:** Accuracy + Consistency
+> * Reasoning: Must catch real issues reliably (accuracy) and apply same standards across all reviews (consistency)
 
 
 ---
@@ -450,6 +509,7 @@ Use this checklist to verify your agent spec is complete before handing off to s
 - [ ] User visibility level clarified
 - [ ] State & lifecycle documented
 - [ ] Timing & latency expectations specified
+- [ ] Autonomy level specified
 
 **Section 5: Available Tools**
 - [ ] All required tools listed (or marked N/A if agent has no tools)
@@ -487,9 +547,10 @@ Use this checklist to verify your agent spec is complete before handing off to s
 - [ ] Contradiction handling specified
 
 **Section 10: Agent Characteristics**
-- [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
-- [ ] Reasoning provided for each characteristic level
-- [ ] Implications for system prompt and implementation noted
+- [ ] Level assessed for all 7 dimensions (Reasoning Depth, Action Scope, Consequence Severity, Recovery Difficulty, Data Sensitivity, Risk Profile, Excellence Profile)
+- [ ] Reasoning provided for each dimension
+- [ ] Risk Profile: 1-2 risk types selected that would cause assessed consequences
+- [ ] Excellence Profile: 1-2 quality priorities selected
 - [ ] Any unusual combinations or tensions flagged
 
 **Quality Standards**

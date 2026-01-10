@@ -145,7 +145,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 - Read `system-prompt-template.md` (Robustness Table, Characteristic Modifiers, section guidance)
 - Read `system-prompt-guidelines.md`
 - Read the complete agent specification
-- Identify the 5 characteristics in the spec (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
+- Identify the 7 dimensions in agent spec Section 10 (Reasoning Depth, Action Scope, Consequence Severity, Recovery Difficulty, Data Sensitivity, Risk Profile, Excellence Profile)
 
 **No gate — proceed to Step 1**
 
@@ -186,27 +186,24 @@ Extract from the spec:
 - Edge cases and failure modes
 
 **2. Classify Agent Complexity**
-Based on the agent spec, determine which type best fits:
+Based on Reasoning Depth + Action Scope from agent spec Section 10, determine complexity type.
 
-| Type | Description |
-|------|-------------|
-| **Simple Tool-Caller** | Executes defined actions, minimal judgment |
-| **Workflow Executor** | Follows multi-step processes, some branching logic |
-| **Judgment Agent** | Makes contextual decisions, handles ambiguity |
-| **Multi-Domain Agent** | Operates across multiple areas, complex reasoning |
+Refer to Robustness Table in `system-prompt-template.md` for the mapping of dimensions to complexity types (Simple Tool-Caller / Workflow Executor / Judgment Agent / Multi-Domain Agent).
 
 This determines section depth via the Robustness Table.
 
-**3. Extract Agent Characteristics**
-Extract the five characteristics from the agent specification:
+**3. Read Agent Characteristics from Spec Section 10**
+Extract all 7 dimensions already assessed in the agent specification:
 
-| Characteristic | Question | Levels |
-|----------------|----------|--------|
-| **Sensitivity** | What data does it access/handle? | Low / Medium / High / Critical |
-| **Autonomy** | How much can it do without confirmation? | Low / Medium / High |
-| **Exposure** | Who sees its outputs? | Internal / Partner / External |
-| **Reversibility** | How easily can actions be undone? | Easy / Moderate / Hard / Irreversible |
-| **Blast Radius** | If it fails, who/what is affected? | User / Team / Org / External |
+| Dimension | Type | Options |
+|-----------|------|---------|
+| **Reasoning Depth** | Level | Minimal / Moderate / Significant / Orchestrating |
+| **Action Scope** | Level | Narrow / Moderate / Broad / Cross-Domain |
+| **Consequence Severity** | Level | Minor / Moderate / Major / Severe |
+| **Recovery Difficulty** | Level | Easy / Moderate / Hard / Impossible |
+| **Data Sensitivity** | Level | None/Public / Internal / Confidential / Personal / Regulated |
+| **Risk Profile** | Selection (1-2) | Decision / Data / Communication / Execution / Coordination |
+| **Excellence Profile** | Selection (1-2) | Accuracy / Naturalness / Speed / Clarity / Consistency / Adaptability / Empathy |
 
 These determine content requirements via the Characteristic Modifiers.
 
@@ -218,16 +215,19 @@ Purpose: [1-2 sentences from spec]
 Success Metric: [observable outcome from spec]
 
 Complexity: [type] 
-Rationale: [why this classification]
+Derived from: Reasoning Depth ([level]) + Action Scope ([level])
+Rationale: [why this combination maps to this complexity type]
 
-Characteristics (from spec):
-| Characteristic | Level | Notes |
-|----------------|-------|-------|
-| Sensitivity    | [X]   | [relevant context from spec] |
-| Autonomy       | [X]   | [relevant context from spec] |
-| Exposure       | [X]   | [relevant context from spec] |
-| Reversibility  | [X]   | [relevant context from spec] |
-| Blast Radius   | [X]   | [relevant context from spec] |
+Characteristics (from Agent Spec Section 10):
+| Dimension | Level/Selection | From Spec |
+|-----------|----------------|-----------|
+| Reasoning Depth | [X] | [Section 10 assessment] |
+| Action Scope | [X] | [Section 10 assessment] |
+| Consequence Severity | [X] | [Section 10 assessment] |
+| Recovery Difficulty | [X] | [Section 10 assessment] |
+| Data Sensitivity | [X] | [Section 10 assessment] |
+| Risk Profile | [X, Y] | [Section 10 assessment] |
+| Excellence Profile | [X, Y] | [Section 10 assessment] |
 ```
 
 **No gate — proceed to Step 3**
@@ -278,32 +278,34 @@ Produce comprehensive outline covering all aspects below.
 **Complexity:** [Type] → Target token range: [X-Y tokens]
 
 **Characteristics:**
-| Characteristic | Level | From Spec |
-|----------------|-------|-----------|
-| Sensitivity    | [X]   | [relevant quote/context from spec] |
-| Autonomy       | [X]   | [relevant quote/context from spec] |
-| Exposure       | [X]   | [relevant quote/context from spec] |
-| Reversibility  | [X]   | [relevant quote/context from spec] |
-| Blast Radius   | [X]   | [relevant quote/context from spec] |
+| Dimension | Level/Selection | From Spec |
+|-----------|----------------|-----------|
+| Reasoning Depth | [X] | [relevant quote/context from spec Section 10] |
+| Action Scope | [X] | [relevant quote/context from spec Section 10] |
+| Consequence Severity | [X] | [relevant quote/context from spec Section 10] |
+| Recovery Difficulty | [X] | [relevant quote/context from spec Section 10] |
+| Data Sensitivity | [X] | [relevant quote/context from spec Section 10] |
+| Risk Profile | [X, Y] | [relevant quote/context from spec Section 10] |
+| Excellence Profile | [X, Y] | [relevant quote/context from spec Section 10] |
 
 ---
 
 ## C. Section Plan
 
-| Section | Depth | Characteristic Requirements | Special Notes |
-|---------|-------|----------------------------|---------------|
-| Identity & Purpose | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Hard Boundaries | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Domain Context | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Decision Logic | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Operational Boundaries | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Tool Integration | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Memory Management | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Dynamic Context | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Examples | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Output Format | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Failure Handling | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
-| Final Reminders | [depth] | [requirements from characteristics, if any] | [guidelines, considerations] |
+| Section | Depth | Protection Focus | Excellence Focus | Special Notes |
+|---------|-------|-----------------|------------------|---------------|
+| Identity & Purpose | [depth] | [from Risk Profile, Consequence Severity] | [from Excellence Profile] | [guidelines, considerations] |
+| Hard Boundaries | [depth] | [from Risk Profile, Consequence Severity, Data Sensitivity] | — | [guidelines, considerations] |
+| Domain Context | [depth] | [from Data Sensitivity if relevant] | — | [guidelines, considerations] |
+| Decision Logic | [depth] | [from Risk Profile if Decision] | [from Excellence Profile if Accuracy] | [guidelines, considerations] |
+| Operational Boundaries | [depth] | [from Action Scope, Consequence Severity, Recovery Difficulty] | — | [guidelines, considerations] |
+| Tool Integration | [depth] | — | — | [guidelines, considerations] |
+| Memory Management | [depth] | — | — | [guidelines, considerations] |
+| Dynamic Context | [depth] | — | — | [guidelines, considerations] |
+| Examples | [depth] | [from Risk Profile] | [from Excellence Profile] | [guidelines, considerations] |
+| Output Format | [depth] | [from Risk Profile if Communication] | [from Excellence Profile if Naturalness/Clarity] | [guidelines, considerations] |
+| Failure Handling | [depth] | [from Consequence Severity, Recovery Difficulty] | — | [guidelines, considerations] |
+| Final Reminders | [depth] | [from Consequence Severity] | — | [guidelines, considerations] |
 
 ---
 
@@ -347,8 +349,18 @@ Produce comprehensive outline covering all aspects below.
 - **[Section name]**: [Default depth] → [Actual depth]
   - **Why**: [Where does this agent's complexity actually live? Token allocation reasoning]
 
-[Address characteristic containment strategy:]
-- **Characteristic containment**: [Which characteristic requirements are contained at specific boundaries vs. woven throughout? E.g., "High Sensitivity risk contained in Hard Boundaries private event handling; doesn't require expansion of all sections"]
+[Address risk and excellence allocation:]
+
+**Protection Investment (from Risk Profile: [type(s)]):**
+- **[Section]**: [Why this section protects against this risk]
+- **[Section]**: [Why this section protects against this risk]
+
+**Excellence Investment (from Excellence Profile: [type(s)]):**
+- **[Section]**: [Why this section develops this excellence]
+- **[Section]**: [Why this section develops this excellence]
+
+**Efficiency (justified by characteristics):**
+- **[Section]**: Can be [lighter depth] because [reasoning from characteristics]
 
 ---
 
@@ -414,12 +426,19 @@ Write the full system prompt:
 - Verify characteristic content is woven in, not appended as separate blocks
 
 **Part B: Characteristic Validation**
-Run through characteristic validation criteria (see Quality Checklist):
-- Sensitivity requirements met?
-- Autonomy requirements met?
-- Exposure requirements met?
-- Reversibility requirements met?
-- Blast Radius requirements met?
+Run through 7-dimension validation criteria (see Quality Checklist):
+
+**Core Characteristics:**
+- Reasoning Depth: Decision Logic depth matches assessed level?
+- Action Scope: Operational Boundaries scope matches assessed level?
+- Consequence Severity: Guardrail intensity appropriate?
+- Recovery Difficulty: Confirmation flows match level?
+- Data Sensitivity: Hard Boundaries data handling present if Personal+?
+
+**Profiles:**
+- Risk Profile: Protection focus sections are robust?
+- Excellence Profile: Quality investment sections are robust?
+- Risk/Excellence balance: Not all protection, includes quality investment?
 
 **Part C: Section Quality Check**
 
@@ -581,42 +600,59 @@ Only include pre-processing requirements that affect schema (e.g., "Filter out m
 
 #### Configuration Alignment
 - [ ] Complexity level identified; section depths match Robustness Table
-- [ ] All five characteristics extracted from spec
+- [ ] All seven dimensions extracted from agent spec Section 10
 - [ ] Characteristic content woven throughout (not appended)
 - [ ] Token count within target range for complexity
 
 #### Characteristic Validation
 
-**Sensitivity**
-- [ ] If High+: Hard Boundaries prohibit logging/displaying sensitive fields
-- [ ] If High+: Output Format specifies masking approach
-- [ ] If Critical: Explicit confirmation required for critical data actions
+**Core Characteristics**
+
+**Reasoning Depth**
+- [ ] Decision Logic depth matches assessed level
+- [ ] Example count appropriate for level
+
+**Action Scope**
+- [ ] Operational Boundaries depth matches assessed level
+- [ ] Scope limits clearly defined
+
+**Consequence Severity**
+- [ ] If Major+: Guardrail intensity appropriate
+- [ ] If Major+: Hard Boundaries expanded appropriately
+- [ ] If Severe: Validation requirements noted
+
+**Recovery Difficulty**
+- [ ] If Hard+: Preview/confirmation requirements present
+- [ ] If Impossible: Multi-step confirmation addressed
+- [ ] If Impossible: Failure Handling addresses uncertain completion
+- [ ] Confirmation requirements match difficulty level
+
+**Data Sensitivity**
+- [ ] If Personal+: Hard Boundaries prohibit logging/displaying sensitive fields
+- [ ] If Personal+: Output Format specifies masking approach
+- [ ] If Regulated: Explicit confirmation required for data actions
+- [ ] If Regulated: Audit logging mentioned
 - [ ] Sensitive data prohibitions use absolute language (NEVER)
 
-**Autonomy**
-- [ ] If Low: Identity clarifies advisory-only role
-- [ ] If Low: Output Format uses recommendation framing
-- [ ] If High: Decision Logic includes conservative defaults
-- [ ] If High: Final Reminders reinforces caution under uncertainty
-- [ ] Autonomy level matches Operational Boundaries scope
+**Profiles**
 
-**Exposure**
-- [ ] If Partner+: Hard Boundaries prohibit internal detail exposure
-- [ ] If External: Identity includes customer-appropriate tone
-- [ ] If External: Output Format specifies customer-safe errors
-- [ ] If External: Failure Handling includes customer escalation language
+**Risk Profile**
+- [ ] If Decision: Decision Logic robust with reasoning examples
+- [ ] If Data: Hard Boundaries include data handling, isolation, masking
+- [ ] If Communication: Examples robust; Output Format has tone guidance
+- [ ] If Execution: Confirmation flows and validation present
+- [ ] If Coordination: State management and sequencing addressed
+- [ ] Protection focus sections appropriately robust
 
-**Reversibility**
-- [ ] If Hard+: Hard Boundaries require preview before send/publish
-- [ ] If Irreversible: Multi-step confirmation addressed
-- [ ] If Irreversible: Failure Handling addresses uncertain completion
-- [ ] Confirmation requirements match reversibility level
-
-**Blast Radius**
-- [ ] If Team+: Confirmation required for actions affecting others
-- [ ] If Team+: Failure Handling addresses affected party notification
-- [ ] If Org+: Rollback requirements documented
-- [ ] If External: Customer failure communication included
+**Excellence Profile**
+- [ ] If Accuracy: Validation and verification examples present
+- [ ] If Naturalness: Tone examples show variation
+- [ ] If Speed: Prompt is lean, reasoning minimal
+- [ ] If Clarity: Structure clear, examples explicit
+- [ ] If Consistency: Patterns and templates provided
+- [ ] If Adaptability: Extensive edge cases present
+- [ ] If Empathy: Social context examples present
+- [ ] Quality investment sections appropriately detailed
 
 #### Section Quality
 

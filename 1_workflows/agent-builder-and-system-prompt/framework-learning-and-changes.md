@@ -204,7 +204,7 @@ Task Profile:
 |------|---------|----------------|
 | **Characteristic** | Reasoning Depth: Moderate | Derived during analysis, guides prompt structure |
 | **Context** | Audience: External clients | Already in spec (User Visibility), affects tone directly |
-| **Decision** | Autonomy: High oversight | Decided based on characteristics, not a characteristic itself |
+| **Decision** | Token budget: 1600 tokens | Decided based on characteristics, not a characteristic itself |
 
 **Principle:** Characteristics are derived classifications that sit between spec and prompt. Don't duplicate what's already in the spec.
 
@@ -271,7 +271,7 @@ These are assessed on defined scales and inform structural decisions.
 
 **Informs:**
 - Operational Boundaries section depth
-- How much autonomy is safe (narrow scope can be more autonomous)
+- Risk context (narrow scope = lower risk, can operate with less oversight)
 - Complexity of constraints
 - Where boundaries need to be drawn
 
@@ -323,9 +323,10 @@ These are assessed on defined scales and inform structural decisions.
 | Level | Description | Examples | Protection |
 |-------|-------------|----------|------------|
 | **None/Public** | Public information only. No harm from exposure. | Public API data, marketing content, documentation | No special handling |
-| **Internal** | Business data, internal documents. Leak is embarrassing. | Internal wiki, project plans, team discussions | Basic disclosure limits |
-| **Personal** | PII, customer info, contact details. Leak causes real harm. | Email addresses, names, phone numbers, calendar data | Hard Boundaries on data handling, isolation rules |
-| **Regulated** | Legal, financial, health, compliance-bound. Leak has legal consequences. | Medical records, financial accounts, legal documents, credentials | Strict Hard Boundaries, audit logging, confirmation for data actions |
+| **Internal** | General business data. Leak is embarrassing but not damaging. | Internal wiki, team updates, process docs | Basic disclosure limits |
+| **Confidential** | Business-sensitive, competitive, strategic. Leak causes business harm. | Product roadmaps, pricing strategy, M&A plans, trade secrets | Hard Boundaries on disclosure, need-to-know principle |
+| **Personal** | PII, customer info, contact details. Leak causes harm to individuals. | Email addresses, names, phone numbers, calendar data | Hard Boundaries on data handling, isolation rules |
+| **Regulated** | Legal, financial, health, compliance-bound. Leak has legal consequences. | Medical records, financial accounts, payment info, legal documents | Strict Hard Boundaries, audit logging, confirmation for data actions |
 
 **Derived from:** Input/output specs, what data is accessed
 
@@ -344,9 +345,9 @@ These identify the primary focus areas by selecting from options, not levels.
 ---
 
 #### 6. Risk Profile
-*What's the primary risk type that leads to consequence severity?*
+*What risk type(s) would cause your assessed Consequence Severity?*
 
-**Select one or two most relevant:**
+**Select 1-2 that would lead to the worst outcomes:**
 
 | Risk Type | Description | When to Choose | Protection Focus |
 |-----------|-------------|----------------|------------------|
@@ -355,6 +356,12 @@ These identify the primary focus areas by selecting from options, not levels.
 | **Communication** | Could say wrong thing to wrong audience or in wrong tone | Agent generates customer-facing or sensitive communications | Tone guidance, examples, disclosure limits, Output Format depth |
 | **Execution** | Could take wrong action or execute incorrectly | Agent performs actions with direct consequences | Confirmation flows, validation, preview requirements |
 | **Coordination** | Components could misalign, state could be inconsistent | Agent coordinates multiple systems or maintains state | Clear contracts, state management, sequencing rules |
+
+**How to choose:**
+1. Look at your Consequence Severity assessment
+2. Ask: "What failure mode would cause that consequence?"
+3. Pick the risk type(s) that represent that failure path
+4. If multiple risks exist but lead to Minor consequences, note them but don't select
 
 **Derived from:** What failure mode is most likely and consequential (from edge cases, behavior requirements)
 
@@ -412,18 +419,6 @@ These identify the primary focus areas by selecting from options, not levels.
 ### Design Decisions (Informed by Characteristics)
 
 These are **not characteristics** but **decisions made based on characteristics**:
-
-#### Autonomy/Oversight Level
-
-Decided based on multiple characteristics:
-
-| If... | Then oversight level should be... |
-|-------|----------------------------------|
-| High Consequence Severity + Hard/Impossible Recovery | High oversight (preview before action, confirmation required) |
-| Low Consequence Severity + Easy Recovery | Low oversight OK (post-hoc review or none) |
-| Narrow Action Scope | Can allow more autonomy (bounded risk) |
-| Broad/Cross-Domain Action Scope | Need more checkpoints (high discretion) |
-| Personal/Regulated Data Sensitivity | Higher oversight for data actions |
 
 #### Token Budget
 
@@ -726,9 +721,9 @@ Based on characteristics:
    - System prompt workflow reads it directly
 
 4. **Characteristics inform decisions, they aren't the decisions:**
-   - Autonomy level is decided from Consequence + Recovery + Scope
    - Token budget is decided from Reasoning + Risk Profile + Excellence Profile
    - Section depths are decided from multiple characteristics
+   - Specific prompt choices (tone, validation, examples) come from characteristic combinations
 
 ---
 

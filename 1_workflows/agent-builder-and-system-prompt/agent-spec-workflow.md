@@ -2,8 +2,8 @@
 
 ## Last Updated
 
-- **Date:** —
-- **Iteration:** 0
+- **Date:** January 9, 2026
+- **Iteration:** 1
 
 ---
 
@@ -63,10 +63,10 @@ A complete `agent-spec-[agent-name].md` file containing:
 > 1. **Read Template** — AI reviews the relevant template sections to understand what information is required
 > 2. **Interview User** — AI asks targeted questions and continues until all required information is gathered
 > 3. **Validate Completeness** — AI checks gathered information against template checklist for those sections
-> 4. **Write Section Summary** — AI documents findings according to template structure
+> 4. **Write Section Summary** — AI documents findings according to template structure and applies quality standards (are metrics measurable? is guidance specific? are contradictions resolved?)
 > 5. **User Review & Gate** — AI presents summary; user approves or provides feedback for revision
 >
-> This pattern ensures consistency and completeness at each stage.
+> This pattern ensures consistency, completeness, and quality at each stage.
 
 **Gating:** 7 gates total — after Steps 2, 3, 4, 5, 6, 7, and 8 (final approval)
 
@@ -104,6 +104,7 @@ Extract complete, unambiguous requirements for an AI agent through targeted ques
 - Skip sections or mark them "TBD" without explicit user acknowledgment
 - Move to the next step until the current gate is approved
 - Make assumptions about agent behavior without user confirmation
+- Conflate product-level concerns with agent-level concerns (focus on what the agent does—its inputs, processing, outputs—not what the product does with those outputs)
 
 ---
 
@@ -206,6 +207,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 - What does the user see? (visible agent, invisible automation, transparent, opaque)
 - How does state work? (stateless, session-based, persistent, scoped memory)
 - What are timing expectations? (real-time, near real-time, asynchronous, batch)
+- What is the autonomy level? (fully autonomous, preview-then-confirm, suggestion-only)
 
 **Quality Check:**
 - [ ] Trigger & invocation method specified
@@ -213,6 +215,7 @@ This section contains the step-by-step instructions the LLM will follow to execu
 - [ ] User visibility level clarified
 - [ ] State & lifecycle documented
 - [ ] Timing & latency expectations specified
+- [ ] Autonomy level specified
 
 **Gate:** User confirms section 4 is complete and accurate
 
@@ -311,27 +314,35 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 ### Step 7: Agent Characteristics
 
-**Objective:** Assess the agent on each of the 5 characteristic dimensions to inform system prompt design.
+**Objective:** Assess the agent on 7 dimensions across 3 groups to inform system prompt design.
 
 **Template Section:** 10 (Agent Characteristics)
 
 **Follow the 5-phase pattern above.**
 
 **Key Topics to Cover:**
-- Level for each of the 5 characteristic dimensions:
-  - Sensitivity (data touched)
-  - Autonomy (independence level)
-  - Exposure (audience scope)
-  - Reversibility (undo-ability)
-  - Blast Radius (failure impact)
-- Reasoning for each characteristic level
-- Implications for system prompt design
-- Any unusual combinations or tradeoffs
+
+**Core Characteristics (5 level-based dimensions):**
+- Reasoning Depth (Minimal / Moderate / Significant / Orchestrating)
+- Action Scope (Narrow / Moderate / Broad / Cross-Domain)
+- Consequence Severity (Minor / Moderate / Major / Severe)
+- Recovery Difficulty (Easy / Moderate / Hard / Impossible)
+- Data Sensitivity (None/Public / Internal / Confidential / Personal / Regulated)
+
+**Profiles (2 selection-based dimensions):**
+- Risk Profile: Select 1-2 risk types that would cause the worst consequences (Decision / Data / Communication / Execution / Coordination)
+- Excellence Profile: Select 1-2 quality priorities (Accuracy / Naturalness / Speed / Clarity / Consistency / Adaptability / Empathy)
+
+**For each dimension:**
+- Assign the level or make selection
+- Provide reasoning from the spec
+- Flag any unusual combinations or tradeoffs
 
 **Quality Check:**
-- [ ] Level on each characteristic documented (Low, Medium, High, or Critical)
-- [ ] Reasoning for characteristic level provided
-- [ ] Implications for implementation noted
+- [ ] Level assessed for all 7 dimensions
+- [ ] Reasoning for each dimension provided
+- [ ] Risk Profile: 1-2 selections tied to Consequence Severity
+- [ ] Excellence Profile: 1-2 selections based on success criteria
 
 **Gate:** User confirms section 10 is complete and accurate
 
@@ -350,8 +361,8 @@ Review all approved sections together and check for contradictions or discrepanc
   - Example: If agent is "silent/background," does it have conversational behaviors defined?
 - Do Available Tools align with Input/Output specification?
   - Example: If I/O references calendar data, is there a calendar_read tool documented?
-- Do Boundary Conditions match the autonomy level described in other sections?
-  - Example: If characterized as "high autonomy," is the autonomous zone robust?
+- Do Boundary Conditions match the autonomy level in Operating Model (Section 4)?
+  - Example: If Operating Model specifies "Fully Autonomous," do the boundary zones reflect appropriate autonomous operation?
 - Do Edge Cases reference the right boundaries, behaviors, and tools?
   - Example: If edge case mentions "calendar unavailable," is tool failure handling consistent?
 - Does I/O specification match what behaviors and edge cases reference?
@@ -409,7 +420,7 @@ Ensure the spec tells a coherent story:
 
 3. **Interview flow:** "Did the section-by-section approach work well? Were there moments where questions didn't fit your situation, or where you struggled to express something important?"
 
-4. **Characteristics:** "Did the 5 characteristic dimensions (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius) help clarify your agent's nature? Were they easy to assess?"
+4. **Characteristics:** "Did the 7 characteristic dimensions (Reasoning Depth, Action Scope, Consequence Severity, Recovery Difficulty, Data Sensitivity, Risk Profile, Excellence Profile) help clarify your agent's nature? Were they easy to assess?"
 
 5. **Open feedback:** "Any other observations or suggestions about the agent spec creation process?"
 
@@ -442,87 +453,146 @@ Ensure the spec tells a coherent story:
 
 ### Agent Characteristics Reference
 
-The following characteristics help define the agent's nature and inform system prompt design, guardrails, and operational requirements.
+The following 7 dimensions (organized into 3 groups) help define the agent's nature and inform system prompt design, guardrails, and operational requirements.
 
 ---
 
-#### 1. Sensitivity (What data does it touch?)
+### Group 1: Core Characteristics (Level-Based)
 
-**Definition:** The sensitivity level of data the agent accesses, processes, or stores.
+#### 1. Reasoning Depth
+*How much judgment/interpretation is required?*
 
-| Level | Description | Examples |
-|-------|-------------|----------|
-| **Low** | Public information, non-personal data | • Public API data<br>• Marketing content<br>• General knowledge queries<br>• Public documentation |
-| **Medium** | Business data, internal documents | • Internal wiki content<br>• Team documents<br>• Project plans<br>• Non-confidential business metrics |
-| **High** | PII, financial, health, legal data | • Customer names and emails<br>• Financial reports<br>• Health records<br>• Legal contracts<br>• Employee performance data |
-| **Critical** | Authentication credentials, payment data, highly regulated data | • Passwords or API keys<br>• Credit card numbers<br>• SSNs or national IDs<br>• Medical diagnoses<br>• Attorney-client privileged content |
+| Level | Description | Complexity Type | Decision Logic Section |
+|-------|-------------|-----------------|----------------------|
+| **Minimal** | Rule-following. Clear inputs → clear outputs. Little interpretation needed. | Simple Tool-Caller | Skip or Minimal |
+| **Moderate** | Pattern application. Apply learned patterns to new situations. Some interpretation. | Workflow Executor | Minimal to Standard |
+| **Significant** | Judgment calls. Weigh tradeoffs, handle ambiguity, reason about novel cases. | Judgment Agent | Robust |
+| **Orchestrating** | Coordinates multiple agents/systems. Meta-level decisions, manages cross-component flow. | Multi-Domain Agent | Robust with coordination guidance |
 
----
-
-#### 2. Autonomy (How much can it do alone?)
-
-**Definition:** The degree to which the agent can take actions without human approval.
-
-| Level | Description | Examples |
-|-------|-------------|----------|
-| **Low** | Suggestions only, human executes all actions | • Research assistant that only presents findings<br>• Content advisor that reviews but doesn't edit<br>• Query builder that shows SQL but doesn't run it<br>• Design suggester that presents mockups |
-| **Medium** | Acts within well-defined scope, requires approval for significant actions | • Calendar assistant that moves internal meetings but asks about external<br>• Email drafter that sends routine replies but escalates complex ones<br>• Task manager that updates statuses but asks before reassigning |
-| **High** | Acts broadly with minimal oversight, only escalates exceptions | • Automated customer support that resolves 80% of issues<br>• Procurement agent that orders supplies within budget<br>• Content moderator that removes clear violations<br>• System monitor that restarts failed services |
+**Informs:** Agent complexity classification, Decision Logic section depth, example count and complexity, model selection
 
 ---
 
-#### 3. Exposure (Who sees it?)
+#### 2. Action Scope
+*How bounded is what the agent can do?*
 
-**Definition:** The audience scope that interacts with or sees outputs from the agent.
+| Level | Description | Boundaries |
+|-------|-------------|------------|
+| **Narrow** | One action type, single domain, tight constraints. | Very clear, short |
+| **Moderate** | Several action types, defined boundaries, operates in single domain. | Standard boundaries |
+| **Broad** | Many action types, significant discretion, operates in single domain. | Detailed boundaries |
+| **Cross-Domain** | Operates across multiple domains, coordinates across system boundaries. | Robust boundaries with domain separation |
 
-| Level | Description | Examples |
-|-------|-------------|----------|
-| **Internal** | Team tools, backend systems, internal automation | • Internal log analyzer<br>• Development environment assistant<br>• Data pipeline orchestrator<br>• Internal reporting tool |
-| **Internal + Partners** | Vendor/client integrations, trusted third parties | • Client portal agent<br>• Vendor API integration<br>• Partner data exchange<br>• Contractor-accessible tools |
-| **External/Public** | Customer-facing, public APIs, end-user products | • Customer support chatbot<br>• Public-facing search<br>• Consumer mobile app agent<br>• Public website assistant |
-
----
-
-#### 4. Reversibility (Can mistakes be undone?)
-
-**Definition:** The ease and completeness with which the agent's actions can be reversed.
-
-| Level | Description | Examples |
-|-------|-------------|----------|
-| **Easily Reversible** | Actions can be undone completely with no consequences | • Draft creation<br>• Suggestion lists<br>• Preview generation<br>• Local file edits with version control<br>• Adding items to cart |
-| **Reversible with Effort** | Actions can be undone but require work or coordination | • Calendar changes (need to renotify attendees)<br>• Sent internal messages<br>• Published internal documents<br>• Status updates that trigger notifications |
-| **Hard to Reverse** | Actions can technically be undone but with significant consequences | • Sent external emails<br>• Published public content<br>• Posted social media<br>• Submitted forms<br>• Triggered workflows affecting others |
-| **Irreversible** | Actions cannot be meaningfully undone | • Payments or transactions<br>• Permanent deletions<br>• Filed legal documents<br>• Sent SMS/texts to customers<br>• Executed trades |
+**Informs:** Operational Boundaries section depth, risk context, complexity of constraints
 
 ---
 
-#### 5. Blast Radius (If it fails, how bad?)
-
-**Definition:** The scope of impact if the agent makes an error or fails.
+#### 3. Consequence Severity
+*What's the realistic harm if this agent fails?*
 
 | Level | Description | Examples |
 |-------|-------------|----------|
-| **Single User** | Mistakes affect only the individual user | • Personal assistant<br>• Individual productivity tool<br>• Personal note-taker<br>• Single-user research tool |
-| **Team** | Mistakes affect a small group | • Team calendar manager<br>• Shared project assistant<br>• Team document organizer<br>• Squad-level automation |
-| **Organization** | Mistakes affect entire company | • Company-wide calendar system<br>• All-hands communication tool<br>• Enterprise security agent<br>• Organization-wide data processor |
-| **External** | Mistakes affect customers, partners, or public | • Customer-facing support<br>• Public API responses<br>• Client deliverables<br>• Payment processing<br>• Public communications |
+| **Minor** | Inconvenience, confusion. Easily corrected, no lasting impact. | Wrong color in UI, delay in response, typo |
+| **Moderate** | Relationship damage, trust impact. Requires apology/remediation. | Confusing client email, awkward communication, minor data exposure |
+| **Major** | Reputation harm, customer churn, regulatory attention. Costly to fix. | Pattern of failures damages brand, compliance concern, significant data breach |
+| **Severe** | Legal liability, significant financial loss, safety risk. Existential. | Payment errors, safety-critical failures, HIPAA violations |
+
+**Derived from:** Edge cases, failure modes
+
+**Informs:** Overall guardrail intensity, Hard Boundaries section depth, validation requirements, testing rigor
+
+---
+
+#### 4. Recovery Difficulty
+*How hard is it to fix mistakes?*
+
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Easy** | Undo/retry. No one noticed or minimal impact. | Draft saved, suggestion given, preview shown |
+| **Moderate** | Requires follow-up, apology, visible effort. Embarrassing but recoverable. | Send follow-up email, re-send notification, apologize for confusion |
+| **Hard** | Damage done. Can only mitigate, not reverse. Significant consequences. | Published content, sent external communication, triggered workflow |
+| **Impossible** | Cannot undo. Action is permanent. | Payment processed, file deleted permanently, legal filing submitted |
+
+**Derived from:** Action reversibility, what happens after execution
+
+**Informs:** Confirmation/preview requirements, "get it right first time" emphasis, error handling approach
+
+---
+
+#### 5. Data Sensitivity
+*What data does the agent touch and how careful must we be?*
+
+| Level | Description | Examples | Protection |
+|-------|-------------|----------|------------|
+| **None/Public** | Public information only. No harm from exposure. | Public API data, marketing content, documentation | No special handling |
+| **Internal** | General business data. Leak is embarrassing but not damaging. | Internal wiki, team updates, process docs | Basic disclosure limits |
+| **Confidential** | Business-sensitive, competitive, strategic. Leak causes business harm. | Product roadmaps, pricing strategy, M&A plans, trade secrets | Hard Boundaries on disclosure, need-to-know principle |
+| **Personal** | PII, customer info, contact details. Leak causes harm to individuals. | Email addresses, names, phone numbers, calendar data | Hard Boundaries on data handling, isolation rules |
+| **Regulated** | Legal, financial, health, compliance-bound. Leak has legal consequences. | Medical records, financial accounts, payment info, legal documents | Strict Hard Boundaries, audit logging, confirmation for data actions |
+
+**Derived from:** Input/output specs, what data is accessed
+
+**Informs:** Hard Boundaries section content, Output Format masking requirements, logging constraints, compliance requirements
+
+---
+
+### Group 2: Profiles (Selection-Based)
+
+#### 6. Risk Profile
+*What risk type(s) would cause your assessed Consequence Severity?*
+
+**Select 1-2 that would lead to the worst outcomes:**
+
+| Risk Type | Description | When to Choose | Protection Focus |
+|-----------|-------------|----------------|------------------|
+| **Decision** | Could make wrong judgment, choice, or prioritization | Agent makes strategic or tactical decisions with significant impact | Decision Logic depth, reasoning examples, tradeoff guidance |
+| **Data** | Could mishandle, expose, or leak sensitive data | Agent processes sensitive data with exposure risk | Hard Boundaries on data handling, isolation rules, masking |
+| **Communication** | Could say wrong thing to wrong audience or in wrong tone | Agent generates customer-facing or sensitive communications | Tone guidance, examples, disclosure limits, Output Format depth |
+| **Execution** | Could take wrong action or execute incorrectly | Agent performs actions with direct consequences | Confirmation flows, validation, preview requirements |
+| **Coordination** | Components could misalign, state could be inconsistent | Agent coordinates multiple systems or maintains state | Clear contracts, state management, sequencing rules |
+
+**How to choose:**
+1. Look at your Consequence Severity assessment
+2. Ask: "What failure mode would cause that consequence?"
+3. Pick the risk type(s) that represent that failure path
+4. If multiple risks exist but lead to Minor consequences, note them but don't select
+
+**Informs:** Where to focus protection efforts in the system prompt—which sections need depth, which need special attention
+
+---
+
+#### 7. Excellence Profile
+*What should this agent be great at? What's the key quality dimension?*
+
+**Select one or two priorities:**
+
+| Excellence Area | Description | When to Choose | Investment Focus |
+|-----------------|-------------|----------------|------------------|
+| **Accuracy** | Must be correct, no errors tolerated | Precision is critical (data, calculations, facts) | Validation, verification examples, edge case coverage |
+| **Naturalness** | Must feel human, not robotic or templated | Customer-facing communication, relationship-building | Tone examples, variation guidance, natural language patterns |
+| **Speed** | Must be fast, low latency, responsive | Real-time interactions, high-volume processing | Lean prompt, minimal reasoning, efficient patterns |
+| **Clarity** | Must be immediately understandable, actionable | Instructions, explanations, coordination | Clear structure, explicit examples, unambiguous language |
+| **Consistency** | Must be reliable, predictable, repeatable | Users depend on consistent behavior | Patterns, templates, explicit rules |
+| **Adaptability** | Must handle varied contexts and edge cases well | Diverse scenarios, unpredictable inputs | Extensive edge cases, flexible guidance, graceful degradation |
+| **Empathy** | Must read emotional/social context appropriately | Human interaction, relationship-sensitive communication | Social signal examples, relationship context guidance |
+
+**Derived from:** Success criteria, what "great" looks like (from spec), key differentiators
+
+**Informs:** Where to invest quality effort—which sections get detailed examples, where to add depth for positive differentiation (not just protection)
 
 ---
 
 ### How to Use Agent Characteristics
 
 **During Agent Spec Creation (Section 10):**
-1. Assess the agent on each characteristic dimension
-2. Assign a level (Low, Medium, High, or Critical for Sensitivity; specific levels for others)
-3. Provide reasoning for each characteristic level
-4. Note implications for system prompt design
-5. Flag any unusual combinations or tensions
+1. Assess the agent on all 7 dimensions
+2. For Core Characteristics: Assign appropriate level
+3. For Risk Profile: Select 1-2 risk types tied to Consequence Severity
+4. For Excellence Profile: Select 1-2 quality priorities from success criteria
+5. Provide clear reasoning for each assessment
+6. Flag any unusual combinations or tensions
 
-**When Creating System Prompt:**
-- Use characteristic levels to determine section robustness beyond base archetype
-- High Sensitivity + High Autonomy = extra robust Hard Boundaries + audit requirements
-- High Blast Radius + Low Reversibility = maximum validation + confirmation requirements
-- External Exposure = careful tone guidance + customer-safe error messages
+**Note:** The agent spec documents characteristic assessments and reasoning. The System Prompt Creation Workflow reads these characteristics and determines how they inform prompt structure, section depths, and guardrail decisions.
 
 ---
 
@@ -547,6 +617,7 @@ Use this checklist during the workflow to verify completeness at each step.
 - [ ] User visibility level clarified
 - [ ] State & lifecycle documented
 - [ ] Timing & latency expectations specified
+- [ ] Autonomy level specified
 
 #### Step 4: Available Tools (Section 5)
 - [ ] All required tools listed (or N/A if agent has no tools)
@@ -577,9 +648,10 @@ Use this checklist during the workflow to verify completeness at each step.
 - [ ] Contradiction handling specified
 
 #### Step 7: Agent Characteristics (Section 10)
-- [ ] Level assessed for all 5 characteristics (Sensitivity, Autonomy, Exposure, Reversibility, Blast Radius)
-- [ ] Reasoning for characteristic level provided
-- [ ] Implications for implementation noted
+- [ ] Level assessed for all 7 dimensions (Reasoning Depth, Action Scope, Consequence Severity, Recovery Difficulty, Data Sensitivity, Risk Profile, Excellence Profile)
+- [ ] Reasoning for each dimension provided
+- [ ] Risk Profile: 1-2 selections tied to Consequence Severity
+- [ ] Excellence Profile: 1-2 selections based on success criteria
 
 #### Step 8: Final Specification Quality
 - [ ] All sections are specific, not abstract

@@ -1,12 +1,5 @@
 # System Prompt Template V3
 
-## Last Updated
-
-- **Date:** —
-- **Iteration:** 0
-
----
-
 A comprehensive template for creating high-quality system prompts for AI agents. Use alongside agent requirements gathered during discovery.
 
 ---
@@ -49,6 +42,18 @@ If the generated prompt exceeds the target token range:
 
 Determines section depth based on agent complexity.
 
+**Complexity is two-dimensional:**
+- **Reasoning Depth** (Minimal → Moderate → Significant → Orchestrating) — How much judgment is required?
+- **Action Scope** (Narrow → Moderate → Broad → Cross-Domain) — How bounded are the agent's actions?
+
+**Four common complexity patterns:**
+- **Simple Tool-Caller:** Minimal Reasoning + Narrow Scope
+- **Workflow Executor:** Moderate Reasoning + Narrow/Moderate Scope  
+- **Judgment Agent:** Significant Reasoning + Narrow/Moderate Scope
+- **Multi-Domain Agent:** Significant/Orchestrating Reasoning + Broad/Cross-Domain Scope
+
+*Read Reasoning Depth and Action Scope from agent spec Section 10 to classify.*
+
 #### Section Robustness by Complexity
 
 |                           | Simple Tool-Caller | Workflow Executor | Judgment Agent | Multi-Domain Agent |
@@ -84,205 +89,174 @@ Determines section depth based on agent complexity.
 
 Characteristics capture risk dimensions independent of complexity. A simple tool-caller handling medical records needs stronger guardrails than a complex judgment agent scheduling internal meetings.
 
-**Capture these during discovery. They shape how every section is written—not as bolt-on additions, but as foundational context.**
+**Read these from agent spec Section 10.** They shape how every section is written—not as bolt-on additions, but as foundational context.
 
-#### Characteristic Definitions
+#### The 7 Dimensions
 
-| Characteristic | Question | Levels |
-|----------------|----------|--------|
-| **Sensitivity** | What data does this agent access or handle? | Low / Medium / High / Critical |
-| **Autonomy** | How much can it do without human confirmation? | Low / Medium / High |
-| **Exposure** | Who sees this agent's outputs? | Internal / Partner / External |
-| **Reversibility** | How easily can its actions be undone? | Easy / Moderate / Hard / Irreversible |
-| **Blast Radius** | If it fails, who or what is affected? | User / Team / Org / External |
+**Core Characteristics (5 level-based):**
+1. **Reasoning Depth** — How much judgment is required?
+2. **Action Scope** — How bounded are the agent's actions?
+3. **Consequence Severity** — What's the realistic harm if this agent fails?
+4. **Recovery Difficulty** — How hard is it to fix mistakes?
+5. **Data Sensitivity** — What data does it touch and how careful must we be?
 
----
-
-#### Sensitivity
-
-*What data does the agent touch, and what's the damage if it leaks or is mishandled?*
-
-**Low** — Public information, non-personal data
-- No special handling required
-
-**Medium** — Business data, internal documents, work context
-- **Domain Context** should define what's internal-only vs. shareable
-- **Operational Boundaries** should clarify what data can appear in responses to whom
-
-**High** — PII, financial data, health information, legal documents
-- **Hard Boundaries** must address data exposure as absolute prohibitions. The agent should never log sensitive fields in full, never include them in error messages, never store beyond immediate need. These aren't judgment calls—they're bright lines.
-- **Domain Context** should include data handling principles: minimization, masking requirements, retention limits
-- **Output Format** must specify how sensitive fields are masked or redacted in responses
-- **Failure Handling** must address what to do if sensitive data surfaces unexpectedly (don't repeat it, don't log it, escalate)
-
-**Critical** — Auth credentials, payment data, regulated data (HIPAA, SOX, GDPR-special-category)
-- Everything from High, plus:
-- **Hard Boundaries** must require explicit confirmation before any action involving critical data—even read operations that might expose it
-- **Hard Boundaries** should require audit logging; if logging fails, the action should not proceed
-- **Operational Boundaries** should shift most actions to "Confirm Before Acting"—autonomy must be narrow when critical data is involved
-- **Failure Handling** must include incident escalation paths with specific owners
-
-**Validation criteria:**
-- [ ] If High+: Hard Boundaries explicitly prohibit logging/displaying sensitive fields
-- [ ] If High+: Output Format specifies masking approach
-- [ ] If Critical: Explicit confirmation required for critical data actions
-- [ ] Sensitive data prohibitions framed as absolute (NEVER), not conditional
+**Profiles (2 selection-based):**
+6. **Risk Profile** — What risk type(s) would cause assessed consequences? (select 1-2)
+7. **Excellence Profile** — What should this agent be great at? (select 1-2)
 
 ---
 
-#### Autonomy
+#### Core Characteristics
 
-*How much can this agent do on its own, and what's the risk if it acts wrongly without oversight?*
+##### 1. Reasoning Depth
+*How much judgment/interpretation is required?*
 
-**Low** — Suggestions only; human executes all actions
-- **Identity** should clarify the agent's advisory role: "You suggest; you do not act"
-- **Operational Boundaries** will have minimal "Handle Autonomously" scope—mostly information retrieval
-- **Output Format** should frame outputs as recommendations, not actions taken ("I recommend..." not "I've done...")
+| Level | Description | Informs |
+|-------|-------------|---------|
+| **Minimal** | Rule-following; clear inputs → outputs | Skip Decision Logic |
+| **Moderate** | Pattern application; some interpretation | Minimal to Standard Decision Logic |
+| **Significant** | Judgment calls; weighs tradeoffs, handles ambiguity | Robust Decision Logic |
+| **Orchestrating** | Coordinates multiple agents/systems; meta-level decisions | Robust Decision Logic + coordination guidance |
 
-**Medium** — Acts within defined scope; confirms edge cases
-- **Operational Boundaries** should draw a clear line between autonomous scope and confirm-first scope
-- **Decision Logic** should include guidance for when to act vs. when to ask—the reasoning for where the line is drawn
-
-**High** — Broad action authority; minimal human oversight
-- High autonomy requires strong guardrails elsewhere to compensate
-- **Hard Boundaries** become more important—these are the few things it truly cannot do alone
-- **Operational Boundaries** should have an expanded "Confirm Before Acting" section to catch high-risk actions even within broad authority
-- **Decision Logic** must emphasize conservative defaults: "When uncertain, ask" or "When confidence is below X, confirm"
-- **Failure Handling** should expand rollback and recovery procedures—if no human is watching, the agent needs to catch and correct its own mistakes
-- **Final Reminders** should reinforce caution bias
-
-**Validation criteria:**
-- [ ] If Low: Identity clarifies advisory-only role
-- [ ] If Low: Output Format uses recommendation framing
-- [ ] If High: Decision Logic includes conservative defaults
-- [ ] If High: Final Reminders reinforces caution under uncertainty
-- [ ] Autonomy level matches Operational Boundaries scope
+**Drives:** Complexity classification, Decision Logic depth, example count, model selection
 
 ---
 
-#### Exposure
+##### 2. Action Scope
+*How bounded is what the agent can do?*
 
-*Who sees what this agent produces, and what's the damage if the wrong thing is said?*
+| Level | Description | Informs |
+|-------|-------------|---------|
+| **Narrow** | One action type, single domain, tight constraints | Minimal Operational Boundaries |
+| **Moderate** | Several action types, defined boundaries, single domain | Standard Operational Boundaries |
+| **Broad** | Many action types, significant discretion, single domain | Detailed Operational Boundaries |
+| **Cross-Domain** | Multiple domains, coordinates across system boundaries | Robust Operational Boundaries with domain separation |
 
-**Internal** — Only internal team members see outputs
-- Technical tone is acceptable
-- Internal system details in error messages are fine (useful for debugging)
-- No special restrictions on referencing internal tools, processes, or terminology
-
-**Partner** — Vendors, clients, or integrated external systems see outputs
-- **Identity** should specify professional tone
-- **Hard Boundaries** should prohibit exposing internal system names, architecture details, or internal team structures
-- **Output Format** should require error messages that are clear but don't reveal internal workings
-
-**External** — Customers or public see outputs
-- **Identity** must include explicit tone calibration for customer communication—warmth, clarity, trust-building
-- **Hard Boundaries** must prohibit: referencing internal tools/teams/processes by name, revealing system limitations in ways that damage trust, exposing technical details that confuse or alarm
-- **Domain Context** should include customer communication principles relevant to this audience
-- **Output Format** requires customer-safe error messages that always include actionable next steps (never leave customer stuck)
-- **Failure Handling** should include customer-appropriate escalation language ("Let me connect you with someone who can help with this")
-
-**Validation criteria:**
-- [ ] If Partner+: Hard Boundaries prohibit internal detail exposure
-- [ ] If External: Identity includes customer-appropriate tone guidance
-- [ ] If External: Output Format specifies customer-safe error message requirements
-- [ ] If External: Failure Handling includes customer-facing escalation language
+**Drives:** Complexity classification, Operational Boundaries depth, risk context
 
 ---
 
-#### Reversibility
+##### 3. Consequence Severity
+*What's the realistic harm if this agent fails?*
 
-*If the agent does something wrong, how hard is it to undo?*
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Minor** | Inconvenience; easily corrected, no lasting impact | Typo, wrong color, delay |
+| **Moderate** | Relationship damage; requires apology/remediation | Confusing email, minor data exposure |
+| **Major** | Reputation harm, churn, regulatory attention | Pattern of failures damages brand, compliance concern |
+| **Severe** | Legal liability, financial loss, safety risk | Payment errors, HIPAA violations |
 
-**Easy** — Drafts, suggestions, internal notes, read-only operations
-- Lower confirmation threshold is acceptable
-- **Operational Boundaries** can have broader autonomous scope
-
-**Moderate** — Calendar changes, file edits, configuration updates
-- **Operational Boundaries** should require confirmation for changes that affect others or external parties
-- **Output Format** can include "undo" or "change this" affordances where the system supports it
-
-**Hard** — Sent emails, published content, submitted forms, external communications
-- **Hard Boundaries** must require preview before send/publish—the agent should never send without showing what will be sent
-- **Operational Boundaries** should move all send/publish actions to "Confirm Before Acting"
-- **Examples** should include at least one example showing the preview-confirm-execute flow
-
-**Irreversible** — Payments, deletions, legal filings, binding external commitments
-- **Hard Boundaries** must require explicit confirmation with clear action summary—user must understand exactly what will happen
-- **Hard Boundaries** should prohibit batching irreversible actions—each one gets individual confirmation
-- **Operational Boundaries** should require multi-step confirmation: preview → confirm understanding → execute
-- **Output Format** should require confirmation acknowledgment before proceeding
-- **Failure Handling** must address the "uncertain completion" problem: if unsure whether an irreversible action completed, assume it did; never retry
-
-**Validation criteria:**
-- [ ] If Hard+: Hard Boundaries require preview before send/publish
-- [ ] If Irreversible: Multi-step confirmation flow addressed
-- [ ] If Irreversible: Failure Handling addresses uncertain completion
-- [ ] Reversibility level reflected in Operational Boundaries confirmation requirements
+**Drives:** Overall guardrail intensity, Hard Boundaries depth, validation requirements, testing rigor
 
 ---
 
-#### Blast Radius
+##### 4. Recovery Difficulty
+*How hard is it to fix mistakes?*
 
-*If this agent fails or makes a mistake, how far does the damage spread?*
+| Level | Description | Examples |
+|-------|-------------|----------|
+| **Easy** | Undo/retry; no one noticed or minimal impact | Draft saved, suggestion given, preview shown |
+| **Moderate** | Requires follow-up, apology, visible effort | Send correction email, apologize |
+| **Hard** | Damage done; can only mitigate, not reverse | Published content, external communication sent |
+| **Impossible** | Cannot undo; action is permanent | Payment processed, file deleted permanently |
 
-**User** — Affects only the individual user
-- Standard failure handling is sufficient
-- Mistakes are contained and correctable
-
-**Team** — Affects shared workspace, team data, or colleagues' work
-- **Hard Boundaries** should prohibit modifying shared resources without surfacing who will be affected
-- **Operational Boundaries** should require confirmation for actions that affect others' data or work
-- **Failure Handling** should include notification guidance—affected parties should know something went wrong
-
-**Org** — Affects organization-wide systems, data, or operations
-- **Hard Boundaries** must prohibit org-wide changes without explicit authorization from appropriate authority
-- **Operational Boundaries** should include staged rollout guidance for changes with broad impact
-- **Failure Handling** must include rollback requirements and incident escalation with clear owners
-- Consider adding pre-action validation checks within relevant sections
-
-**External** — Affects customers, public perception, external partners, or systems outside the organization
-- Everything from Org, plus:
-- **Hard Boundaries** must require verification before any customer-impacting action
-- **Failure Handling** should include customer communication templates for failures
-- **Failure Handling** should include incident severity classification
-
-**Validation criteria:**
-- [ ] If Team+: Operational Boundaries requires confirmation for actions affecting others
-- [ ] If Team+: Failure Handling addresses notification of affected parties
-- [ ] If Org+: Rollback requirements documented
-- [ ] If External: Customer communication guidance for failures included
+**Drives:** Confirmation/preview requirements, "get it right first time" emphasis, error handling approach
 
 ---
 
-#### Section Density Reference
+##### 5. Data Sensitivity
+*What data does the agent touch and how careful must we be?*
 
-Anticipate heavier modification in these sections:
+| Level | Description | Protection |
+|-------|-------------|------------|
+| **None/Public** | Public information only | No special handling |
+| **Internal** | General business data; leak embarrassing but not damaging | Basic disclosure limits |
+| **Confidential** | Business-sensitive, competitive, strategic; leak causes business harm | Hard Boundaries on disclosure, need-to-know |
+| **Personal** | PII, customer info; leak harms individuals | Hard Boundaries on data handling, isolation rules |
+| **Regulated** | Legal, financial, health; leak has legal consequences | Strict Hard Boundaries, audit logging, confirmation for data actions |
 
-| Section | Modified By | Density |
-|---------|-------------|---------|
-| Hard Boundaries | All 5 characteristics | Heaviest |
-| Operational Boundaries | Sensitivity, Autonomy, Reversibility, Blast Radius | Heavy |
-| Failure Handling | All 5 characteristics | Heavy |
-| Output Format | Sensitivity, Autonomy, Exposure, Reversibility | Moderate |
-| Identity | Autonomy, Exposure | Light-Moderate |
-| Domain Context | Sensitivity, Exposure | Light-Moderate |
-| Decision Logic | Autonomy | Light |
-| Examples | Reversibility | Light |
-| Final Reminders | Autonomy | Light |
+**Drives:** Hard Boundaries content (data handling rules), Output Format (masking), logging constraints
+
+---
+
+#### Profiles
+
+##### 6. Risk Profile
+*What risk type(s) would cause your assessed Consequence Severity?*
+
+**Select 1-2 that would lead to the worst outcomes:**
+
+| Risk Type | When to Choose | Protection Focus |
+|-----------|----------------|------------------|
+| **Decision** | Makes strategic/tactical decisions with significant impact | Decision Logic depth, reasoning examples, tradeoff guidance |
+| **Data** | Processes sensitive data with exposure risk | Hard Boundaries on data handling, isolation rules, masking |
+| **Communication** | Generates customer-facing or sensitive communications | Tone guidance, examples, disclosure limits, Output Format depth |
+| **Execution** | Performs actions with direct consequences | Confirmation flows, validation, preview requirements |
+| **Coordination** | Coordinates multiple systems or maintains state | Clear contracts, state management, sequencing rules |
+
+**How to choose:** Look at Consequence Severity assessment → Ask "What failure mode would cause that?" → Pick risk type(s) representing that failure path
+
+**Drives:** Where to focus protection efforts—which sections need depth for safety
+
+---
+
+##### 7. Excellence Profile
+*What should this agent be great at?*
+
+**Select 1-2 priorities:**
+
+| Excellence Area | When to Choose | Investment Focus |
+|-----------------|----------------|------------------|
+| **Accuracy** | Precision is critical (data, calculations, facts) | Validation, verification examples, edge case coverage |
+| **Naturalness** | Customer-facing communication, relationship-building | Tone examples, variation guidance, natural language patterns |
+| **Speed** | Real-time interactions, high-volume processing | Lean prompt, minimal reasoning, efficient patterns |
+| **Clarity** | Instructions, explanations, coordination | Clear structure, explicit examples, unambiguous language |
+| **Consistency** | Users depend on consistent behavior | Patterns, templates, explicit rules |
+| **Adaptability** | Diverse scenarios, unpredictable inputs | Extensive edge cases, flexible guidance, graceful degradation |
+| **Empathy** | Human interaction, relationship-sensitive communication | Social signal examples, relationship context guidance |
+
+**Drives:** Where to invest quality effort—which sections get detailed examples for positive differentiation (not just protection)
+
+---
+
+#### Section Drivers
+
+Map characteristics to sections they primarily affect:
+
+| Section | Primary Drivers | Investment Type |
+|---------|----------------|-----------------|
+| **Decision Logic** | Reasoning Depth, Risk Profile (if Decision) | Protection + Excellence |
+| **Hard Boundaries** | Consequence Severity, Data Sensitivity, Risk Profile (if Data) | Protection |
+| **Examples** | Risk Profile (all types), Excellence Profile | Protection + Excellence |
+| **Output Format** | Risk Profile (if Communication), Excellence Profile (if Naturalness/Clarity) | Excellence |
+| **Operational Boundaries** | Action Scope, Consequence Severity | Protection |
+| **Failure Handling** | Consequence Severity, Recovery Difficulty | Protection |
+| **Domain Context** | Reasoning Depth, Data Sensitivity (if handling principles needed) | Context |
+| **Tool Integration** | Action Scope (if tool-heavy) | Context |
 
 ---
 
 #### Applying Characteristics
 
-1. **Read characteristics before writing any section.** They're context, not patches.
+1. **Read from agent spec Section 10.** Characteristics are already assessed there—don't reassess, just apply.
 
-2. **Weave, don't append.** A High Sensitivity agent's Hard Boundaries should feel like data protection was a design principle, not an afterthought.
+2. **Risk Profile determines protection strategy:**
+   - Decision risk → Decision Logic, reasoning examples
+   - Data risk → Hard Boundaries, isolation rules
+   - Communication risk → Examples, Tone, Output Format
+   - Execution risk → Confirmation flows, validation
+   - Coordination risk → State management, contracts
 
-3. **Compound effects are additive.** An agent with High Sensitivity + External Exposure + Irreversible actions gets all applicable guidance. When guidance overlaps, combine into coherent requirements.
+3. **Excellence Profile determines investment strategy:**
+   - What to emphasize in examples
+   - Where to add depth beyond protection needs
+   - What quality dimensions to demonstrate
 
-4. **Higher level implies lower.** High Sensitivity includes Medium concerns. External Exposure includes Partner concerns. Don't repeat—assume escalation.
+4. **Weave, don't append.** Content shaped by characteristics should feel like design principles, not afterthoughts.
 
-5. **Characteristics can reduce as well as add.** Low Autonomy means *less* in Operational Boundaries. Easy Reversibility means *fewer* confirmation requirements. Don't add guardrails that don't fit the risk profile.
+5. **Compound effects are additive.** Multiple characteristics affecting same section combine into coherent requirements.
+
+6. **Context vs. Characteristic.** Some things (like audience/exposure) come from Operating Model section of spec—read directly, not from characteristics.
 
 ---
 
@@ -298,8 +272,8 @@ Anticipate heavier modification in these sections:
 - Success metric must be observable—something you could measure or verify
 - Autonomy statement clarifies what the agent can decide alone vs. must escalate
 - If agent has no user-facing communication (backend/tool agent), omit tone
-- If Autonomy is Low, clarify advisory-only role here
-- If Exposure is External, include customer-appropriate tone calibration
+- Read autonomy level from Operating Model section of agent spec
+- If audience is external (from spec), include customer-appropriate tone calibration
 
 **Common Mistakes:**
 - Listing features instead of stating purpose
@@ -333,13 +307,12 @@ calendars, send invites, and find meeting times.
 - Use NEVER and ALWAYS—no soft language in this section
 - If tempted to add "unless..."—it belongs in Operational Boundaries instead
 - This section absorbs the most from characteristics—expect it to grow for high-risk agents
-- Sensitivity High+: Add data exposure prohibitions (logging, error messages, storage)
-- Sensitivity Critical: Add audit logging requirements
-- Exposure Partner+: Add internal detail disclosure prohibitions
-- Reversibility Hard+: Add preview-before-action requirements
-- Reversibility Irreversible: Add batching prohibition, confirmation requirements
-- Blast Radius Team+: Add shared resource modification restrictions
-- Blast Radius Org+: Add org-wide change authorization requirements
+- Data Sensitivity Personal+: Add data exposure prohibitions (logging, error messages, storage)
+- Data Sensitivity Regulated: Add audit logging requirements
+- If audience is external (from spec): Add internal detail disclosure prohibitions
+- Recovery Difficulty Hard+: Add preview-before-action requirements
+- Recovery Difficulty Impossible: Add batching prohibition, confirmation requirements
+- Consequence Severity Major+: Add appropriate authorization requirements
 
 **Common Mistakes:**
 - Including soft preferences that belong elsewhere
@@ -378,9 +351,9 @@ calendars, send invites, and find meeting times.
 - Define terms as THIS AGENT should interpret them, not dictionary definitions
 - User characteristics should inform communication approach and assumptions
 - Knowledge sources must be actionable (things agent can actually query)
-- Sensitivity Medium+: Define what's internal-only vs. shareable
-- Sensitivity High+: Include data handling principles (minimization, retention)
-- Exposure External: Include customer communication principles
+- Data Sensitivity Confidential+: Define what's internal-only vs. shareable
+- Data Sensitivity Personal+: Include data handling principles (minimization, retention)
+- If audience is external (from spec): Include customer communication principles
 
 **Conditions:**
 - Skip for simple tool-callers without domain knowledge needs
@@ -427,8 +400,8 @@ We help people with their calendars.
 - Priority hierarchy needs clear ordering with rationale for each level
 - Tradeoff guidance should address common tensions this agent faces
 - Goal: agent could use this to reason about novel situations
-- Autonomy Medium: Include guidance for when to act vs. when to ask
-- Autonomy High: Emphasize conservative defaults ("when uncertain, ask")
+- Reasoning Depth Significant+: This is core—invest heavily
+- Risk Profile = Decision: This is a primary protection area—invest heavily
 
 **Conditions:**
 - Skip for simple tool-callers (they follow rules, not judgment)
@@ -485,11 +458,9 @@ When two high-priority items conflict:
 - Escalation paths need specific destinations, not just "escalate"
 - Out-of-scope items should include where to redirect
 - Don't duplicate hard boundaries—those have no exceptions
-- Autonomy Low: Minimal autonomous scope, mostly information retrieval
-- Autonomy High: Expanded confirm-first to catch high-risk actions
-- Sensitivity Critical: Shift most actions to confirm-first
-- Reversibility Moderate+: Require confirmation for changes affecting others
-- Blast Radius Team+: Require confirmation for actions affecting others' data
+- Action Scope determines depth: Narrow → Minimal; Broad/Cross-Domain → Robust
+- Recovery Difficulty Moderate+: Require confirmation for changes affecting others
+- Consequence Severity Major+: Expanded confirm-first to catch high-risk actions
 
 **Common Mistakes:**
 - Unclear boundary between autonomous and confirm-first
@@ -657,7 +628,9 @@ Fields: action_type, participants (if any), constraints (if any)
 - Include at least one anti-example showing what NOT to do and why
 - Keep examples representative of common scenarios
 - Limit to 3-4 examples (more dilutes attention)
-- Reversibility Hard+: Include example showing preview-confirm-execute flow
+- Risk Profile present: Tailor examples to that risk type (show how to handle it well)
+- Excellence Profile: Show what excellence in that dimension looks like
+- Recovery Difficulty Hard+: Include example showing preview-confirm-execute flow
 
 **Conditions:**
 - Skip for simple tool-callers
@@ -704,11 +677,13 @@ Why: [Brief explanation]
 - Tone calibration works best through contrast ("Say X, not Y")
 - Required elements ensure critical info always appears
 - Length guidelines prevent over/under-communication
-- Autonomy Low: Frame outputs as recommendations, not actions
-- Sensitivity High+: Specify masking for sensitive fields
-- Exposure External: Customer-safe error messages with actionable next steps
-- Reversibility Moderate+: Include undo/change affordances where applicable
-- Reversibility Irreversible: Require confirmation acknowledgment format
+- Read autonomy level from spec: If advisory-only, frame outputs as recommendations
+- Data Sensitivity Personal+: Specify masking for sensitive fields
+- If audience is external (from spec): Customer-safe error messages with actionable next steps
+- Risk Profile = Communication: This is a primary area—invest heavily in tone guidance
+- Excellence Profile = Naturalness/Clarity: Invest heavily here
+- Recovery Difficulty Moderate+: Include undo/change affordances where applicable
+- Recovery Difficulty Impossible: Require confirmation acknowledgment format
 
 **Conditions:**
 - If no user-facing output (backend), cover internal response format (e.g., JSON structure)
@@ -752,15 +727,13 @@ Not: "I have identified an available time slot at 1500 hours
 - Be specific about behavior—not "handle gracefully"
 - Include user communication (if user-facing)
 - Escalation criteria should be specific conditions
-- This section absorbs significant modifier content for high-risk agents
-- Sensitivity High+: Address unexpected sensitive data exposure
-- Sensitivity Critical: Include incident escalation with specific owners
-- Autonomy High: Expand rollback and self-correction procedures
-- Exposure External: Include customer-appropriate escalation language
-- Reversibility Irreversible: Address uncertain completion (assume completed, don't retry)
-- Blast Radius Team+: Include affected party notification
-- Blast Radius Org+: Include rollback requirements
-- Blast Radius External: Include customer communication templates, severity classification
+- This section absorbs significant content for high-risk agents
+- Data Sensitivity Personal+: Address unexpected sensitive data exposure
+- Data Sensitivity Regulated: Include incident escalation with specific owners
+- Consequence Severity Major+: Expand procedures and escalation
+- If audience is external (from spec): Include customer-appropriate escalation language
+- Recovery Difficulty Impossible: Address uncertain completion (assume completed, don't retry)
+- Consequence Severity Major+: Include rollback requirements if applicable
 
 **Conditions:**
 - Minimal for simple agents
@@ -804,7 +777,7 @@ Not: "I have identified an available time slot at 1500 hours
 - Include 2-3 common mistakes to avoid
 - Keep extremely concise—reinforcement, not new information
 - Benefits from recency effect (models weight ending content heavily)
-- Autonomy High: Reinforce caution bias
+- Consequence Severity Major+: Reinforce caution bias
 
 **Conditions:**
 - Skip for simple tool-callers
@@ -1066,42 +1039,59 @@ Review the complete prompt against these criteria.
 
 ### Configuration Alignment
 - [ ] Complexity level identified; robustness matches table
-- [ ] All five characteristics identified and levels set
-- [ ] Applicable modifiers integrated (not appended)
+- [ ] All seven dimensions identified from agent spec Section 10
+- [ ] Characteristic content integrated (not appended)
 - [ ] Token count within target range for complexity
 
 ### Characteristic Validation
 
-**Sensitivity**
-- [ ] If High+: Hard Boundaries prohibit logging/displaying sensitive fields
-- [ ] If High+: Output Format specifies masking approach
-- [ ] If Critical: Explicit confirmation required for critical data actions
+**Core Characteristics**
+
+**Reasoning Depth**
+- [ ] Decision Logic depth matches assessed level (Minimal→Skip, Moderate→Minimal/Standard, Significant→Robust)
+- [ ] Example count appropriate for level
+
+**Action Scope**
+- [ ] Operational Boundaries depth matches assessed level (Narrow→Minimal, Broad/Cross-Domain→Robust)
+- [ ] Scope limits clearly defined
+
+**Consequence Severity**
+- [ ] If Major+: Guardrail intensity appropriate throughout
+- [ ] If Major+: Hard Boundaries expanded appropriately
+- [ ] If Severe: Validation and testing requirements noted
+
+**Recovery Difficulty**
+- [ ] If Hard+: Preview/confirmation requirements present
+- [ ] If Impossible: Multi-step confirmation addressed
+- [ ] If Impossible: Failure Handling addresses uncertain completion
+- [ ] Confirmation requirements match difficulty level
+
+**Data Sensitivity**
+- [ ] If Personal+: Hard Boundaries prohibit logging/displaying sensitive fields
+- [ ] If Personal+: Output Format specifies masking approach
+- [ ] If Regulated: Explicit confirmation required for data actions
+- [ ] If Regulated: Audit logging mentioned
 - [ ] Sensitive data prohibitions use absolute language (NEVER)
 
-**Autonomy**
-- [ ] If Low: Identity clarifies advisory-only role
-- [ ] If Low: Output Format uses recommendation framing
-- [ ] If High: Decision Logic includes conservative defaults
-- [ ] If High: Final Reminders reinforces caution under uncertainty
-- [ ] Autonomy level matches Operational Boundaries scope
+**Profiles**
 
-**Exposure**
-- [ ] If Partner+: Hard Boundaries prohibit internal detail exposure
-- [ ] If External: Identity includes customer-appropriate tone
-- [ ] If External: Output Format specifies customer-safe errors
-- [ ] If External: Failure Handling includes customer escalation language
+**Risk Profile**
+- [ ] If Decision: Decision Logic is robust with reasoning examples and tradeoff guidance
+- [ ] If Data: Hard Boundaries include data handling rules, isolation, masking
+- [ ] If Communication: Examples section robust; Output Format has tone guidance
+- [ ] If Execution: Confirmation flows and validation present
+- [ ] If Coordination: State management and sequencing addressed
+- [ ] Protection focus sections appropriately robust
 
-**Reversibility**
-- [ ] If Hard+: Hard Boundaries require preview before send/publish
-- [ ] If Irreversible: Multi-step confirmation addressed
-- [ ] If Irreversible: Failure Handling addresses uncertain completion
-- [ ] Confirmation requirements match reversibility level
-
-**Blast Radius**
-- [ ] If Team+: Confirmation required for actions affecting others
-- [ ] If Team+: Failure Handling addresses affected party notification
-- [ ] If Org+: Rollback requirements documented
-- [ ] If External: Customer failure communication included
+**Excellence Profile**
+- [ ] If Accuracy: Validation and verification examples present
+- [ ] If Naturalness: Tone examples show variation and natural patterns
+- [ ] If Speed: Prompt is lean, reasoning minimal
+- [ ] If Clarity: Structure clear, examples explicit
+- [ ] If Consistency: Patterns and templates provided
+- [ ] If Adaptability: Extensive edge cases and graceful degradation
+- [ ] If Empathy: Social context examples present
+- [ ] Quality investment sections appropriately detailed
 
 ### Section Quality
 
