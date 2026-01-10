@@ -235,3 +235,65 @@ Key insights from user feedback:
 **Decision**: Strong patterns emerging across Event Scoring and Scheduling Intelligence agents. After this workflow completes, review Step 5 quality checklist for enhancements addressing: timing logic coherence, scalability guidance, check-before-infer principle, example completeness.
 
 [Processed: January 7, 2026, Iteration #1]
+
+---
+
+## Event Scoring Agent V1 — January 10, 2026 (V1 Framework Testing)
+
+**Testing V1 Workflow with Revised Classification Approach**
+
+This was a test run of the V1 system prompt workflow, comparing V0 to V1 framework outputs using the Event Scoring Agent as the test case.
+
+**Key Workflow Interactions**
+
+**1. Classification Reconsideration (User-Initiated)**
+Initial AI classification: Judgment Agent (Significant Reasoning + Narrow Scope)
+Rationale: 7-dimension framework, holistic judgment, "reasoning-based not formula"
+
+User challenged with three questions:
+- Is this really Significant reasoning or just sophisticated pattern application?
+- Is Decision + Data the right Risk Profile, or was Data added to satisfy "select 1-2"?
+- Does this agent truly have pervasive data risk or just one clear boundary?
+
+**Revised classification: Workflow Executor (Moderate Reasoning + Narrow Scope)**
+- Reasoning Depth: Moderate (applies framework with interpretation, not open-ended strategic judgment)
+- Risk Profile: Decision only (core risk is bad scoring; data handled via one Hard Boundary)
+
+**Impact:**
+- Token budget: 1800-2500 → 1200-1800 (25% reduction)
+- Decision Logic: Robust → Minimal (still clear framework guidance)
+- Examples: Robust → Standard (3 examples with reasoning traces)
+
+**2. Configuration-Driven Generation**
+V1 workflow emphasis on "configure before generate" worked well:
+- Step 2 produced clear Agent Configuration with all 7 dimensions
+- Step 3 outline explicitly linked section depths to characteristics
+- User caught classification issue at outline stage (before generation)
+- Revision at configuration stage prevented wasted generation work
+
+**Insight**: The V1 workflow's stronger emphasis on upfront classification and user approval gates prevented over-engineering the prompt. V0 approach might have proceeded directly to generation without classification challenge.
+
+**3. Risk Profile Precision**
+User's challenge on "Decision + Data" forced clearer thinking about what constitutes a risk dimension:
+- **Data Risk** should mean pervasive data handling concerns throughout prompt
+- This agent has **one data rule**: private events always masked
+- That's a Hard Boundary, not a Risk Profile dimension
+- **Decision Risk** is the actual core risk (bad scores → bad recommendations)
+
+**Learning**: Risk Profile should identify where protection investment is needed across multiple sections, not just acknowledge that sensitive data exists.
+
+**4. V1 Framework Alignment**
+The 7-dimension characteristic framework from V1 spec Section 10 was clearly more structured than V0's 5 characteristics:
+- Reasoning Depth + Action Scope → direct mapping to complexity classification
+- Risk Profile + Excellence Profile → clear investment strategy guidance
+- Consequence Severity + Recovery Difficulty → appropriate guardrail calibration
+
+**Completeness**: All good. Generated system prompt (~1,500 tokens), context contract (~240 lines), both aligned with Workflow Executor classification.
+
+**Configuration**: Revised classification (Workflow Executor) felt more accurate after user challenge.
+
+**Quality process**: Quality checklist comprehensive; all validation passed.
+
+**Open feedback**: V1 workflow's configuration gates work well. User challenge at Step 2/3 prevented over-engineering. The "why did you classify this way" forcing function is valuable.
+
+[Processed: January 10, 2026 — V1 Framework Test]
