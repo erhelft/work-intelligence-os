@@ -335,14 +335,19 @@ This section contains the step-by-step instructions the LLM will follow to execu
 
 **For each dimension:**
 - Assign the level or make selection
-- Provide reasoning from the spec
+- Provide reasoning that references specific behaviors, data, or consequences from earlier sections
 - Flag any unusual combinations or tradeoffs
+
+**Output Format:**
+Each dimension should be documented as: dimension name + level/selection + reasoning. Follow the template examples—keep it simple without adding separate subsections for implications or examples.
 
 **Quality Check:**
 - [ ] Level assessed for all 7 dimensions
 - [ ] Reasoning for each dimension provided
 - [ ] Risk Profile: 1-2 selections tied to Consequence Severity
 - [ ] Excellence Profile: 1-2 selections based on success criteria
+- [ ] Format matches template (no extra subsections)
+
 
 **Gate:** User confirms section 10 is complete and accurate
 
@@ -592,7 +597,14 @@ The following 7 dimensions (organized into 3 groups) help define the agent's nat
 5. Provide clear reasoning for each assessment
 6. Flag any unusual combinations or tensions
 
-**Note:** The agent spec documents characteristic assessments and reasoning. The System Prompt Creation Workflow reads these characteristics and determines how they inform prompt structure, section depths, and guardrail decisions.
+**Format Guidance:**
+Document each dimension using the simple structure shown in template examples: dimension name, level/selection, and reasoning. The reasoning should reference specific agent behaviors or characteristics from earlier spec sections. Avoid adding extra subsections—the assessment and reasoning are sufficient.
+
+**Separation of Concerns:**
+- **Agent Spec (Section 10):** Documents the assessment (what level) and reasoning (why that level)
+- **System Prompt Workflow:** Determines how those characteristics inform prompt design
+
+The reference tables below include "Informs:" descriptions to guide system prompt creators. These are not meant to be copied into agent specs—they explain how the framework translates into prompt decisions.
 
 ---
 

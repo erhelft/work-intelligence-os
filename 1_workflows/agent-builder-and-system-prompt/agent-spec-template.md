@@ -369,6 +369,9 @@ This template provides a structured format for documenting AI agent requirements
 * Provide clear reasoning for each assessment
 * Note any unusual combinations or tensions between dimensions
 
+**Format:**
+Each dimension follows this structure: **[Dimension Name]: [Level/Selection]** followed by **Reasoning:** explaining the assessment. The reasoning should reference specific agent behaviors, data types, or consequences documented in earlier sections. Keep it simple—just dimension, level, and reasoning. No separate subsections for implications or examples.
+
 **Examples Across Different Agent Types:**
 
 **Example 1: Data Analysis Agent**

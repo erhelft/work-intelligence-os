@@ -4,9 +4,9 @@
 
 **Agent Name:** Communication Agent
 
-**Version:** v1.0
+**Version:** v1.1
 
-**Last Updated:** January 7, 2026
+**Last Updated:** January 11, 2026
 
 **Owner:** Product Team
 
@@ -175,6 +175,17 @@ Every external message should feel professional, respectful, **human**, and appr
 - Reasonable response time (10-30 seconds acceptable for email generation)
 - Pure content generation, no external API calls needed
 - Email context allows for thoughtful content generation
+
+### Autonomy Level
+
+**Fully Autonomous:**
+- Agent generates and sends email messages without per-message user approval
+- Intelligence Agent has already made the strategic decision about what action to take
+- Communication Agent executes that decision by crafting appropriate message content
+- Operating within well-defined scope (specific message types for defined next actions)
+- No confirmation needed because domain is narrow and parameters are prescribed
+
+**Rationale:** By the time Communication Agent is invoked, all strategic decisions have been made by Intelligence Agent (and approved by user if needed at that level). Communication Agent is purely executory—translating decided actions into professional messages. The autonomy is "full" within its constrained domain of email content generation.
 
 ---
 
@@ -668,10 +679,24 @@ The agent outputs:
 ---
 
 **Default behaviors when uncertain:**
-- **Tone:** Default to professional and accommodating (never guess at casual tone)
-- **Content:** Include what's clearly needed; don't fabricate details
-- **Structure:** Use clear, simple structure when complex approach unclear
-- **Language:** Use language of most recent inbound message; if none exists (Initiate), use default from input
+
+These are explicit fallback actions when normal logic doesn't apply or context is ambiguous:
+
+- **Tone:** Always default to professional and accommodating (never guess at casual tone). If uncertain about formality level, err toward more formal.
+
+- **Content:** Include what's clearly needed based on next action type; never fabricate details not provided in input. If critical detail is unclear, reference what was previously stated in conversation history.
+
+- **Structure:** Use clear, simple paragraph structure when complex approach is unclear. Default format: greeting → context → request/information → call to action → closing.
+
+- **Language:** Use language of most recent inbound message; if none exists (Initiate), use default_language from input; if default_language missing, use English.
+
+- **Action type ambiguous:** If next action type doesn't match defined menu or is unclear, cannot generate message—flag error in metadata rather than guessing.
+
+- **Missing context:** If meeting details partially missing but conversation history contains them, extract from history. If truly unable to construct coherent message, flag error rather than send incomplete message.
+
+- **Uncertain about attendee intent:** Respond to what they explicitly said in most recent message rather than inferring unstated meaning. When in doubt, err toward asking clarifying question (if next action is Reply.clarify) or providing comprehensive information.
+
+**General principle:** When uncertain, choose the option that protects firm reputation and maintains professional standards. Conservative and clear beats creative and risky.
 
 ---
 
@@ -701,104 +726,109 @@ The agent outputs:
 
 ## 10. Agent Characteristics
 
-### Sensitivity: High
+### 1. Reasoning Depth: Minimal
 
 **Reasoning:**
-- Accesses client email addresses, names, and message content
-- Processes meeting details that may contain client names, case references, or sensitive business information
-- Operates in law firm context where confidentiality is paramount
-- Handles business relationship data and communication history
-- Not "Critical" because it doesn't directly handle privileged legal content, credentials, or payment data
-
-**Implications for system prompt:**
-- Strong emphasis on confidentiality and data handling
-- Never log or expose sensitive details inappropriately
-- Careful about what information is included in messages (no details about other participants)
+- Communication Agent is a rule-following content generator with clear inputs → clear outputs
+- Intelligence Agent makes all strategic decisions (what action to take, when to follow up, when to escalate)
+- Communication Agent applies defined patterns to generate appropriate messages for each action type
+- Little interpretation needed—next action type maps directly to message template/approach
+- No judgment calls about coordination strategy, priority, or timing
+- Operates as "Simple Tool-Caller" executing content generation based on prescribed rules
 
 ---
 
-### Autonomy: Medium
+### 2. Action Scope: Narrow
 
 **Reasoning:**
-- Operates within very well-defined scope (email content generation for specific action types)
-- Autonomously generates email messages without human approval within that scope
-- Purely executory - Intelligence Agent makes all strategic decisions (what action to take), Communication Agent executes (how to say it)
-- No escalation points within its domain, but domain is narrow and prescribed
-- More like "autonomous executor within constrained domain" than "broadly autonomous agent"
-
-**Implications for system prompt:**
-- High-quality content generation is critical since no human oversight per message
-- Must be reliable and consistent within defined scope
-- Strong guidance on tone, professionalism, and brand standards
-- Conservative defaults when uncertain
-- Clear boundaries about what decisions it can/cannot make
+- Single action type: email content generation (subject + body)
+- Single domain: meeting coordination communication
+- Tight constraints: operates within well-defined message types for specific next actions
+- No ability to modify meeting details, change coordination strategy, or access external systems
+- Purely executory within email content generation scope
 
 ---
 
-### Exposure: External/Public
+### 3. Consequence Severity: Moderate
 
 **Reasoning:**
-- External clients and prospects see the agent's output directly in their inbox
-- This IS the firm's external voice during coordination
-- Communication Agent is customer-facing (even though Intelligence Agent is internal)
-- Every message represents the firm to external stakeholders
-
-**Implications for system prompt:**
-- Customer-safe language and tone
-- Maximum professionalism and brand protection
-- Clear, respectful communication that reflects well on firm
-- No internal jargon or inappropriate casualness
+- Poor communication damages client relationships and firm reputation
+- Confusing, unprofessional, or inappropriate messages require follow-up and apology
+- Pattern of failures could cause client churn or harm firm's professional standing
+- Not "Minor" because external clients are affected and relationship damage has real business impact
+- Not "Major" because individual message failures don't typically trigger regulatory attention or existential risk
+- Maps to "relationship damage, trust impact, requires remediation" in template
 
 ---
 
-### Reversibility: Hard to Reverse
+### 4. Recovery Difficulty: Hard
 
 **Reasoning:**
-- Agent's output = external emails sent to clients/prospects
-- Sent external emails are explicitly in "Hard to Reverse" category
-- Once sent, cannot be unsent
-- Correcting awkward, confusing, or unprofessional messages requires damage control
-- Can harm firm reputation and client relationships
-- Wrong messaging can derail coordination or create confusion
-
-**Implications for system prompt:**
-- High-quality content is critical - mistakes have real consequences
-- Strong emphasis on clarity, professionalism, and respect
-- Validation checks before generating messages
-- Better to be thorough and professional than brief and risky
+- Agent's output = sent external emails to clients/prospects
+- Once sent, email cannot be unsent
+- Can only send follow-up message to clarify, correct, or apologize—but damage is done
+- External parties have already read and formed impression from original message
+- Fits "damage done, can only mitigate, not reverse" category in template
+- Not "Impossible" because follow-up communication can mitigate (though embarrassing and relationship-damaging)
 
 ---
 
-### Blast Radius: External
+### 5. Data Sensitivity: Personal
 
 **Reasoning:**
-- Mistakes directly affect external clients and partners involved in coordination
-- Errors damage firm's professional reputation with clients
-- Poor communication experiences can harm critical business relationships
-- Bad messages can confuse attendees, derail meetings, or create frustration
-- Impacts go beyond internal team to external stakeholders who judge the firm by these interactions
-- Fits "customers, partners" category of External blast radius
+- Accesses and processes client email addresses, names, and message content
+- Handles meeting details that may include client names, case references, or business information
+- Operates in law firm context where client relationships are confidential
+- Processes communication history and coordination data
+- Maps to "PII, customer info, contact details, calendar data" in template
+- Not "Regulated" because it doesn't directly handle medical records, financial accounts, payment info, or privileged legal documents (though it operates in law firm context)
 
-**Implications for system prompt:**
-- Maximum care in content generation given external impact
-- Strong emphasis on professional standards and firm reputation protection
-- Quality over speed - better to generate thoughtful message than fast but flawed one
-- Every message must be brand-safe and relationship-protective
+---
+
+### 6. Risk Profile: Communication
+
+**Reasoning:**
+- Primary failure mode is saying wrong thing to wrong audience or in wrong tone
+- This risk directly causes the assessed Consequence Severity (Moderate—relationship damage)
+- External clients/prospects see agent's output directly in their inbox
+- Wrong tone, confusing language, or inappropriate content damages firm reputation
+- Communication failures are the pathway to relationship harm
+
+---
+
+### 7. Excellence Profile: Naturalness + Clarity
+
+**Reasoning:**
+- Selected based on success criteria and what "great" looks like for this agent
+
+**Naturalness:**
+- Core requirement throughout spec: messages must "feel human and natural, not templated or robotic"
+- Success metric: "Natural feel score—messages feel human and contextual"
+- North star: Messages should feel like professional human communication
+- Customer-facing communication where feeling automated would damage trust
+- Maps to "must feel human, not robotic" in template excellence options
+
+**Clarity:**
+- Success criteria: "<5% of messages result in attendee confusion"
+- Quality standard: "Recipient immediately understands what's being asked"
+- Must be immediately understandable and actionable
+- Clear call to action and unambiguous next steps critical
+- Maps to "must be immediately understandable, actionable" in template
+
+**Why not other excellence areas:**
+- Not Accuracy (not about correctness of facts/calculations)
+- Not Speed (10-30 second generation time is acceptable; quality matters more)
+- Not Consistency alone (consistency important but naturalness prevents robotic repetition)
+- Not Adaptability alone (edge cases covered but naturalness + clarity are higher priorities)
+- Not Empathy alone (professional tone important but not deeply emotional/social like support bot)
 
 ---
 
 ### Summary of Characteristic Combination
 
-**High Sensitivity + Medium Autonomy + External Exposure + Hard to Reverse + External Blast Radius**
+**Minimal Reasoning + Narrow Scope + Moderate Consequences + Hard Recovery + Personal Data + Communication Risk + Naturalness/Clarity Excellence**
 
-This is a **high-stakes agent** that requires:
-- Extremely robust quality standards
-- Strong professional and brand guidelines
-- Conservative defaults when uncertain
-- Maximum attention to tone, clarity, and respect
-- Every message must be client-safe and firm-reputation-protective
-
-This combination (especially Medium Autonomy + External + Hard to Reverse + External Blast Radius) means the system prompt must be exceptionally thorough and the agent must be highly reliable within its defined scope.
+This combination defines a **high-stakes execution agent** operating within a constrained domain but with significant external impact. The agent must be extremely reliable in email content generation because mistakes damage client relationships and cannot be easily reversed.
 
 ---
 
@@ -807,6 +837,7 @@ This combination (especially Medium Autonomy + External + Hard to Reverse + Exte
 | Version | Date | Author | Changes |
 |---------|------|--------|---------|
 | 1.0 | 2026-01-07 | Product Team | Initial specification created through agent spec workflow interview |
+| 1.1 | 2026-01-11 | Product Team | Updated to align with new agent-spec-template structure: Added Autonomy Level to Section 4, completely restructured Section 10 (Agent Characteristics) to use new 7-dimension framework, enhanced Section 9 default fallback behaviors |
 
 ---
 
