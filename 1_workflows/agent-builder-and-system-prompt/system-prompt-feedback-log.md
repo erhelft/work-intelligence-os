@@ -297,3 +297,54 @@ The 7-dimension characteristic framework from V1 spec Section 10 was clearly mor
 **Open feedback**: V1 workflow's configuration gates work well. User challenge at Step 2/3 prevented over-engineering. The "why did you classify this way" forcing function is valuable.
 
 [Processed: January 10, 2026 — V1 Framework Test]
+
+---
+
+## Communication Agent — January 11, 2026
+
+**Completeness:** [User feedback pending]
+
+**Accuracy:** [User feedback pending]
+
+**Configuration:** Decision Logic at Minimal (instead of Skip) was the right call. For Communication Agent, message crafting IS the reasoning layer. Decision Logic + Output Format separation worked well: principles about "how to think about messages" vs. "what messages look like." Simple Tool-Caller classification felt accurate.
+
+**Quality process:** [User feedback pending]
+
+**Open feedback:** AI built the system prompt in chat (ask mode) instead of asking user to switch to agent mode before Step 4 generation. Workflow Step 3 gate explicitly says "Please switch to agent mode if you haven't already, as file write operations will be needed" but AI proceeded to generate the entire prompt in chat. User had to manually create file and copy content. This violated the workflow's mode-check guidance and created inefficiency.
+
+**Action needed:** Ensure AI asks for agent mode switch at Step 3 gate before proceeding to Step 4 generation. This is the second occurrence (Scheduling Intelligence Agent on January 6, 2026 had same issue).
+
+[Processed: January 11, 2026]
+
+---
+
+## Scheduling Intelligence Agent V1 — January 11, 2026 (Hard Boundaries Scope)
+
+**Issue: Over-Application of Data Sensitivity to Hard Boundaries Depth**
+
+Initial outline proposed expanding Hard Boundaries from Standard to Standard+ based on Data Sensitivity=Personal, with reasoning that agent could "leak" sensitive data in reasons field.
+
+**User correction → Keep Hard Boundaries at Standard**
+
+Key factors driving the correction:
+
+1. **Output structure limits exposure**: Agent outputs JSON. The only user-visible field is `reason`. External communication uses only `next_action` (Communication Agent handles message crafting).
+
+2. **Belongs in Output Format, not Hard Boundaries**: Guidance like "don't include full email verbatim in reasons" is actionable output formatting guidance, not an absolute prohibition. Hard Boundaries should be true never-cross lines.
+
+3. **Standard is sufficient for true prohibitions**: Standard Hard Boundaries can cover: escalation triggers, never execute directly, never guess when uncertain, cross-attendee data isolation.
+
+**Insight**: Data Sensitivity characteristics should trigger content requirements where the actual risk exists, not uniformly across all "security-related" sections. For this agent:
+- **Risk point**: The `reason` field visible to users
+- **Right location**: Output Format section (how to write good reasons)
+- **Wrong location**: Hard Boundaries (absolute prohibitions)
+
+Just because an agent handles Personal data doesn't mean Hard Boundaries needs expansion—it depends on the risk model. The Standard+ expansion would have added rules that belong elsewhere.
+
+**Potential workflow improvement**: 
+- Clarify in Characteristic Modifiers guidance: "Data Sensitivity drives Hard Boundaries depth when there are pervasive data handling concerns requiring absolute prohibitions. If the risk is contained to specific outputs, address it in Output Format or relevant sections instead."
+- Add Step 3 checkpoint: "For each section depth decision, verify the characteristic requirement actually applies to that section's purpose"
+
+**Decision**: Pattern emerging around over-applying characteristic modifiers uniformly. Characteristics should drive targeted investment where the actual risk/quality need exists, not blanket expansion of all "related" sections.
+
+[Processed: January 11, 2026]
